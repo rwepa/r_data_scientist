@@ -16,10 +16,10 @@
 
 6.補充篇:Rcmdr
 
-## 2024.07.17-r_functions.pdf
++ 2024.07.17-r_functions.pdf
 https://github.com/rwepa/r_data_scientist/blob/main/2024.07.17-r_functions.pdf
 
-## 2024.07.17-r_functions.R
++ 2024.07.17-r_functions.R
 https://github.com/rwepa/r_data_scientist/blob/main/2024.07.17-r_functions.R
 
 整理中...
