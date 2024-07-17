@@ -582,6 +582,9 @@ while (i <= length(mydata)) {
   i <- i + 1
 }
 
+# next: 執行下一步迴圈
+# break: 直接離開迴圈
+
 # 補充篇: RFM分析 -----
 
 # RFM是一種用於分析客戶價值的方法 
