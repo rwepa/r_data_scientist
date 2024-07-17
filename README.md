@@ -36,7 +36,9 @@ https://github.com/rwepa/r_data_scientist/blob/main/2024.07.17-r_functions.R
 
 5.流程控制 ifelse
 
-6.迴圈 for,while,in
+6.迴圈 for,while
+
+補充篇: RFM分析
 
 + 資料物件
 https://github.com/rwepa/r_data_scientist/blob/main/2024.07.18-dtata-object.png
