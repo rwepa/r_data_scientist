@@ -22,4 +22,24 @@ https://github.com/rwepa/r_data_scientist/blob/main/2024.07.17-r_functions.pdf
 + 2024.07.17-r_functions.R
 https://github.com/rwepa/r_data_scientist/blob/main/2024.07.17-r_functions.R
 
-整理中...
+# (2).113/07/18 程式的流程控制
+
+大綱
+
+1.資料物件
+
+2.匯入Excel檔案
+
+3.匯入單一大型檔案
+
+4.匯入多個檔案
+
+5.流程控制 ifelse
+
+6.迴圈 for,while,in
+
++ 資料物件
+https://github.com/rwepa/r_data_scientist/blob/main/2024.07.18-dtata-object.png
+
++ 2024.07.18-ifelse-loops.R
+https://github.com/rwepa/r_data_scientist/blob/main/2024.07.18-ifelse-loops.R
