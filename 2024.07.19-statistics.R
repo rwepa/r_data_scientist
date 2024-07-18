@@ -469,7 +469,7 @@ p + transition_time(year) +
 # 依五大洲群組動畫圖
 p + facet_wrap(~continent) +
   transition_time(year) +
-  labs(title = "Year: {frame_time}")
+  labs(title = "Gapminder Animation Year: {frame_time}")
 
 # 網路抓取 R CRAN 套件清單, 使用 ggplot2 套件繪圖, 建立第2個y軸座標 -----
 # https://rwepa.blogspot.com/2017/09/ggplot2-2y-packagelist.html
