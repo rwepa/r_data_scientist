@@ -45,3 +45,22 @@ https://github.com/rwepa/r_data_scientist/blob/main/2024.07.18-dtata-object.png
 
 + 2024.07.18-ifelse-loops.R
 https://github.com/rwepa/r_data_scientist/blob/main/2024.07.18-ifelse-loops.R
+
+# (3).113/07/19 數據統計量計算與基本統計圖表製作
+
+大綱
+
+1.集中趨勢與分散趨勢
+
+2.長寬資料轉換
+
+3.離散與連續資料的統計圖表
+
+4.dplyr管線操作
+
+5.ggplot2圖形-3個實務範例
+
+6.互動式表格
+
++ 2024.07.19-statistics.R
+https://github.com/rwepa/r_data_scientist/blob/main/2024.07.19-statistics.R
