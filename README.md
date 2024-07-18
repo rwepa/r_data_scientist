@@ -65,6 +65,6 @@ https://github.com/rwepa/r_data_scientist/blob/main/2024.07.18-ifelse-loops.R
 + 2024.07.19-statistics.R
 https://github.com/rwepa/r_data_scientist/blob/main/2024.07.19-statistics.R
 
-+ Gapminder Animation
++ Gapminder Animation - 群組技巧
 
 ![image](https://github.com/rwepa/r_data_scientist/blob/main/gapminder_animation.gif)
