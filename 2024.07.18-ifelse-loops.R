@@ -555,6 +555,29 @@ if (x >= 0) {
 x <- c(1, 3, NA, 5, NA)
 ifelse(is.na(x), 999, x)
 
+# 普通用法1 - 回傳 TRUE, FALSE -----
+iris$Sepal.Length > mean(iris$Sepal.Length)
+
+# 普通用法2 - 使用 for loop -----
+checkValue <- c()
+for (i in 1:nrow(iris)) {
+  if (iris$Sepal.Length[i] > mean(iris$Sepal.Length)) {
+    checkValue[i] <- TRUE
+  } else {
+    checkValue[i] <- FALSE
+  }
+}
+
+# 高級用法 - 使用 ifelse -----
+ifelse(iris$Sepal.Length > mean(iris$Sepal.Length), 999, 0)
+
+# 錯誤用法 -----
+if (iris$Sepal.Length > mean(iris$Sepal.Length)) {
+  print("TRUE")
+} else {
+  print("FALSE")
+}
+
 # switch 函數 -----
 centre <- function(x, type) {
   switch(type,
