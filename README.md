@@ -62,9 +62,15 @@ https://github.com/rwepa/r_data_scientist/blob/main/2024.07.18-ifelse-loops.R
 
 6.互動式表格
 
+7.YouBike2.0臺北市公共自行車即時資訊資料分析
+
 + 2024.07.19-statistics.R
 https://github.com/rwepa/r_data_scientist/blob/main/2024.07.19-statistics.R
 
 + Gapminder Animation - 群組技巧
 
 ![image](https://github.com/rwepa/r_data_scientist/blob/main/gapminder_animation.gif)
+
++ 臺北市Youbike使用率互動式地圖
+
+![image](https://github.com/rwepa/r_data_scientist/blob/main/taipei_youbike_usage.gif)
