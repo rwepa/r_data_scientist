@@ -74,3 +74,29 @@ https://github.com/rwepa/r_data_scientist/blob/main/2024.07.19-statistics.R
 + 臺北市Youbike使用率互動式地圖
 
 ![image](https://github.com/rwepa/r_data_scientist/blob/main/taipei_youbike_usage.gif)
+
+# (4).113/07/22 相關與迴歸分析
+
+大綱
+
+1.相關分析
+
+2.迴歸分析
+
+3.ts,POSIXct,POSIXlt日期時間物件
+
+4.常用財金套件zoo,xts,timeSeries,quantmod,tidyquant
+
+5.shiny簡介
+
+6.shiny元件應用
+
+7.shiny佈署
+
++ 2024.07.22-correlation-regression.pdf
+
+https://github.com/rwepa/r_data_scientist/blob/main/2024.07.22-correlation-regression.pdf
+
++ 2024.07.22-correlation-regression.R
+
+https://github.com/rwepa/r_data_scientist/blob/main/2024.07.22-correlation-regression.R
