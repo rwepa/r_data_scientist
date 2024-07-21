@@ -94,9 +94,7 @@ https://github.com/rwepa/r_data_scientist/blob/main/2024.07.19-statistics.R
 7.shiny佈署
 
 + 2024.07.22-correlation-regression.pdf
-
 https://github.com/rwepa/r_data_scientist/blob/main/2024.07.22-correlation-regression.pdf
 
 + 2024.07.22-correlation-regression.R
-
 https://github.com/rwepa/r_data_scientist/blob/main/2024.07.22-correlation-regression.R
