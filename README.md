@@ -98,3 +98,29 @@ https://github.com/rwepa/r_data_scientist/blob/main/2024.07.22-correlation-regre
 
 + 2024.07.22-correlation-regression.R
 https://github.com/rwepa/r_data_scientist/blob/main/2024.07.22-correlation-regression.R
+
+# (5).113/07/23 R語言基本繪圖函數與相關繪圖參數設定
+
+大綱
+
+1.資料視覺化簡介
+
+2.基本繪圖函數
+
+3.進階繪圖函數
+
+4.社會網路圖(igraph)
+
+5.關聯規則視覺化(arules,arulesViz)
+
+6.樹狀圖(dendrogram)
+
+7.文字雲(cloudword)
+
+8.決策樹(decision tree)
+
+9.弦圖 (Chord diagram)
+
++ 2024.07.23-graphics.R
+https://github.com/rwepa/r_data_scientist/blob/main/2024.07.23-graphics.R
+###### end
