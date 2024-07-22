@@ -401,6 +401,17 @@ plot(g2, layout=layout.fruchterman.reingold)
 
 # 5.關聯規則視覺化(arules,arulesViz) -----
 
+# 關聯規則
+# RWEPA --> arules
+
+# arules package - 提供資料探勘中關聯規則apriori algorithm
+# https://rwepa.blogspot.com/2013/01/arules-apriori-algorithm.html
+
+# Python Orange - 關聯規則教學
+# Youtube: https://youtu.be/rh5GxJamtNg
+# LINK: https://rwepa.blogspot.com/2022/07/python-orange-associate-tutorial.html
+
+# 關聯規則視覺化
 library(arulesViz) # 自動載入 arules 套件
 data(Groceries) # 9835*169, Groceries{arules}
 Groceries
