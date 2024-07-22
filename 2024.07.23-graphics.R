@@ -1,0 +1,511 @@
+# file     : 2024.07.23-graphics.R
+# title    : R語言基本繪圖函數與相關繪圖參數設定
+# author   : Ming-Chang Lee
+# date     : 2024.07.23
+# YouTube  : https://www.youtube.com/@alan9956
+# RWEPA    : http://rwepa.blogspot.tw/
+# GitHub   : https://github.com/rwepa
+# Email    : alan9956@gmail.com
+
+# 大綱 -----
+
+# 1.資料視覺化簡介
+# 2.基本繪圖函數
+# 3.進階繪圖函數
+# 4.社會網路圖(igraph)
+# 5.關聯規則視覺化(arules,arulesViz)
+# 6.樹狀圖(dendrogram)
+# 7.文字雲(cloudword)
+# 8.決策樹(decision tree)
+# 9.弦圖 (Chord diagram)
+
+# 1.資料視覺化簡介 -----
+
+# 為什麼需要視覺化?
+# A:人腦不善於閱讀和分析大量資料
+# A:人腦很善於閱讀和分析圖形
+
+# 人類是視覺動物，其視覺神經系統有強大的模式識別和分析能力，視覺化是啟動這套系統的途徑
+# 視覺化是一種高效的資訊壓縮和展示方法，能將大量資料快速傳輸給人的大腦
+# 視覺化能探索並提煉資料，並促進新的問題的提出和解決
+# 探索式資料分析是資料視覺化的重要應用
+# identify properties, relationships, regularities, or patterns (性質, 關係, 規則, 樣式)
+
+# 安斯庫姆四重奏（Anscombe's quartet)
+# 是四組基本的統計特性一致的數據，但由它們繪製出的圖表則截然不同。每一組數據都包括了11個(x,y)點。這四組數據由統計學家弗朗西斯·安斯庫姆（Francis Anscombe）於1973年構造，他的目的是用來說明在分析數據前先繪製圖表的重要性，以及離群值對統計的影響之大。
+# https://zh.wikipedia.org/wiki/安斯库姆四重奏
+
+data(anscombe)
+summary(anscombe)
+
+# 建立迴歸模型
+ff <- y ~ x
+
+mods <- setNames(as.list(1:4), paste0("lm", 1:4))
+
+for(i in 1:4) {
+  ff[2:3] <- lapply(paste0(c("y","x"), i), as.name)
+  mods[[i]] <- lmi <- lm(ff, data = anscombe)
+  print(anova(lmi))
+}
+
+## See how close they are (numerically!)
+mods[1]            # 取出key+value
+mods[1]$coef       # 回傳 NA
+mods[[1]]$coef     # 正確回傳迴歸模型的係數
+
+sapply(mods, coef) # 回傳4迴個歸模型的係數
+lapply(mods, function(fm) coef((fm))) # 回傳4迴個歸模型的係數, 資料物件為list
+
+# 繪圖
+# mfrow = (列, 行)
+# mar: the number of lines of margin to be specified on the four sides 圖的內邊界
+# oma: outer margins in lines of text 圖的外邊界距離
+
+op <- par(mfrow = c(2, 2), mar = 0.1 + c(4,4,1,1), oma =  c(0, 0, 2, 0))
+
+for(i in 1:4) {
+  ff[2:3] <- lapply(paste0(c("y","x"), i), as.name)
+  plot(ff, data = anscombe, col = "red", pch = 21, bg = "orange", cex = 1.2,
+       xlim = c(3, 19), ylim = c(3, 13))
+  abline(mods[[i]], col = "blue")
+}
+
+# 圖的標題
+mtext("Anscombe's 4 Regression data sets", outer = TRUE, cex = 1.5)
+
+# 復原設定值
+par(op)
+
+# 第一個著名的視覺化 - 俄法戰爭
+# https://en.wikipedia.org/wiki/Charles_Joseph_Minard#/media/File:Minard.png
+# 繪製者: Charles Joseph Minard, a French engineer, in 1869.
+# 主題: Illustrate the number of losses suffered by Napoleon’s army during the disastrous march toward Moscow in 1812.6 - 1812.11
+# 出發: 42.2萬
+# 到達: 10萬
+# 回國: 1萬
+
+# 成功的資料視覺化-4大關鍵
+# 資訊 Information: 準確性, 真實性, 一致性
+# 故事 Story: 資料視覺化的認同性
+# 目標 Goal: 找到重要結論
+# 視覺表現 Visual Form: 藝術的呈現
+# 參考資料 https://informationisbeautiful.net/visualizations/what-makes-a-good-data-visualization/
+# David McCandless , Knowledge Is Beautiful: Impossible Ideas, Invisible Patterns, Hidden Connections - Visualized, Oct 21, 2014.
+
+# 資料視覺化流程
+# 步驟1.視覺化目標:資料準備, 資料理解, 資料整理
+# 步驟2.視覺化繪圖結構
+# 步驟3.視覺化結果
+
+# 視覺化目標考慮:
+# 1.資料來源 (內部/外部, 免費/付費)
+# 2.聽眾 vs. 觀眾
+# 3.期望結果: 高層主管 vs. 基層員工
+# 4.確認視範化目標
+#  + 產品銷售資料分析(產品別, 部門別, 時間別)
+#  + 教務研究-學生休退學預警分析(院別, 系別, 學習, 休學, 退學)
+#  + 醫學研究-疾病/藥品預測分析 (類別預測, 數值預測)
+#  + 製造分析-生產最佳化分析
+#  + 社會經濟資料分析 (趨勢)
+
+# 視覺化圖表
+# https://datavizcatalogue.com/ 
+
+# 2.基本繪圖函數 -----
+
+# 繪圖 {grapics}
+# 1.高階繪圖(high-level plotting)：在圖形裝置(graphic device)上建立新的繪圖區。例：散佈圖、直線圖、長條圖、直方圖、圓形圖、盒鬚圖與3D繪圖。
+# 2.低階繪圖(low-level plotting)： 在一個已經存在的繪圖上，加上其它圖形元素。例：額外的點、線、文字與圖例等。
+
+methods(plot)
+
+?plot
+
+# 散佈圖 plot
+data(Cars93, package = "MASS")
+plot(Cars93$Horsepower, Cars93$Price)
+
+# 散佈圖矩陣
+data(mtcars)
+pairs(mtcars[, 1:7])
+
+# 盒鬚圖 boxplot
+boxplot(Cars93$Price)
+
+Cars93_Price <- boxplot(Cars93$Price)
+
+Cars93_Price
+
+# 群組盒鬚圖 OrchardSprays 果園噴霧劑 -----
+
+boxplot(decrease ~ treatment, 
+        data = OrchardSprays, 
+        col = "bisque")
+
+# 水平群組盒鬚圖 -----
+boxplot(decrease ~ treatment, 
+        data = OrchardSprays, 
+        col = "bisque",
+        horizontal=TRUE)
+
+# 群組盒鬚圖-Y軸取log值 ------
+boxplot(decrease ~ treatment, 
+        data = OrchardSprays, 
+        col = "bisque", 
+        log = "y")
+
+# 長條圖 barplot -----
+counts <- table(mtcars$gear)
+
+barplot(counts, 
+        main="Car Distribution",
+        xlab="Number of Gears",
+        ylim = c(0, 20))
+
+# 直方圖 hist -----
+hist(iris$Petal.Length,
+     xlab = "Petal Length",
+     col = "orange",
+     border = "blue",
+     main = "iris-Petal.Length 直方圖")
+
+# 直方圖優化
+hist(iris$Petal.Length,
+     xlab = "Petal Length",
+     col = "orange",
+     border = "blue",
+     main = "iris-Petal.Length 直方圖",
+     ylim = c(0,40))
+
+# R的圖形輸出
+# http://rwepa.blogspot.com/2013/05/r.html
+
+data(Cars93, package = "MASS")
+
+pdf("Cars93_xyplot.pdf")
+
+plot(Cars93$Horsepower, Cars93$Price,
+     main = "Cars93 Scatter Plot",
+     xlab = "Horsepower",
+     ylab = "Price",
+     pch = 16,
+     col = Cars93$Type)
+
+legend("topleft", 
+       legend = levels(Cars93$Type), 
+       col = 1:length(levels(Cars93$Type)),
+       pch = 16)
+
+dev.off()
+
+# 3.進階繪圖函數 -----
+
+# plot – type 參數
+# "p" : points
+# "l" : lines
+# "b" : both points and lines
+# "c" : for empty points joined by lines
+# "o" for overplotted points and lines
+# "s" and "S" for stair steps
+# "h" for histogram-like vertical lines
+# "n" does not produce any points or lines (不繪圖)
+
+# 加上點
+?points
+# pch = {0:18} # 1: 空心圓, 16: 實心圓
+
+# 加上線
+?lines
+
+# lty值, 預設值 lty = 1
+# 0  "blank"
+# 1  "solid"
+# 2  "dashed"
+# 3  "dotted"
+# 4  "dotdash"
+# 5  "longdash"
+# 6  "twodash"
+
+# 加上區域
+?polygon
+
+# 熱繪圖 image {graphics} -----
+?image
+
+# 平行座標軸 -----
+help(parcoord, package = "MASS")
+
+# 單變數繪圖
+?curve
+
+# f(x)=x^3 + 2*x^2 - 10*x + 1
+# Google -> f(x)=x^3 + 2*x^2 - 10*x + 1
+
+curve(x^3 + 2*x^2 - 10*x + 1) # 結果怪怪的!!!
+
+# 個案討論 -----
+# GFC案例
+
+# https://github.com/rwepa/DataDemo/blob/master/gfc.csv
+
+urls <- "https://raw.githubusercontent.com/rwepa/DataDemo/master/gfc.csv"
+
+gfc <- read.table(urls, head=TRUE, sep=",")
+
+head(gfc)
+
+str(gfc)
+
+summary(gfc)
+
+plot(gfc$amount, type = "l") # 結果似乎有進步的空間!!!
+
+# 練習: 使用 plot 與 ggplot2 優化上述問題
+
+# 4.社會網路圖(igraph) -----
+
+library(igraph)
+g1 <- graph.empty()
+g2 <- graph(c(1,2,2,3,3,4,5,6), directed=FALSE)
+g2
+
+plot(g2)
+tkplot(g2) # Interactive plotting of graphs
+
+rglplot(g2) # 3D plotting of graphs with OpenGL
+g3 <- graph(c(1,2,2,3,3,4,5,6), directed=TRUE);plot(g3)
+
+# 環狀
+g4 <- graph.ring(10)
+plot(g4)
+
+# 樹狀
+g5 <- graph.tree(10, 3)
+plot(g5)
+
+# 全連接圖
+g6 <- graph.full(5, loops=TRUE)
+plot(g6)
+
+# 完整的引用圖
+g7 <- graph.full.citation(10)
+plot(g7)
+
+# 社會網路分析 – Twitter text -----
+
+# step 1 import RData
+# https://github.com/rwepa/DataDemo/blob/master/termDocMatrix.RData
+load("termDocMatrix.RData")
+
+ls() # termDocMatrix
+
+# inspect part of the matrix
+termDocMatrix[5:8,1:10]
+
+# step 2
+# change it to a Boolean matrix
+termDocMatrix[termDocMatrix >= 1] <- 1
+
+# transform into a term-term adjacency matrix
+termMatrix <- termDocMatrix %*% t(termDocMatrix)
+
+# inspect terms numbered 5 to 10
+termMatrix[5:10, 5:10]
+
+# step 3
+# build a graph from the matrix
+g.old <- graph.adjacency(termMatrix,
+                         weighted=TRUE,
+                         mode = "undirected")
+# remove loops
+g <- simplify(g.old)
+
+# set labels and degrees of vertices
+V(g)$label <- V(g)$name
+V(g)$degree <- degree(g)
+
+# step 4
+# prepare layout and plot
+# set seed to make the layout reproducible
+set.seed(168)
+layout1 <- layout.fruchterman.reingold(g)
+plot(g, layout=layout1)
+
+# an interactive plot
+# ?igraph::layout
+tkplot(g)
+dev.off()
+
+# refine plot
+V(g)$label.cex <- 2.2 * V(g)$degree / max(V(g)$degree)+ 0.2
+V(g)$label.color <- rgb(0, 0, .2, .8)
+V(g)$frame.color <- NA
+egam <- (log(E(g)$weight)+.4) / max(log(E(g)$weight)+.4)
+E(g)$color <- rgb(.5, .5, 0, egam)
+E(g)$width <- egam
+
+# plot the graph in layout1
+plot(g, layout=layout1)
+
+# 移除較常出現3個項目
+# Example: Network of Tweets
+# termDocMatrix, 21*154
+# remove "r", "data" and "mining"
+idx <- which(dimnames(termDocMatrix)$Terms %in% c("r", "data", "mining"))
+idx
+M <- termDocMatrix[-c(idx),] # M: 18*154
+
+# build a tweet-tweet adjacency matrix
+tweetMatrix <- t(M) %*% M
+g <- graph.adjacency(tweetMatrix, weighted=T,
+                     mode = "undirected")
+V(g)$degree <- degree(g)
+g <- simplify(g)
+
+# set labels of vertices to tweet IDs
+V(g)$label <- V(g)$name
+V(g)$label.cex <- 1
+V(g)$label.color <- rgb(.4, 0, 0, .7)
+V(g)$size <- 2
+V(g)$frame.color <- NA
+
+# exploratory data
+barplot(table(V(g)$degree))
+
+# refine barplot
+barplot(table(V(g)$degree),
+        main="distribution of degree of tweet",
+        xlab="degree of vertices",
+        ylab="frequencies",
+        ylim=c(0,45))
+
+# 視覺化圖形-再優化
+idx <- V(g)$degree == 0
+# idx
+V(g)$label.color[idx] <- rgb(0, 0, .3, .7)
+
+# set labels to the IDs and the first 10 characters of tweets
+V(g)$label[idx] <- paste(V(g)$name[idx], substr(V(g)$text[idx], 1, 20), sep=": ")
+egam <- (log(E(g)$weight)+.2) / max(log(E(g)$weight)+.2)
+E(g)$color <- rgb(.5, .5, 0, egam)
+E(g)$width <- egam
+
+set.seed(3152)
+layout2 <- layout.fruchterman.reingold(g)
+plot(g, layout=layout2)
+
+# remove the isolated vertices
+g2 <- delete_vertices(g, V(g)[degree(g) == 0])
+plot(g2, layout=layout.fruchterman.reingold)
+
+# 5.關聯規則視覺化(arules,arulesViz) -----
+
+library(arulesViz) # 自動載入 arules 套件
+data(Groceries) # 9835*169, Groceries{arules}
+Groceries
+inspect(Groceries[1:3])
+
+summary(Groceries)
+
+# apriori algorithm
+Groceries.ar <- apriori(Groceries, parameter=list(support=0.001, confidence=0.5))
+
+# scatter plot
+plot(Groceries.ar)
+
+?plot.rules
+
+# scatter plot with customerized axes
+head(quality(Groceries.ar))
+
+plot(Groceries.ar, measure=c("support", "lift"), shading="confidence")
+
+# interactive plot
+sel <- plot(Groceries.ar, measure=c("support", "lift"), shading="confidence", interactive=TRUE)
+sel
+inspect(sel)
+
+# matrix-based visualizations
+subrules <- Groceries.ar[quality(Groceries.ar)$confidence > 0.8]
+subrules
+plot(subrules, method="matrix", measure="lift")
+
+# 3D plot
+plot(subrules, method="matrix3D", measure="lift")
+
+# Grouped matrix-based visualization
+# grouping columns with k-means clustering
+plot(Groceries.ar, method="grouped")
+
+# TRY:
+# plot(Groceries.ar, method="grouped", control=list(k=30))
+
+# Graph-based visualization
+subrules2 <- head(sort(Groceries.ar, by="lift"), 10)
+plot(subrules2, method="graph")
+
+plot(subrules2, method="graph", control=list(type="items"))
+
+# arules 北風資料庫 練習
+# http://rwepa.blogspot.com/2013/01/arules-package.html
+
+# 6.樹狀圖(dendrogram) -----
+
+# Motor Trend Car Road Tests
+head(mtcars)
+str(mtcars)
+dim(mtcars)
+
+# hierarchical clustering
+hc <- hclust(dist(mtcars))
+
+# dendrogram
+plot(hc)
+
+# labels at the same level
+plot(hc, hang = -1)
+
+# transfer hclust into dendrograms
+hcd <- as.dendrogram(hc)
+op <- par(mfrow = c(2, 1))
+plot(hcd)
+plot(hcd, type="triangle")
+par(op)
+
+# 7.文字雲(cloudword) -----
+
+# 中文的文字雲視覺化 -----
+library(tmcn) # toTrad 簡體字轉繁體字
+library(wordcloud2)
+
+demoFreqC$V2 <- toTrad(as.character(demoFreqC$V2))
+
+wordcloud2(demoFreqC, size = 2, color = "random-light", backgroundColor = "grey")
+
+wordcloud2(demoFreqC, size = 2, shape = "star") # 使用瀏覽器開啟
+
+# 8.決策樹(decision tree) -----
+
+library(party)
+plot(ctree(Species ~ ., data = iris))
+
+# 9.弦圖 (Chord diagram) -----
+# 參考: http://rwepa.blogspot.com/2019/10/chord-diagram.html
+
+# 參考資料 -----
+
+# RWEPA
+# http://rwepa.blogspot.com/
+
+# iPAS-R(新增12.dplyr套件)
+# https://github.com/rwepa/ipas_bda/blob/main/ipas-r-program.R
+
+# R入門資料分析與視覺化應用教學(付費)
+# https://mastertalks.tw/products/r?ref=MCLEE
+
+# R商業預測與應用(付費)
+# https://mastertalks.tw/products/r-2?ref=MCLEE
+
+# end
+# 謝謝您的聆聽 , Q & A
