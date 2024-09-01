@@ -160,7 +160,7 @@ https://github.com/rwepa/r_data_scientist/blob/main/2024.07.22-correlation-regre
 + 2024.07.23-graphics.R
 https://github.com/rwepa/r_data_scientist/blob/main/2024.07.23-graphics.R
 
-# 主題: AI機器學習與深度學習應用-使用Python與R語 教師研習
+# 主題: AI機器學習與深度學習應用-使用Python與R語-教師研習
 # 單位: 明志科技大學
 # 日期: 2022/07/12-2022/08/04
 
