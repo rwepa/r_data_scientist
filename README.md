@@ -71,7 +71,7 @@
     + 補充篇: RFM分析
 
     + 資料物件
-https://github.com/rwepa/r_data_scientist/blob/main/2024.07.18-dtata-object.png
+![image](https://github.com/rwepa/r_data_scientist/blob/main/2024.07.18-dtata-object.png)
 
     + 2024.07.18-ifelse-loops.R [https://github.com/rwepa/r_data_scientist/blob/main/2024.07.18-ifelse-loops.R]
 
