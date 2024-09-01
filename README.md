@@ -36,7 +36,7 @@
 # 單位: 華梵⼤學
 # 日期: 2024/07/17-2024/07/23
 
-# 1. 2024/07/17 程式的基本函數撰寫
+1. 2024/07/17 程式的基本函數撰寫
 
 大綱
 
@@ -58,7 +58,7 @@ https://github.com/rwepa/r_data_scientist/blob/main/2024.07.17-r_functions.pdf
 + 2024.07.17-r_functions.R
 https://github.com/rwepa/r_data_scientist/blob/main/2024.07.17-r_functions.R
 
-# 2. 2024/07/18 程式的流程控制
+2. 2024/07/18 程式的流程控制
 
 大綱
 
@@ -82,7 +82,7 @@ https://github.com/rwepa/r_data_scientist/blob/main/2024.07.18-dtata-object.png
 + 2024.07.18-ifelse-loops.R
 https://github.com/rwepa/r_data_scientist/blob/main/2024.07.18-ifelse-loops.R
 
-# 3. 2024/07/19 數據統計量計算與基本統計圖表製作
+3. 2024/07/19 數據統計量計算與基本統計圖表製作
 
 大綱
 
@@ -111,7 +111,7 @@ https://github.com/rwepa/r_data_scientist/blob/main/2024.07.19-statistics.R
 
 ![image](https://github.com/rwepa/r_data_scientist/blob/main/taipei_youbike_usage.gif)
 
-# 4. 2024/07/22 相關與迴歸分析
+4. 2024/07/22 相關與迴歸分析
 
 大綱
 
@@ -135,7 +135,7 @@ https://github.com/rwepa/r_data_scientist/blob/main/2024.07.22-correlation-regre
 + 2024.07.22-correlation-regression.R
 https://github.com/rwepa/r_data_scientist/blob/main/2024.07.22-correlation-regression.R
 
-# 5. 2024/07/23 R語言基本繪圖函數與相關繪圖參數設定
+5. 2024/07/23 R語言基本繪圖函數與相關繪圖參數設定
 
 大綱
 
