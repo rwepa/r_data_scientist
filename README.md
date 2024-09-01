@@ -128,7 +128,7 @@ https://github.com/rwepa/r_data_scientist/blob/main/2024.07.23-graphics.R
 
 # AI機器學習與深度學習應用-使用Python與R語 教師研習
 # 單位: 明志科技大學
-# 日期: 2022/01/18-2022/02/18
+# 日期: 2022/07/12-2022/08/04
 
 + Python, R 程式碼與講義下載
 https://github.com/rwepa/DataDemo/tree/master/ai_using_python_and_r
