@@ -1,4 +1,5 @@
-# Data Scientist with R
+# Data Science with R
+
 # 主題: R語言數據分析工程師養成班
 # 單位: 新明青創基地
 # 日期: 2024/09/07-2024/10/05
