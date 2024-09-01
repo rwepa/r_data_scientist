@@ -56,107 +56,97 @@
 
 2. 2024/07/18 程式的流程控制
 
-+ 資料物件
+    2.1 資料物件
 
-+ 匯入Excel檔案
+    2.2 匯入Excel檔案
 
-+ 匯入單一大型檔案
+    2.3 匯入單一大型檔案
 
-+ 匯入多個檔案
+    2.4 匯入多個檔案
 
-+ 流程控制 ifelse
+    2.5 流程控制 ifelse
 
-+ 迴圈 for,while
+    + 迴圈 for,while
 
-+ 補充篇: RFM分析
+    + 補充篇: RFM分析
 
-+ 資料物件
+    + 資料物件
 https://github.com/rwepa/r_data_scientist/blob/main/2024.07.18-dtata-object.png
 
-+ 2024.07.18-ifelse-loops.R
-https://github.com/rwepa/r_data_scientist/blob/main/2024.07.18-ifelse-loops.R
+    + 2024.07.18-ifelse-loops.R [https://github.com/rwepa/r_data_scientist/blob/main/2024.07.18-ifelse-loops.R]
 
 3. 2024/07/19 數據統計量計算與基本統計圖表製作
 
-+ 集中趨勢與分散趨勢
+    3.1 集中趨勢與分散趨勢
 
-+ 長寬資料轉換
+    3.2 長寬資料轉換
 
-3.離散與連續資料的統計圖表
+    3.3 離散與連續資料的統計圖表
 
-4.dplyr管線操作
+    3.4 dplyr管線操作
 
-5.ggplot2圖形-3個實務範例
+    3.5 ggplot2圖形-3個實務範例
 
-6.互動式表格
+    3.6 互動式表格
 
-7.YouBike2.0臺北市公共自行車即時資訊資料分析
+    3.7 YouBike2.0臺北市公共自行車即時資訊資料分析
 
-+ 2024.07.19-statistics.R
-https://github.com/rwepa/r_data_scientist/blob/main/2024.07.19-statistics.R
+    + 2024.07.19-statistics.R [https://github.com/rwepa/r_data_scientist/blob/main/2024.07.19-statistics.R]
 
-+ Gapminder Animation - 群組技巧
+    + Gapminder Animation - 群組技巧
 
 ![image](https://github.com/rwepa/r_data_scientist/blob/main/gapminder_animation.gif)
 
-+ 臺北市Youbike使用率互動式地圖
+    + 臺北市Youbike使用率互動式地圖
 
 ![image](https://github.com/rwepa/r_data_scientist/blob/main/taipei_youbike_usage.gif)
 
 4. 2024/07/22 相關與迴歸分析
 
-大綱
+    4.1 相關分析
 
-1.相關分析
+    4.2 迴歸分析
 
-2.迴歸分析
+    4.3 ts,POSIXct,POSIXlt日期時間物件
 
-3.ts,POSIXct,POSIXlt日期時間物件
+    4.4 常用財金套件zoo,xts,timeSeries,quantmod,tidyquant
 
-4.常用財金套件zoo,xts,timeSeries,quantmod,tidyquant
+    4.5 shiny簡介
 
-5.shiny簡介
+    4.6 shiny元件應用
 
-6.shiny元件應用
+    4.7 shiny佈署
 
-7.shiny佈署
+    + 2024.07.22-correlation-regression.pdf [https://github.com/rwepa/r_data_scientist/blob/main/2024.07.22-correlation-regression.pdf]
 
-+ 2024.07.22-correlation-regression.pdf
-https://github.com/rwepa/r_data_scientist/blob/main/2024.07.22-correlation-regression.pdf
-
-+ 2024.07.22-correlation-regression.R
-https://github.com/rwepa/r_data_scientist/blob/main/2024.07.22-correlation-regression.R
+    + 2024.07.22-correlation-regression.R [https://github.com/rwepa/r_data_scientist/blob/main/2024.07.22-correlation-regression.R]
 
 5. 2024/07/23 R語言基本繪圖函數與相關繪圖參數設定
 
-大綱
+    5.1 資料視覺化簡介
 
-1.資料視覺化簡介
+    5.2 基本繪圖函數
 
-2.基本繪圖函數
+    5.3 進階繪圖函數
 
-3.進階繪圖函數
+    5.4 社會網路圖(igraph)
 
-4.社會網路圖(igraph)
+    5.5 關聯規則視覺化(arules,arulesViz)
 
-5.關聯規則視覺化(arules,arulesViz)
+    5.6 樹狀圖(dendrogram)
 
-6.樹狀圖(dendrogram)
+    5.7 文字雲(cloudword)
 
-7.文字雲(cloudword)
+    5.8 決策樹(decision tree)
 
-8.決策樹(decision tree)
+    5.9 弦圖(chord diagram)
 
-9.弦圖 (Chord diagram)
-
-+ 2024.07.23-graphics.R
-https://github.com/rwepa/r_data_scientist/blob/main/2024.07.23-graphics.R
+    + 2024.07.23-graphics.R [https://github.com/rwepa/r_data_scientist/blob/main/2024.07.23-graphics.R]
 
 # 主題: AI機器學習與深度學習應用-使用Python與R語-教師研習
 # 單位: 明志科技大學
 # 日期: 2022/07/12-2022/08/04
 
-+ Python, R 程式碼與講義下載
-https://github.com/rwepa/DataDemo/tree/master/ai_using_python_and_r
++ Python, R 程式碼與講義下載 [https://github.com/rwepa/DataDemo/tree/master/ai_using_python_and_r]
 
 ###### end
