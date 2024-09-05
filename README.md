@@ -10,25 +10,29 @@
 
     1.2 開放資料實務應用
 
-2. 2024/09/14 資料物件與迴圈
+    PDF: https://github.com/rwepa/r_data_scientist/blob/main/r_data_science_01_r_rstudio.pdf
+
+    R: https://github.com/rwepa/r_data_scientist/blob/main/r_data_science_01_r_rstudio.R
+
+3. 2024/09/14 資料物件與迴圈
 
     2.1 資料物件簡介
 
     2.2 流程控制與for迴圈
 
-3. 2024/09/21 資料摘要分析
+4. 2024/09/21 資料摘要分析
 
     3.1 apply、lapply與樞紐分析
 
     3.2 長寬資料轉換
 
-4. 2024/09/29 資料視覺化分析
+5. 2024/09/29 資料視覺化分析
 
     4.1 使用graphics套件建立統計圖形
 
     4.2 使用ggplot2套件建立視覺化分析
 
-5. 2024/10/05 預測模型整合案例
+6. 2024/10/05 預測模型整合案例
 
     5.1 銷售與人力資源預測模型
 
