@@ -10,9 +10,9 @@
 
     1.2 開放資料實務應用
 
-    PDF: https://github.com/rwepa/r_data_scientist/blob/main/r_data_science_01_r_rstudio.pdf
+    + PDF: https://github.com/rwepa/r_data_scientist/blob/main/r_data_science_01_r_rstudio.pdf
 
-    R: https://github.com/rwepa/r_data_scientist/blob/main/r_data_science_01_r_rstudio.R
+    + R: https://github.com/rwepa/r_data_scientist/blob/main/r_data_science_01_r_rstudio.R
 
 3. 2024/09/14 資料物件與迴圈
 
@@ -20,9 +20,10 @@
 
     2.2 流程控制與for迴圈
 
+    + 資料物件
     ![image](https://github.com/rwepa/r_data_scientist/blob/main/imgs/2024.07.18-dtata-object.png)
 
-    R: ...
+    + R: 整理中
 
 5. 2024/09/21 資料摘要分析
 
@@ -79,9 +80,6 @@
     + 迴圈 for,while
 
     + 補充篇: RFM分析
-
-    + 資料物件
-![image](https://github.com/rwepa/r_data_scientist/blob/main/2024.07.18-dtata-object.png)
 
     + 2024.07.18-ifelse-loops.R [https://github.com/rwepa/r_data_scientist/blob/main/2024.07.18-ifelse-loops.R]
 
