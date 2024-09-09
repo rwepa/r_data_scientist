@@ -528,11 +528,11 @@ write.table(x = aqBanqiaoXizhi,
 # load(“myData.RData”)
 
 # 實作練習 -----
-# 練習儲存 aq.Banqiao.Xizhi 為 aq.Banqiao.Xizhi.RData
-# 練習載入 aq.Banqiao.Xizhi.RData
+# 練習儲存 aqBanqiaoXizhi 為 aqBanqiaoXizhi.RData
+# 練習載入 aqBanqiaoXizhi.RData
 
-save(aq.Banqiao.Xizhi, file="aq.Banqiao.Xizhi.RData")
-load("aq.Banqiao.Xizhi.RData")
+save(aqBanqiaoXizhi, file="aqBanqiaoXizhi.RData")
+load("aqBanqiaoXizhi.RData")
 
 # 匯入sas7bdat -----
 # https://cran.r-project.org/web/packages/sas7bdat/index.html
