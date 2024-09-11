@@ -23,7 +23,7 @@
     + 資料物件
     ![image](https://github.com/rwepa/r_data_scientist/blob/main/imgs/2024.07.18-dtata-object.png)
 
-    + R: 整理中
+    + R: https://github.com/rwepa/r_data_scientist/blob/main/r_data_science_02_r_object_control.R
 
 5. 2024/09/21 資料摘要分析
 
