@@ -524,7 +524,7 @@ aggregate(x = Price ~ AirBags + Origin, data = Cars93, FUN = mean)
 
 # R建立模型函數回傳值大部分以串列資料物件為主,例：建立線性模型lm函數之回傳值為串列.
 
-# list建立陣列
+# list建立串列
 mylist <- list(head(month.abb, n=3), matrix(c(1:6), ncol=3), head(cars))
 mylist
 class(mylist)
