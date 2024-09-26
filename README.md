@@ -48,7 +48,6 @@
 期末報告-AQI範例
 
     + Rmd程式碼: 
-    
     https://github.com/rwepa/r_data_scientist/blob/main/final_report_aqi/report_tutorial_aqi.Rmd    
 
 # 主題: R語言數據分析工程師養成班
