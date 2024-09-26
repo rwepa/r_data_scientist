@@ -33,7 +33,7 @@
 
     + R: https://github.com/rwepa/r_data_scientist/blob/main/r_data_science_03_summary_pivot.R
 
-5. 2024/09/29 資料視覺化分析
+5. 2024/09/28 資料視覺化分析
 
     4.1 使用graphics套件建立統計圖形
 
@@ -47,7 +47,7 @@
 
 期末報告-AQI範例
 
-    + Rmd程式碼: https://github.com/rwepa/r_data_scientist/blob/main/final_report_aqi/report_tutorial_aqi.Rmd
+    + Rmd程式碼: <https://github.com/rwepa/r_data_scientist/blob/main/final_report_aqi/report_tutorial_aqi.Rmd>
 
 # 主題: R語言數據分析工程師養成班
 # 單位: 華梵⼤學
