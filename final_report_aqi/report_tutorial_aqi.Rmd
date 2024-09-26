@@ -1,0 +1,268 @@
+---
+title: "R入門實作班專題報告-日空氣品質指標(AQI)之研究"
+author: "李明昌"
+date: "2024-09-28"
+header-includes:
+  - \usepackage{ctex}
+output:
+  word_document: 
+    toc: true
+    toc_depth: 2
+  pdf_document: 
+    latex_engine: xelatex
+    toc: true
+    toc_depth: 2
+  html_document:
+    toc: true
+    toc_depth: 2
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+\newpage
+
+# 1.商業理解
+
+研究目的：探討日空氣品質指標(AQI)在不同地區是否有差異
+
+資料來源：政府資料開放平台-日空氣品質指標(AQI)
+
+資料名稱：aqx_p_434.csv
+
+資料網址：<https://data.gov.tw/dataset/40507>
+
+報告名稱：00_李明昌_aqi.Rmd
+
+\newpage
+
+# 2.資料理解
+
+資料理解包括以下主題，本研究使用免費軟體R（R Core Team ，2024）並參考RWEPA網站資料（Lee，2024）。
+
+-   資料匯入
+
+-   摘要
+
+-   敘述性統計分析
+
+-   資料視覺化
+
+-   資料清除
+
+-   合併
+
+-   特徵選擇
+
+-   資料轉換
+
+**注意**
+
+本研究為解決轉換PDF繪圖的標題沒有顯示中文字型問題，使用 showtext 套件。
+
+參考：<https://github.com/rwepa/ipas_bda/blob/main/ipas-r-program.R#L1348>
+
+```{r chinese_font}
+library(showtext)
+## Loading Google fonts (https://fonts.google.com/)
+font_add_google(name = "Noto Sans TC", family = "twn")
+showtext_auto()
+```
+
+**資料匯入**
+
+本研究下載政府資料開放平台-日空氣品質指標（AQI），下載畫面參考下圖所示。
+
+```{r aqi, fig.cap="圖1 日空氣品質指標(AQI)下載圖", out.width="80%", echo=FALSE, eval=TRUE}
+knitr::include_graphics("fig_1_aqi.png")
+```
+
+使用 `read.table` 匯入 aqx_p_434.csv 檔案。匯入資料名稱為`aq`，資料筆數為1000筆，欄位為11個。
+
+```{r import_data}
+
+# 取得目前工作目錄
+getwd()
+
+# 顯示檔案清單
+dir()
+
+# 匯入資料
+myfile <- "aqx_p_434.csv"
+aq <- read.table(myfile, header=TRUE, sep=",")
+```
+
+**資料摘要**
+
+使用`head`檢視前6筆資料。使用`names`顯示所有欄位名稱。使用`str`理解資料結構，其中aq為資料框（data.frame）物件，資料筆數有`r nrow(aq)`筆與`r ncol(aq)`個欄位。最後使用 `summary` 理解資料料摘要，其中 o38subindex與 pm25subindex 二個欄位包括遺漏值（NA）。
+
+```{r}
+# 檢視前6筆資料
+head(aq)
+
+# 欄位名稱
+names(aq)
+
+# 資料結構
+str(aq)
+
+# 資料摘要
+summary(aq)
+```
+
+**資料處理**
+
+使用`as.Date`將monitordate變數由 chr 資料型態轉換為 Date 資料型態。
+
+```{r data_process}
+# 日期: 字串(chr)修正為日期(Date)
+aq$monitordate <- as.Date(aq$monitordate)
+str(aq)
+
+# 資料處理
+head(aq, n=3)
+dim(aq) # 1000列11行
+
+# 篩選 板橋 資料
+aqBanqiao<- aq[aq$sitename == "板橋",]
+
+# 依照 monitordate 欄位由小至大遞增排序
+aqBanqiao <- aqBanqiao[order(aqBanqiao$monitordate),]
+
+# 篩選 汐止 資料
+aqXizhi <- aq[aq$sitename == "汐止",]
+
+# 依照 monitordate 欄位由小至大遞增排序
+aqXizhi <- aqXizhi[order(aqXizhi$monitordate),]
+```
+
+**資料視覺化**
+
+```{r plot}
+# 板橋暨汐止AQI趨勢圖
+plot(aqBanqiao$aqi, 
+     type="b", 
+     main = paste0(aq$monitordate[1], " AQI 板橋vs.汐止-初始版"))
+lines(aqXizhi$aqi, col="red")
+points(aqXizhi$aqi, col="red")
+
+```
+
+```{r plot_refine}
+# 優化趨勢圖
+# 客製化Y軸最小值,最大值
+ymin <- min(aqBanqiao$aqi, aqXizhi$aqi) - 1
+ymax <- max(aqBanqiao$aqi, aqXizhi$aqi) + 3
+
+plot(aqBanqiao$aqi, 
+     type = "b", 
+     ylim = c(ymin, ymax), 
+     main = paste0(aq$monitordate[1], " AQI 板橋vs.汐止-優化版"))
+lines(aqXizhi$aqi, col="red")
+points(aqXizhi$aqi, col="red")
+legend("topleft", legend=c("板橋", "汐止"), col=c(1,2), lty=1)
+```
+
+```{r plot_final}
+# 優化趨勢圖-revised
+plot(aqBanqiao$aqi, 
+     type = "b", 
+     ylim = c(ymin, ymax), 
+     axes=FALSE,
+     xlab = "日期",
+     ylab = "AQI",
+     main = paste0(aq$monitordate[1], " AQI 板橋vs.汐止-最終版"))
+lines(aqXizhi$aqi, col="red")
+points(aqXizhi$aqi, col="red")
+
+# Add axis
+# 1=below, 2=left, 3=above and 4=right
+axis(side=1, at = 1:12, labels = aqBanqiao$monitordate)
+axis(side=2, las = 2)
+
+# 圖例
+legend("topleft", legend=c("板橋", "汐止"), col=c(1,2), lty=1)
+
+# 網格線
+grid()
+
+# 外框線
+box()
+```
+
+\newpage
+
+# 3.資料準備
+
+資料準備主要工作是將資料隨機區分為二大類：訓練集(train dataset), 測試集(test dataset), 有的模型會加上驗證集.
+
+本例將進行T-檢定，因此暫無須區分訓練集與測試集。
+
+\newpage
+
+# 4.模式建立 (使用訓練集)
+
+模式建立包括推論統計,機器學習,深度學習,生成式學習等方法.
+
+本研究採用 T-檢定方式進行，目的是比較板橋與汐止平均日AQI是否相等。相關假設條件如下所示：
+
+-   `p-value = 0.05`
+
+-   H<sub>0</sub>: 平均AQI_板橋 等於 平均AQI_汐止
+
+-   H<sub>1</sub>: 平均AQI_板橋 不等於 平均AQI_汐止
+
+```{r not_pdf, echo=FALSE}
+# H<sub>0</sub>: 𝝁<sub>板橋</sub> is equal to 𝝁<sub>汐止</sub>
+# H<sub>1</sub>: 𝝁<sub>板橋</sub> is not equal to 𝝁<sub>汐止</sub>
+```
+
+```{r t_test}
+# 使用雙尾 Ｔ檢定
+aqi_ttest <- t.test(x = aqBanqiao$aqi, y = aqXizhi$aqi)
+print(aqi_ttest)
+print(aqi_ttest$p.value)
+```
+
+\newpage
+
+# 5.評估與測試 (使用測試集)
+
+```{r t_test_evaluation}
+# p值 > 0.05，接受H0
+ifelse(aqi_ttest$p.value > 0.05, "接受H0", "接受H1")
+```
+
+\newpage
+
+# 6.佈署應用與結論
+
+本研究顯示板橋的平均AQI與平均汐止的AQI沒有顯著差異，未來研究亦可考慮其他觀測站的T檢定或變異數分析（Analysis of variance，ANOVA）。
+
+本研究使用套件與函數與功能參考下表所示。
+
+| 套件     | 函數                           | 功能             |
+|----------|--------------------------------|------------------|
+| utils    | read.table                     | 匯入文字檔       |
+| showtext | font_add_google, showtext_auto | 處理中文字型問題 |
+| getwd    | base                           | 顯示檔案清單     |
+| utils    | head                           | 顯示前6筆資料    |
+| base     | names                          | 欄位名稱         |
+| utils    | str                            | 資料結構         |
+| base     | summary                        | 資料摘要         |
+| base     | as.Date                        | 轉換為日期資料   |
+| graphics | plot                           | 繪圖             |
+| graphics | lines                          | 加入線           |
+| graphics | points                         | 加入點           |
+| stats    | t.test                         | T檢定            |
+
+: 本研究使用套件與函數表
+
+\newpage
+
+# 參考文獻
+
+1.  Lee, Ming-Chang. (2024, September 26). RWEPA. <https://rwepa.blogspot.com/>
+
+2.  R Core Team (2024). R: A Language and Environment for Statistical Computing. R Foundation for Statistical Computing, Vienna, Austria. <https://www.R-project.org/>.
