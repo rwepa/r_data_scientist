@@ -45,6 +45,10 @@
 
     5.2 shiny互動式App佈署應用
 
+# 期末報告-AQI範例
+
+    + Rmd: https://github.com/rwepa/r_data_scientist/blob/main/final_report_aqi/report_tutorial_aqi.Rmd
+
 # 主題: R語言數據分析工程師養成班
 # 單位: 華梵⼤學
 # 日期: 2024/07/17-2024/07/23
