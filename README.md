@@ -45,7 +45,7 @@
 
     5.2 shiny互動式App佈署應用
 
-# 期末報告-AQI範例
+期末報告-AQI範例
 
     + Rmd: https://github.com/rwepa/r_data_scientist/blob/main/final_report_aqi/report_tutorial_aqi.Rmd
 
