@@ -39,7 +39,9 @@
 
     4.2 使用ggplot2套件建立視覺化分析
 
-6. 2024/10/05 預測模型整合案例
+    + R: https://github.com/rwepa/r_data_scientist/blob/main/r_data_science_04_visualization.R
+
+7. 2024/10/05 預測模型整合案例
 
     5.1 銷售與人力資源預測模型
 
