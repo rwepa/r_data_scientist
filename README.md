@@ -59,6 +59,8 @@
 
     + https://github.com/rwepa/r_data_scientist/blob/main/r_kmeans_animation.gif
 
+    <img src="[img/matplotlib_01.png](https://github.com/rwepa/r_data_scientist/blob/main/r_kmeans_animation.gif)" width="600">
+
     + R程式碼: https://github.com/rwepa/r_data_scientist/blob/main/r_kmeans_animation.R
 
 # 主題: R語言數據分析工程師養成班
