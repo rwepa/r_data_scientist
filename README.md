@@ -57,7 +57,7 @@
 
 # K-means集群法動畫示範
 
-    ![image](https://github.com/rwepa/r_data_scientist/blob/main/r_kmeans_animation.gif)
+    (https://github.com/rwepa/r_data_scientist/blob/main/r_kmeans_animation.gif)
 
     R程式碼: https://github.com/rwepa/r_data_scientist/blob/main/r_kmeans_animation.R
 
