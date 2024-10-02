@@ -57,9 +57,9 @@
 
 # K-means集群法動畫示範
 
-    (https://github.com/rwepa/r_data_scientist/blob/main/r_kmeans_animation.gif)
+    + https://github.com/rwepa/r_data_scientist/blob/main/r_kmeans_animation.gif
 
-    R程式碼: https://github.com/rwepa/r_data_scientist/blob/main/r_kmeans_animation.R
+    + R程式碼: https://github.com/rwepa/r_data_scientist/blob/main/r_kmeans_animation.R
 
 # 主題: R語言數據分析工程師養成班
 # 單位: 華梵⼤學
