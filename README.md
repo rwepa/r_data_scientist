@@ -47,6 +47,8 @@
 
     5.2 shiny互動式App佈署應用
 
+    + R: https://github.com/rwepa/r_data_scientist/blob/main/r_data_science_05_model_shiny.R
+
 # 期末報告-AQI範例
 
     + Rmd程式碼: 
