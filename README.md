@@ -1,4 +1,5 @@
 # 主題: 企業資料分析 (Business Analytics)
+
 + LINK: https://github.com/rwepa/business_analytics/
 
 # 主題: R語言數據分析工程師養成班
@@ -36,7 +37,7 @@
 
     + R: https://github.com/rwepa/r_data_scientist/blob/main/r_data_science_03_summary_pivot.R
 
-5. 2024/09/28 資料視覺化分析
+4. 2024/09/28 資料視覺化分析
 
     4.1 使用graphics套件建立統計圖形
 
@@ -44,7 +45,7 @@
 
     + R: https://github.com/rwepa/r_data_scientist/blob/main/r_data_science_04_visualization.R
 
-7. 2024/10/05 預測模型整合案例
+5. 2024/10/05 預測模型整合案例
 
     5.1 銷售與人力資源預測模型
 
@@ -52,7 +53,7 @@
 
     + R: https://github.com/rwepa/r_data_scientist/blob/main/r_data_science_05_model_shiny.R
 
-# 期末報告-AQI範例
+6.期末報告-AQI範例
 
     + Rmd程式碼: 
     https://github.com/rwepa/r_data_scientist/blob/main/final_report_aqi/report_tutorial_aqi.Rmd
@@ -60,11 +61,11 @@
     + AQI資料夾:
     https://github.com/rwepa/r_data_scientist/tree/main/final_report_aqi
 
-# K-means集群法動畫示範
+7. K-means集群法動畫示範
 
 ![image](https://github.com/rwepa/r_data_scientist/blob/main/r_kmeans_animation.gif)
 
-R程式碼: https://github.com/rwepa/r_data_scientist/blob/main/r_kmeans_animation.R
++ R程式碼: https://github.com/rwepa/r_data_scientist/blob/main/r_kmeans_animation.R
 
 # 主題: R語言數據分析工程師養成班
 
@@ -177,8 +178,10 @@ R程式碼: https://github.com/rwepa/r_data_scientist/blob/main/r_kmeans_animati
     + 2024.07.23-graphics.R [https://github.com/rwepa/r_data_scientist/blob/main/2024.07.23-graphics.R]
 
 # 主題: AI機器學習與深度學習應用-使用Python與R語-教師研習
-# 單位: 明志科技大學
-# 日期: 2022/07/12-2022/08/04
+
+單位: 明志科技大學
+
+日期: 2022/07/12-2022/08/04
 
 + Python, R 程式碼與講義下載 [https://github.com/rwepa/DataDemo/tree/master/ai_using_python_and_r]
 
