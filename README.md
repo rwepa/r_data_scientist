@@ -55,10 +55,12 @@
 
 6.期末報告-AQI範例
 
-    + Rmd程式碼: 
+    6.1 Rmd程式碼: 
+    
     https://github.com/rwepa/r_data_scientist/blob/main/final_report_aqi/report_tutorial_aqi.Rmd
 
-    + AQI資料夾:
+    6.2 AQI資料夾:
+    
     https://github.com/rwepa/r_data_scientist/tree/main/final_report_aqi
 
 7. K-means集群法動畫示範
