@@ -1,4 +1,4 @@
-# 主題: 企業資料分析 (Business Analytics)
+# 企業資料分析 (Business Analytics)
 
 + LINK: https://github.com/rwepa/business_analytics/
 
