@@ -10,6 +10,14 @@
 
 1. 2024/12/26(四) 教務管理規定、數據分析概論
 
+   1.1 教務管理規定
+   1.2 RWEPA簡介
+   1.3 數據分析概論
+   1.4 APC方法
+   1.5 數據分析暨視覺化應用案例
+   1.6 資料分析與視覺化工具介紹(Excel,Power BI, Tableau, R, Python)
+   1.7 R,Python專案報告
+
    + PDF: https://github.com/rwepa/r_data_scientist/blob/main/r_training_2024.12.26_Introduction_to_Data_Analysis.pdf
 
 3. 2025/01/02(四) R語言簡介與基本運算功能
