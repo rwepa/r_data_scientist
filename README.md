@@ -26,13 +26,29 @@
 
    + PDF: https://github.com/rwepa/r_data_scientist/blob/main/r_training_2024.12.26_Introduction_to_Data_Analysis.pdf
 
-3. 2025/01/02(四) R語言簡介與基本運算功能
+2. 2025/01/02(四) R語言簡介與基本運算功能
 
-4. 2025/01/07(二) 各種物件資料的運算與處理
+   2.1 R 簡介與安裝
 
-5. 2025/01/23(四) 數據的整合、清理與轉換
+   2.2 RStudio 簡介與安裝
 
-6. 2025/02/04(二) 數據的整合、清理與轉換
+   2.3 R基本概念
+
+   2.4 輔助說明
+
+   2.5 套件(Package)
+
+   2.6 開放資料分析
+
+   + PDF: https://github.com/rwepa/r_data_scientist/blob/main/r_training_2025.01.02_r_introduction.pdf
+  
+   + R: https://github.com/rwepa/r_data_scientist/blob/main/r_training_2025.01.02_r_introduction.R
+
+3. 2025/01/07(二) 各種物件資料的運算與處理
+
+4. 2025/01/22(三) 數據的整合、清理與轉換
+
+5. 2025/02/04(二) 數據的整合、清理與轉換
 
 # 主題: R語言數據分析工程師養成班
 
