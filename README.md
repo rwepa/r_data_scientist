@@ -46,9 +46,23 @@
 
 3. 2025/01/07(二) 各種物件資料的運算與處理
 
-4. 2025/01/22(三) 數據的整合、清理與轉換
+   3.1 Python與Anaconda簡介
 
-5. 2025/02/04(二) 數據的整合、清理與轉換
+   3.2 資料型別與運算子
+
+   3.3 四大基本Python物件
+
+   3.4 使用NumPy模組與reshape應用
+
+   3.5 日期時間資料
+
+   + jpynb: https://github.com/rwepa/r_data_scientist/blob/main/python_training_2025.01.07_python_introduction.ipynb
+  
+   + HTML: https://github.com/rwepa/r_data_scientist/blob/main/python_training_2025.01.07_python_introduction.html
+
+5. 2025/01/22(三) 數據的整合、清理與轉換
+
+6. 2025/02/04(二) 數據的整合、清理與轉換
 
 # 主題: R語言數據分析工程師養成班
 
