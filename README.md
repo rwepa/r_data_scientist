@@ -59,6 +59,8 @@
    + jpynb: https://github.com/rwepa/r_data_scientist/blob/main/python_training_2025.01.07_python_introduction.ipynb
   
    + HTML: https://github.com/rwepa/r_data_scientist/blob/main/python_training_2025.01.07_python_introduction.html
+  
+   + PDF: https://github.com/rwepa/r_data_scientist/blob/main/python_training_2025.01.07_python_introduction.pdf
 
 5. 2025/01/22(三) 數據的整合、清理與轉換
 
