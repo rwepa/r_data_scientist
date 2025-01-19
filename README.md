@@ -64,7 +64,21 @@
 
 5. 2025/01/22(三) 數據的整合、清理與轉換
 
-6. 2025/02/04(二) 數據的整合、清理與轉換
+   01.字串與格式化處理
+
+   02.正規表示式
+
+   03.pandas模組簡介
+
+   04.將AQI資料集改為Python pandas操作
+
+   05.matplotlib, seaborn, pandas, plotnine 模組視覺化應用
+
+   06.行銷案例應用
+
+   + py: https://github.com/rwepa/r_data_scientist/blob/main/python_training_2025.01.22_pandas_matplotlib.py
+
+7. 2025/02/04(二) 數據的整合、清理與轉換
 
 # 主題: R語言數據分析工程師養成班
 
