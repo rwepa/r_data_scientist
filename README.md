@@ -62,7 +62,7 @@
   
    + PDF: https://github.com/rwepa/r_data_scientist/blob/main/python_training_2025.01.07_python_introduction.pdf
 
-5. 2025/01/22(三) 數據的整合、清理與轉換
+4. 2025/01/22(三) Python-數據的整合、清理與轉換
 
    01.字串與格式化處理
 
@@ -78,7 +78,7 @@
 
    + py: https://github.com/rwepa/r_data_scientist/blob/main/python_training_2025.01.22_pandas_matplotlib.py
 
-7. 2025/02/04(二) 數據的整合、清理與轉換
+5. 2025/02/04(二) 數據的整合、清理與轉換
 
 # 主題: R語言數據分析工程師養成班
 
