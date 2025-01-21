@@ -1842,13 +1842,25 @@ sum(periodAnalysis.values()) # 15789, 請驗證正確性!
 # RWEPA
 # http://rwepa.blogspot.com/
 
-# Python 程式設計-李明昌 <免費電子書>
-# http://rwepa.blogspot.com/2020/02/pythonprogramminglee.html
-
 # R資料科學家
 # https://github.com/rwepa/r_data_scientist
 
+# R入門資料分析與視覺化(付費,字幕)
+# https://mastertalks.tw/products/r?ref=MCLEE
+
+# R商業預測與應用(付費,字幕)
+# https://mastertalks.tw/products/r-2?ref=MCLEE
+
 # Python資料科學家
 # https://github.com/rwepa/python_data_scientist
+
+# Python 程式設計-李明昌 <免費電子書>
+# http://rwepa.blogspot.com/2020/02/pythonprogramminglee.html
+
+# SQL實作班
+# https://erp.mgt.ncu.edu.tw/sql-practical-course/
+
+# Streamlit互動式資料應用班
+# https://erp.mgt.ncu.edu.tw/streamlit-application-course/
 # end
 # 辛苦啦,完成Python程式之旅~~
