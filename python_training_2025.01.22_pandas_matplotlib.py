@@ -941,9 +941,60 @@ df.to_csv('data/df.csv', index = False, encoding = 'utf_8_sig') # OK
 # 04.將AQI資料集改為Python pandas操作
 ##############################
 
-# 日空氣品質指標(AQI)
-# https://data.gov.tw/dataset/40507
+# title: 日空氣品質指標(AQI)
+# source: https://data.gov.tw/dataset/40507
 # https://github.com/rwepa/r_data_scientist/blob/main/r_training_2025.01.02_r_introduction.R#L453
+
+# analysis:
+
+# pandas plot line
+# https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.plot.line.html
+
+import pandas as pd
+import matplotlib.pyplot as plt
+
+# urls = "aqx_p_434.csv"
+urls = "https://raw.githubusercontent.com/rwepa/DataDemo/refs/heads/master/aqx_p_434.csv"
+
+df = pd.read_csv(urls)
+
+df                # AQI資料集
+df.dtypes         # 資料型態
+df.columns        # 欄位名稱
+df.describe()     # 資料摘要
+df.shape          # 資料維度 (1000, 11)
+df.isnull().sum() # nan值個數計算
+
+# 篩選板橋資料集
+df_Banqiao = df[df['sitename'] == '板橋']
+
+# 依 monitordate 遞增排序
+df_Banqiao = df_Banqiao.sort_values(by=['monitordate'])
+
+df_Banqiao
+
+# 篩選汐止資料集
+df_Xizhi = df[df['sitename'] == '汐止']
+
+# 依 monitordate 遞增排序
+df_Xizhi = df_Xizhi.sort_values(by=['monitordate'])
+
+df_Xizhi
+
+# 合併為一個資料框
+df_BanqiaoXizhi = pd.DataFrame({'monitordate': df_Xizhi['monitordate'].values,
+                                'Banqiao': df_Banqiao['aqi'].values,
+                                'Xizhi': df_Xizhi['aqi'].values})
+df_BanqiaoXizhi
+
+ax = df_BanqiaoXizhi.plot.line(x='monitordate', 
+                               y=['Banqiao', 'Xizhi'],
+                               title='AQI - 2025.1.22@RWEPA')
+ax.set_xlabel("Date")
+ax.set_ylabel("AQI")
+ax.tick_params(axis='x', labelsize=8)
+plt.show()
+# end
 
 ##############################
 # 05.matplotlib, seaborn, pandas, plotnine 模組視覺化應用
