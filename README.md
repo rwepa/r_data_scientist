@@ -80,6 +80,18 @@
 
 5. 2025/02/04(二) Python-數據的整合、清理與轉換(MySQL)
 
+   01.資料庫正規化簡介與MySQL安裝
+   
+   02.MySQL Workbench-使用sakila資料庫
+   
+   03.建立資料庫與資料表新增、查詢語法
+   
+   04.案例實作練習
+   
+   05.Python與MySQL應用
+
+   SQL: https://github.com/rwepa/r_data_scientist/blob/main/python_training_2025.02.04_mysql
+
 # 主題: R語言數據分析工程師養成班
 
 單位: 新明青創基地
