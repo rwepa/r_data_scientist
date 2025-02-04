@@ -90,7 +90,7 @@
    
    05.Python與MySQL應用
 
-   SQL: https://github.com/rwepa/r_data_scientist/blob/main/python_training_2025.02.04_mysql
+   SQL: https://github.com/rwepa/r_data_scientist/blob/main/python_training_2025.02.04_mysql.sql
 
 # 主題: R語言數據分析工程師養成班
 
