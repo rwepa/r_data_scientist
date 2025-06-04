@@ -2,6 +2,14 @@
 
 + LINK: https://github.com/rwepa/business_analytics/
 
+# 主題: R語言數據分析工程師養成班
+
+單位: 新明青創基地
+
+日期: 2025.6.7 ~ 2025.8.9
+
+下載: https://github.com/rwepa/r_data_scientist/tree/main/r_training_ppt_codes_2025
+
 # 主題: R語言與Python語言數據分析工程師養成班
 
 單位: 華梵⼤學
