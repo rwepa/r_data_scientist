@@ -6,7 +6,7 @@
 
 單位: 新明青創基地
 
-日期: 2025.6.7 ~ 2025.8.9
+日期: 2025.6.7 ~ 2025.7.5
 
 下載: https://github.com/rwepa/r_data_scientist/tree/main/r_training_ppt_codes_2025
 
