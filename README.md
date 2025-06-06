@@ -2,7 +2,7 @@
 
 + LINK: https://github.com/rwepa/business_analytics/
 
-# 主題: R語言數據分析工程師養成班
+# 主題: 數位人才培育工作坊 - R入門實作
 
 單位: 新明青創基地
 
