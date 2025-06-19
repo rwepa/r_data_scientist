@@ -54,7 +54,7 @@
 
   3.6 大量檔案資料處理案例 - 空氣品質監測資料
 
-  空氣品質監測資料: https://airtw.moenv.gov.tw/CHT/Information/Standard/AirQualityIndicatorNew.aspx
+  空氣品質監測資料說明: https://airtw.moenv.gov.tw/CHT/Information/Standard/AirQualityIndicatorNew.aspx
 
   資料集下載: https://airtw.moenv.gov.tw/CHT/Query/His_Data.aspx
   
