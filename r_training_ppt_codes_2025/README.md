@@ -12,6 +12,10 @@
   
   1.2 開放資料實務應用
 
+  + PDF: https://github.com/rwepa/r_data_scientist/blob/main/r_training_ppt_codes_2025/r_data_science_01_r_rstudio.pdf
+
+  + R: https://github.com/rwepa/r_data_scientist/blob/main/r_training_ppt_codes_2025/r_data_science_01_r_rstudio.R
+
 **2.2025.06.14(六) 資料物件**
 
   2.1 資料物件簡介
@@ -33,3 +37,5 @@
   2.9 補充篇: 大型檔案的匯入
   
   2.10 補充篇: 大量檔案的匯入
+
+  + R: https://github.com/rwepa/r_data_scientist/blob/main/r_training_ppt_codes_2025/r_data_science_02_r_object.R
