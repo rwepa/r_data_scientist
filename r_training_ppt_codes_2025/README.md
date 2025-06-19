@@ -40,7 +40,7 @@
 
   + R: https://github.com/rwepa/r_data_scientist/blob/main/r_training_ppt_codes_2025/r_data_science_02_r_object.R
 
-**3.2025.06.217(六) 流程控制與迴圈**
+**3.2025.06.21(六) 流程控制與迴圈**
 
   3.1 if 流程控制
 
