@@ -54,7 +54,19 @@
 
   3.6 大量檔案資料處理案例 - 空氣品質監測資料
 
+  空氣品質監測資料: https://airtw.moenv.gov.tw/CHT/Information/Standard/AirQualityIndicatorNew.aspx
+
+  資料集下載: https://airtw.moenv.gov.tw/CHT/Query/His_Data.aspx
+  
   二林_2024.csv:
+
+  + 第1列為標題列, 資料列: 6588列, 資料行: 27行
+
+  + 每個觀測站有18筆測量值, 每個測量值時間為 00時~23時
+
+  + 18筆測量值的變數名稱包括: AMB_TEMP, CH4, CO, NMHC, NO, NO2, NOx, O3, PM10, PM2.5, RAINFALL, RH, SO2, THC, WD_HR, WIND_DIREC, WIND_SPEED, WS_HR
+
+  + 二林_2024.csv 資料檢示圖:
 
   ![image](https://raw.githubusercontent.com/rwepa/r_data_scientist/refs/heads/main/r_training_ppt_codes_2025/images/%E4%BA%8C%E6%9E%97_2024.csv.png)
   
