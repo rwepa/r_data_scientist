@@ -70,4 +70,4 @@
 
   ![image](https://raw.githubusercontent.com/rwepa/r_data_scientist/refs/heads/main/r_training_ppt_codes_2025/images/%E4%BA%8C%E6%9E%97_2024.csv.png)
   
-  + R: https://github.com/rwepa/r_data_scientist/blob/main/r_training_ppt_codes_2025/r_data_science_01_r_rstudio.R
+  + R: ...
