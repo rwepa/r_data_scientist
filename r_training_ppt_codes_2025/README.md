@@ -6,13 +6,13 @@
 
 下載: https://github.com/rwepa/r_data_scientist/tree/main/r_training_ppt_codes_2025
 
-**1.2025.06.07(六) 教務管理規定、1.R/RStudio簡介**
+**1.2025.06.07(六) 教務管理規定、R/RStudio簡介**
 
   1.1 R/RStudio下載、使用與套件簡介
   
   1.2 開放資料實務應用
 
-**2.2025.06.14(六) 2.資料物件**
+**2.2025.06.14(六) 資料物件**
 
   2.1 資料物件簡介
   
