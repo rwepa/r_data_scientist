@@ -361,4 +361,7 @@ library(tidyr) # pivot_wider
 # 主題: 想請問data.frame新增欄位失敗的問題
 # 日期: 2022年11月17日 凌晨1:17:15
 # 網址: https://groups.google.com/g/taiwanruser/c/pFKunzSx8GA
+
+# Plotly R Open Source Graphing Library
+# https://plotly.com/r/
 # end
