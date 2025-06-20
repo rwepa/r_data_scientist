@@ -43,7 +43,7 @@
 **3.2025.06.21(六) 流程控制與迴圈**
 
   3.1 if 流程控制
-
+  
   3.2 if else
 
   3.3 ifelse
@@ -52,7 +52,13 @@
 
   3.5 while 迴圈
 
-  3.6 大量檔案資料處理案例 - 空氣品質監測資料
+  3.6 複習篇: Excel檔案匯入與匯出
+
+  3.7 大量檔案資料處理案例 - 空氣品質監測資料(3個資料夾, 231個CSV檔案)
+
+  3.8 R軟體使用者論壇
+
+  + R: https://github.com/rwepa/r_data_scientist/blob/main/r_training_ppt_codes_2025/r_data_science_03_r_flow_loop.R
 
   空氣品質監測資料說明: https://airtw.moenv.gov.tw/CHT/Information/Standard/AirQualityIndicatorNew.aspx
 
@@ -70,4 +76,3 @@
 
   ![image](https://raw.githubusercontent.com/rwepa/r_data_scientist/refs/heads/main/r_training_ppt_codes_2025/images/%E4%BA%8C%E6%9E%97_2024.csv.png)
   
-  + R: ...
