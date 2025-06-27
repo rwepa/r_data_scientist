@@ -76,7 +76,7 @@
 
   ![image](https://raw.githubusercontent.com/rwepa/r_data_scientist/refs/heads/main/r_training_ppt_codes_2025/images/%E4%BA%8C%E6%9E%97_2024.csv.png)
 
-  **4.2025.06.28(六) 資料摘要與視覺化分析**
+**4.2025.06.28(六) 資料摘要與視覺化分析**
 
   4.1 使用apply, lapply與aggregate
 
@@ -86,4 +86,8 @@
 
   + 補充篇: 互動式資料表格
 
-  + 練習篇: 期末報告Rmd,PDF事宜  
+  + 練習篇: 期末報告Rmd,PDF事宜
+
+**空氣品質監測資料分析(大量檔案資料分析)**
+
+  + https://github.com/rwepa/r_data_scientist/blob/main/r_training_ppt_codes_2025/r_data_science_air_quality_analysis.R
