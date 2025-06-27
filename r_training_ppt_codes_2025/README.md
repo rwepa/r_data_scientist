@@ -75,4 +75,15 @@
   + 二林_2024.csv 資料檢示圖:
 
   ![image](https://raw.githubusercontent.com/rwepa/r_data_scientist/refs/heads/main/r_training_ppt_codes_2025/images/%E4%BA%8C%E6%9E%97_2024.csv.png)
-  
+
+  **4.2025.06.28(六) 資料摘要與視覺化分析**
+
+  4.1 使用apply, lapply與aggregate
+
+  4.2 使用graphics套件繪圖
+
+  + 補充篇: dplyr 資料操作套件
+
+  + 補充篇: 互動式資料表格
+
+  + 練習篇: 期末報告Rmd,PDF事宜  
