@@ -6,7 +6,7 @@
 
 下載: https://github.com/rwepa/r_data_scientist/tree/main/r_training_ppt_codes_2025
 
-**1.2025.06.07(六) 教務管理規定、R/RStudio簡介**
+**2025.06.07(六) 1.教務管理規定、R/RStudio簡介**
 
   1.1 R/RStudio下載、使用與套件簡介
   
@@ -16,7 +16,7 @@
 
   + R: https://github.com/rwepa/r_data_scientist/blob/main/r_training_ppt_codes_2025/r_data_science_01_r_rstudio.R
 
-**2.2025.06.14(六) 資料物件**
+**2025.06.14(六) 2.資料物件**
 
   2.1 資料物件簡介
   
@@ -40,7 +40,7 @@
 
   + R: https://github.com/rwepa/r_data_scientist/blob/main/r_training_ppt_codes_2025/r_data_science_02_r_object.R
 
-**3.2025.06.21(六) 流程控制與迴圈**
+**2025.06.21(六) 3.流程控制與迴圈**
 
   3.1 if 流程控制
   
@@ -76,7 +76,7 @@
 
   ![image](https://raw.githubusercontent.com/rwepa/r_data_scientist/refs/heads/main/r_training_ppt_codes_2025/images/%E4%BA%8C%E6%9E%97_2024.csv.png)
 
-**4.2025.06.28(六) 資料摘要與視覺化分析**
+**2025.06.28(六) 4.資料摘要與視覺化分析**
 
   4.1 使用apply, lapply與aggregate
 
@@ -91,3 +91,22 @@
 **空氣品質監測資料分析(大量檔案資料分析)**
 
   + https://github.com/rwepa/r_data_scientist/blob/main/r_training_ppt_codes_2025/r_data_science_air_quality_analysis.R
+
+**2025.07.05(六) 5.資料科學報告整合應用**
+
+  5.1 熟悉流程控制、摘要與視覺化分析
+
+    5.1.1 流程控制
+
+    5.1.2 摘要
+
+    5.1.3 視覺化分析
+
+  5.2 熟悉rmarkdown製作Word報告
+
+    5.2.1 中文 Rmd,PDF
+
+    5.2.2 使用銷售檔案(sample-superstore2023_tw.xlsx)建立Rmd報表應用
+
+    5.2.3 學員報告分享
+# end
