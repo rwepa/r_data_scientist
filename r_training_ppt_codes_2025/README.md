@@ -109,4 +109,6 @@
     5.2.2 使用銷售檔案(sample-superstore2023_tw.xlsx)建立Rmd報表應用
 
     5.2.3 學員報告分享
+
+  + https://github.com/rwepa/r_data_scientist/blob/main/r_training_ppt_codes_2025/r_data_science_05_data_science_application.R
 # end
