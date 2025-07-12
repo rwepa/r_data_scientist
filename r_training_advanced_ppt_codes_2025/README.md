@@ -16,7 +16,7 @@
 
   + R: https://github.com/rwepa/r_data_scientist/blob/main/r_training_advanced_ppt_codes_2025/r_data_science_advcanced_01_datasets.R
 
-**2025.02.12_DATASETS_WISHLIST
+**2025.02.12_DATASETS_WISHLIST**
 資料集分析願望清單
 
 + White, 近十年國防預算結構分析
