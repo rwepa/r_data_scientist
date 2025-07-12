@@ -17,15 +17,24 @@
   + R: https://github.com/rwepa/r_data_scientist/blob/main/r_training_advanced_ppt_codes_2025/r_data_science_advcanced_01_datasets.R
 
 # 2025.02.12_DATASETS_WISHLIST
+
 資料集分析願望清單
 
-+ White, 近十年國防預算結構分析
-https://data.gov.tw/dataset/139911
-近十年國防預算結構分析_290973.csv
++ White:
 
-+ Joel01, 上櫃公司企業ESG資訊揭露彙總資料-溫室氣體排放
-https://data.gov.tw/dataset/156375
-t187ap46_O_1.csv
+  近十年國防預算結構分析
+
+  https://data.gov.tw/dataset/139911
+
+  近十年國防預算結構分析_290973.csv
+
++ Joel01:
+
+  + 上櫃公司企業ESG資訊揭露彙總資料-溫室氣體排放
+ 
+  + https://data.gov.tw/dataset/156375
+ 
+  + t187ap46_O_1.csv
 
 + Tom, 臺北市新車、機動車輛及駕照監理統計資料(按使用燃料別分類)
 https://data.gov.tw/dataset/157969
