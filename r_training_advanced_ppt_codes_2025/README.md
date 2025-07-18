@@ -79,3 +79,11 @@
   + https://data.gov.tw/dataset/28078
  
   + 桃園市歷年住宅補貼受理情形統計表-0612修正.csv
+
+ # 2025.07.19(六) 2.資料管線操作
+
+   2.1 認識dplyr套件
+
+   2.2 熟悉開放資料集於dplyr應用
+
+   + R: https://github.com/rwepa/r_data_scientist/blob/main/r_training_advanced_ppt_codes_2025/r_data_science_advcanced_02_dplyr.R
