@@ -269,6 +269,38 @@ df <- df %>%
 
 df
 
+summary(df)
+
+# 國防預算結構統計圖
+plot(df$軍事_金額, type="l", ylim=c(0, 200000), 
+     xlab="年度", 
+     ylab="預算金額", 
+     main="105~114年國防預算結構統計圖",
+     axes=FALSE,
+     cex=0.5)
+lines(df$作業_金額, col="red", lty=2)
+lines(df$人員_金額, col="blue", lty=3)
+lines(df$其他_金額, col="grey", lty=4)
+
+ind <- round(seq(1, nrow(df), length.out=5))
+axis(1, at=ind, labels=df$年度[ind])
+axis(2)
+box()
+
+# legend(x設定值= "xxx")
+# topleft    top    topright
+# left       center right
+# bottomleft bottom bottomright
+
+legend(x="bottomright", 
+       legend = c("軍事", "作業", "人員", "其他"), 
+       lty=1:4, 
+       col=c(1,2,4,8), 
+       cex=0.8)
+abline(h=mean(df$軍事_金額))
+abline(h=mean(df$作業_金額), col="red")
+abline(h=mean(df$人員_金額), col="blue")
+
 # 🌸 2.Joel: -----
 # 上櫃公司企業ESG資訊揭露彙總資料-溫室氣體排放
 # https://data.gov.tw/dataset/156375
