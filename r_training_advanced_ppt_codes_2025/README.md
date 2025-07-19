@@ -11,6 +11,16 @@
   1.1 R與RStudio下載、安裝與操作
   
   1.2 認識datasets套件之資料操作
+
+  + 套件總覽
+
+    + DT          # 資料表格網頁呈現
+
+    + e1071       # 支持向量機(svm)
+    
+    + kableExtra  # 表格製作
+    
+    + writexl     # 匯出Excel檔案
   
   + PDF: https://github.com/rwepa/r_data_scientist/blob/main/r_training_advanced_ppt_codes_2025/r_data_science_advcanced_01_datasets.pdf
 
