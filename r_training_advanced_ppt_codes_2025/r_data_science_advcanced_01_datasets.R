@@ -12,6 +12,12 @@
 # 1.1 R與RStudio下載、安裝與操作
 # 1.2 認識datasets套件之資料操作
 
+# 套件總覽
+# DT         # 資料表格網頁呈現
+# e1071      # 支持向量機(svm)
+# kableExtra # 表格製作
+# writexl    # 匯出Excel檔案
+
 # 🌸 1.1 R與RStudio下載、安裝與操作 -----
 
 # RWEPA簡介 -----
