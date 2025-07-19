@@ -192,6 +192,16 @@ defense
 
 # Q: 長資料轉換為寬資料
 
+library(tidyr)
+
+defense_long <- select(defense, SeqNo:Percentage)
+
+defense_long <- select(defense_long, -c(SeqNo))
+
+defense_wide <- spread(defense_long, key=Category, value=Percentage)
+
+defense_wide
+
 # Q: 取得最後一筆記錄之URL, 匯入PDF至R.
 
 library(tabulapdf)
