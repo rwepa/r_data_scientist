@@ -2,6 +2,14 @@
 
 + LINK: https://github.com/rwepa/business_analytics/
 
+# 主題: 數位人才培育工作坊 - R進階實作
+
+單位: 新明青創基地
+
+日期: 2025.7.12 ~ 2025.8.9
+
+下載: https://github.com/rwepa/r_data_scientist/tree/main/r_training_advanced_ppt_codes_2025
+
 # 主題: 數位人才培育工作坊 - R入門實作
 
 單位: 新明青創基地
