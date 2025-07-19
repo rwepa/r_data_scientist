@@ -215,7 +215,6 @@ defense_wide
 # Q: 取得最後一筆記錄之URL, 匯入PDF至R.
 
 library(tabulapdf)
-# library(stringr)
 
 url <- defense$URL[46]
 
