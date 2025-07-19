@@ -193,12 +193,22 @@ defense
 # Q: 長資料轉換為寬資料
 
 library(tidyr)
+library(dplyr)
 
-defense_long <- select(defense, SeqNo:Percentage)
+# 方法1
+defense_long <- select(defense, Annual:Percentage)
 
-defense_long <- select(defense_long, -c(SeqNo))
+defense_long <- select(defense_long, -c(ItemName))
 
 defense_wide <- spread(defense_long, key=Category, value=Percentage)
+
+defense_wide
+
+# 方法2
+defense_wide <- defense %>%
+  select(Annual:Percentage) %>%
+  select(-c(ItemName)) %>%
+  spread(key=Category, value=Percentage)
 
 defense_wide
 
