@@ -86,4 +86,18 @@
 
    2.2 熟悉開放資料集於dplyr應用
 
+   + 套件總覽
+
+      + dplyr        # 資料操作文法
+      
+      + magrittr     # 管線操作
+      
+      + nycflights13 # 2013年NYC機場航班資料, 33萬筆資料 
+      
+      + readr        # 讀取CSV檔案
+      
+      + tabulapdf    # 讀取PDF檔案
+      
+      + tidyr        # 長寬資料轉換
+
    + R: https://github.com/rwepa/r_data_scientist/blob/main/r_training_advanced_ppt_codes_2025/r_data_science_advcanced_02_dplyr.R
