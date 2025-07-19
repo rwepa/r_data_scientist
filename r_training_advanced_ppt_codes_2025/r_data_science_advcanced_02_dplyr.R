@@ -12,6 +12,14 @@
 # 2.1 認識dplyr套件
 # 2.2 熟悉開放資料集於dplyr應用
 
+# 套件總覽
+# dplyr        # 資料操作文法
+# magrittr     # 管線操作
+# nycflights13 # 2013年NYC機場航班資料, 33萬筆資料 
+# readr        # 讀取CSV檔案
+# tabulapdf    # 讀取PDF檔案
+# tidyr        # 長寬資料轉換
+
 # 🌸 2.資料管線操作
 # magrittr 套件中主要的功能是 %>% 管線運算子, 它的作用在於將左側的運算結果傳遞至右側函數的第一個參數.
 # https://cran.r-project.org/web/packages/magrittr/index.html
@@ -195,7 +203,7 @@ defense
 library(tidyr)
 library(dplyr)
 
-# 方法1
+# 方法1 不使用管線操作
 defense_long <- select(defense, Annual:Percentage)
 
 defense_long <- select(defense_long, -c(ItemName))
@@ -204,7 +212,7 @@ defense_wide <- spread(defense_long, key=Category, value=Percentage)
 
 defense_wide
 
-# 方法2
+# 方法2 使用%>%
 defense_wide <- defense %>%
   select(Annual:Percentage) %>%
   select(-c(ItemName)) %>%
