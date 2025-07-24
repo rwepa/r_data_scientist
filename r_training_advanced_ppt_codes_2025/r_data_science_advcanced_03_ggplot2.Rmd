@@ -1,0 +1,267 @@
+---
+title: "主題: 第3章 圖形文法繪圖-ggplot2簡介"
+author: '作者: 李明昌'
+date: "日期: 2025-07-26"
+header-includes:
+  - \usepackage{ctex}
+output:
+  word_document:
+    toc: yes
+  html_document: default
+  pdf_document: 
+    latex_engine: xelatex
+    toc: yes
+file: r_data_science_advcanced_03_ggplot2.Rmd
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+大綱：
+
+3.圖形文法繪圖
+
++ 3.1 認識ggplot2套件
+
++ 3.2 熟悉開放資料集於ggplot2應用
+
+R Markdown 技巧：
+
++ include = FALSE 隱藏程式碼和標記的輸出，但會在背景中執行R程式碼。預設值`include = FALSE`。
+
++ echo = FALSE 隱藏程式碼，但會在背景中執行R程式碼並顯示（繪圖）結果。預設值`echo = TRUE`表示呈現程式碼與結果。
+
++ Rmd檔案名稱與路徑使用英文字母，不建議使用中文字型。
+
++ Rmd檔案轉換為Word檔案參考：https://bookdown.org/yihui/rmarkdown/word-document.html
+
++ Rmd檔案中文字型 YouTube：https://youtu.be/6Wc75BH02iE
+
+# 3.1 認識ggplot2套件
+
+ggplot2是一個強大的視覺化套件，可以用來建立美觀並呈現直觀式與有效的圖表。
+
+ggplot2的三大元素：
+
++ **data=**：指定視覺化的資料集。
+
++ **aes()**：將資料中的變數對應到繪圖的美學屬性(aesthetic properties)，即是指定X、Y等對應變數。
+
++ **geom_**：指定幾何物件的類型，例：點、線、長條圖，例：geom_point、geom_line、geom_smooth、geom_bar。
+
++ ggplot2參考: https://r-graph-gallery.com/
+
+```{r loading_packages}
+# 載入套件
+library(ggplot2)
+
+# ?diamonds
+
+# 資料結構
+str(diamonds) # 53940*10
+
+# 設定亂數種子，使用大於或等於1整數
+set.seed(168)
+
+# 使用 sample函數自所有列數隨機抽取500筆資料
+dsmall <- diamonds[sample(nrow(diamonds), 500),]
+
+# 顯示結果
+dsmall # 500*10
+```
+
+```{r scatterplot}
+# ggplot: 散佈圖
+p <- ggplot(data=dsmall, mapping=aes(carat, price)) +
+  geom_point()
+p
+```
+
+```{r scatterplot_group}
+# ggplot: 群組散佈圖
+p <- ggplot(data=dsmall, mapping=aes(carat, price, color=color)) + # 等號左側color表示群組參數，右側color表示變數名稱
+  geom_point(size=4)
+p
+```
+
+```{r scatterplot_lm}
+# ggplot: 散點圖+線性迴歸+95%信賴區間
+p <- ggplot(dsmall, aes(carat, price)) + 
+  geom_point() +
+  geom_smooth(method="lm")
+p
+```
+
+```{r scatterplot_lm_standard_error}
+# ggplot: 散點圖+線性迴歸+不顯示信賴區間
+ggplot(dsmall, aes(carat, price)) + 
+  geom_point() +
+  geom_smooth(method="lm", se=FALSE)
+```
+
+```{r scatterplot_group_lm}
+# ggplot: 散點圖+群組lm
+ggplot(dsmall, aes(carat, price, group=color)) + 
+  geom_point(aes(color=color), size=2) + 
+  geom_smooth(aes(color=color), method="lm", se=FALSE)
+```
+
+```{r scatterplot_group_loess}
+# ggplot: 散點圖+群組loess
+ggplot(dsmall, aes(carat, price, group=color)) + 
+  geom_point(aes(color=color), size=2) + 
+  geom_smooth(aes(color=color), method="loess", se=FALSE)
+```
+
+```{r scatterplot_span}
+# ggplot: 散點圖+span
+ggplot(dsmall, aes(carat, price)) +
+  geom_point() + 
+  geom_smooth(span = 0.3)
+```
+
+``` {r lineplot}
+# ggplot: 線圖
+ggplot(iris, aes(Petal.Length, Petal.Width)) +
+  geom_line()
+```
+
+``` {r lineplot_group_color}
+# ggplot: 線圖+群組+顏色
+ggplot(iris, aes(Petal.Length, Petal.Width, group=Species, color=Species)) + # group: 群組
+  geom_line()
+```
+
+``` {r lineplot_facet_wrap}
+# ggplot: 線圖+分面畫圖
+ggplot(iris, aes(Sepal.Length, Sepal.Width)) + 
+  geom_line(aes(color=Species), size=1) + 
+  facet_wrap(~Species, ncol=1)
+```
+
+``` {r lineplot_facet_wrap_theme}
+# ggplot: 線圖+分面
+ggplot(iris, aes(Sepal.Length, Sepal.Width)) +
+  geom_line(aes(color=Species), size=1) + 
+  facet_wrap(~Species, ncol=1) +
+  theme_minimal()
+# theme_ 設定繪圖風格，例：theme_gray、theme_bw、theme_minimal、theme_classic，參考`?theme_classic`
+```
+
+# ggplot2 雙軸(Y1,Y2)繪圖
+參考: http://rwepa.blogspot.com/2017/09/ggplot2-2y-packagelist.html
+
+# ggplot2-新增數學式-以迴歸分析模型為例
+參考: http://rwepa.blogspot.com/2020/09/ggplot2-equation.html
+
+# 弦圖 (Chord diagram) -----
+參考: http://rwepa.blogspot.com/2019/10/chord-diagram.html
+
+# 3.2 熟悉開放資料集於ggplot2應用
+
+ChatGPT: 模擬10萬筆台積電公司製程不良率資料, 資料至少包括年月日時間, location, 批號, 生產量, 使用 dplyr, ggplot2 套件進行資料預處理分析, 視覺化分析.
+
+```{r import_packages}
+# 載入套件
+library(dplyr)
+library(ggplot2)
+```
+
+``` {r prepare_dataset}
+# 設定資料集大小
+datasize <- 100000
+
+# 亂數種子
+set.seed(123)
+
+# 建立模擬製程資料
+df <- data.frame(
+  id = 1:datasize,
+  year = sample(2018:2023, size = datasize, replace = TRUE),
+  month = sample(1:12, size = datasize, replace = TRUE),
+  day = sample(1:31, size = datasize, replace = TRUE),
+  location = sample(c("台中", "高雄", "新竹"), size = datasize, replace = TRUE),
+  batch_number = paste0("Batch", sample(1:10, size = datasize, replace = TRUE)),
+  production_volume = runif(datasize, min = 0.001, max = 100),
+  defect_rate = rnorm(datasize, mean = 0.05, sd = 0.01)
+)
+
+# 轉換為 tbl_df
+df <- tibble::as_tibble(df)
+
+# 類別
+class(df) # "tbl_df" "tbl" "data.frame"
+
+df
+```
+
+```{r data_process}
+# 新增製程日期變數
+df <- df %>%
+  mutate(process_date = as.Date(paste0(year, "/", month, "/", day)))
+
+# 計算每日平均不良率
+df_summary <- df %>%
+  group_by(process_date) %>%
+  summarise(AvgDefectRate = mean(defect_rate))
+
+# 刪除NA值
+df_summary <- df_summary %>%
+  na.omit()
+
+# 資料結構
+str(df_summary)
+
+# 資料摘要
+summary(df_summary)
+
+# 前6筆資料
+head(df_summary)
+
+# 後6筆資料
+tail(df_summary)
+
+# 顯示資料
+df_summary
+
+```
+
+``` {r AvgDefectRate_lineplot}
+# 使用ggplot2 資料視覺化
+ggplot(df_summary, aes(x = process_date, y = AvgDefectRate)) +
+  geom_line()
+# 發現什麼樣式 (patterns) --> NONE
+# Try: 優化視覺化結果, 加入平均線
+```
+
+```{r rear_year}
+# Try: facet_wrap_year
+```
+
+```{r rear_month}
+# Try: facet_wrap_month
+```
+
+```{r location}
+# Try: facet_wrap_location
+```
+
+# 資料集願望清單
+參考: https://github.com/rwepa/r_data_scientist/blob/main/r_training_advanced_ppt_codes_2025/r_data_science_advcanced_02_dplyr.R#L165
+
+# 參考資料
+
++ RWEPA
+http://rwepa.blogspot.com/
+
++ iPAS-R-tutorial
+https://github.com/rwepa/ipas_bda/blob/main/ipas-r-program.R
+
++ R入門資料分析與視覺化應用教學(付費)
+https://mastertalks.tw/products/r?ref=MCLEE
+
++ R商業預測與應用(付費)
+https://mastertalks.tw/products/r-2?ref=MCLEE
+
+# 謝謝您的聆聽, Q & A
