@@ -111,3 +111,25 @@
       + tidyr        # 長寬資料轉換
 
    + R: https://github.com/rwepa/r_data_scientist/blob/main/r_training_advanced_ppt_codes_2025/r_data_science_advcanced_02_dplyr.R
+
+# 2025.07.26(六) 3.圖形文法繪圖
+
+   3.1 認識ggplot2套件
+
+   3.2 熟悉開放資料集於ggplot2應用
+
+   + 套件總覽
+
+      + dplyr        # 資料操作文法
+      
+      + ggplot2      # 圖形文法繪圖
+
+   + Rmd: https://github.com/rwepa/r_data_scientist/blob/main/r_training_advanced_ppt_codes_2025/r_data_science_advcanced_03_ggplot2.Rmd
+
+   + R: https://github.com/rwepa/r_data_scientist/blob/main/r_training_advanced_ppt_codes_2025/r_data_science_advcanced_03_ggplot2.R
+
+   + HTML: https://github.com/rwepa/r_data_scientist/blob/main/r_training_advanced_ppt_codes_2025/r_data_science_advcanced_03_ggplot2.html.zip
+
+   + PDF: https://github.com/rwepa/r_data_scientist/blob/main/r_training_advanced_ppt_codes_2025/r_data_science_advcanced_03_ggplot2.pdf
+
+   + Word: https://github.com/rwepa/r_data_scientist/blob/main/r_training_advanced_ppt_codes_2025/r_data_science_advcanced_03_ggplot2.docx
