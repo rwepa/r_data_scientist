@@ -178,4 +178,4 @@
     
       + RColorBrewer    # 調色盤
 
-   + R: https://github.com/rwepa/r_data_scientist/blob/main/r_training_advanced_ppt_codes_2025/r_data_science_advcanced_03_ggplot2.R
+   + R: https://github.com/rwepa/r_data_scientist/blob/main/r_training_advanced_ppt_codes_2025/r_data_science_advcanced_04_predictive_modelling.R
