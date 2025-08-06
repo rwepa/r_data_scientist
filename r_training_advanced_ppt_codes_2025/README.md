@@ -133,3 +133,49 @@
    + PDF: https://github.com/rwepa/r_data_scientist/blob/main/r_training_advanced_ppt_codes_2025/r_data_science_advcanced_03_ggplot2.pdf
 
    + Word: https://github.com/rwepa/r_data_scientist/blob/main/r_training_advanced_ppt_codes_2025/r_data_science_advcanced_03_ggplot2.docx
+
+# 2025.08.02(六) 4.預測模型
+
+   4.1 認識lm與glm函數
+
+      4.1.1 機器學習簡介
+      
+      4.1.2 CRISP-DM標準流程
+      
+      4.1.3 模型績效評估
+      
+      4.1.4 lm函數
+      
+      4.1.5 glm函數
+   
+   4.2 熟悉開放資料集於lm與glm應用
+   
+   4.3 深度學習應用
+
+   + 套件總覽
+
+      + AER             # Affairs 資料集
+    
+      + collapsibleTree # 可摺疊樹狀視覺化
+    
+      + devtools        # 安裝套件工具
+    
+      + ggflowchart     # 繪製流程圖
+    
+      + ggplot2         # 圖形文法繪圖
+    
+      + htmlwidgets     # 儲存為HTML
+    
+      + neuralnet       # 類神經網路
+    
+      + NeuralNetTools  # 類神經網路視覺化工具
+    
+      + nnet            # 類神經網路
+    
+      + party           # 決策樹
+    
+      + randomForest    # 隨機森林法
+    
+      + RColorBrewer    # 調色盤
+
+   + R: https://github.com/rwepa/r_data_scientist/blob/main/r_training_advanced_ppt_codes_2025/r_data_science_advcanced_03_ggplot2.R
