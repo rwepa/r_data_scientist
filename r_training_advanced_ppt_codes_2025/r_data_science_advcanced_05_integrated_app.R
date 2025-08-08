@@ -15,6 +15,11 @@
 # 5.5 補充篇-非監督式學習-集群法(Clustering)
 # 5.6 補充篇-非監督式學習-關聯規則(Association rule)
 
+# 🌸 套件總覽 -----
+# animation # 動畫
+# arules    # 關聯規則
+# openxlsx  # Excel 匯入/編輯/匯出
+
 # 🌸 5.1 熟悉管線操作、ggplot2與建立模型 -----
 # 參考 r_data_science_advcanced_02_dplyr.R
 # 參考 r_data_science_advcanced_03_ggplot2.R
@@ -337,5 +342,6 @@ plot(df[3:4], col=df.kmeans$cluster, pch=16)
 # https://mastertalks.tw/products/r-2?ref=MCLEE 
 # end
 # 謝謝您的聆聽 , Q & A
+
 
 
