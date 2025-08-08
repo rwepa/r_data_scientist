@@ -179,3 +179,27 @@
       + RColorBrewer    # 調色盤
 
    + R: https://github.com/rwepa/r_data_scientist/blob/main/r_training_advanced_ppt_codes_2025/r_data_science_advcanced_04_predictive_modelling.R
+
+# 2025.08.09(六) 5.資料科學報告整合應用
+
+   5.1 熟悉管線操作、ggplot2與建立模型
+   
+   5.2 熟悉rmarkdown製作Word報告
+
+   5.3 補充篇-openxlsx套件簡介
+
+   5.4 補充篇-VirtualBox + Ubuntu + R + RStudio
+   
+   5.5 補充篇-非監督式學習-集群法(Clustering)
+
+   5.6 補充篇-非監督式學習-關聯規則(Association rule)
+
+   + 套件總覽
+
+      + animation # 動畫
+    
+      + arules    # 關聯規則
+    
+      + openxlsx  # Excel 匯入/編輯/匯出
+
+
