@@ -203,3 +203,4 @@
       + openxlsx  # Excel 匯入/編輯/匯出
 
    + R: https://github.com/rwepa/r_data_scientist/blob/main/r_training_advanced_ppt_codes_2025/r_data_science_advcanced_05_integrated_app.R
+   + quarto render to docx: quarto render hello.qmd --to docx
