@@ -204,17 +204,4 @@
 
    + R: https://github.com/rwepa/r_data_scientist/blob/main/r_training_advanced_ppt_codes_2025/r_data_science_advcanced_05_integrated_app.R
    + quarto render to docx: quarto render hello.qmd --to docx
-   + 集群分析陡坡圖
-
-install.packages("factoextra")
-library(factoextra)
-
-# Example: Using the built-in 'iris' dataset
-data(iris)
-df <- scale(iris[-5]) # Scale the data
-df
-fviz_nbclust(df, kmeans, method = "wss")
-
-fviz_nbclust(df, kmeans, method = "wss") +
-  geom_vline(xintercept = 3, linetype = 2) # Add a vertical line at the chosen elbow point
-  
+   
