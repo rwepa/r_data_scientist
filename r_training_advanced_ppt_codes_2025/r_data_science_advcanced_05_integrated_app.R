@@ -313,7 +313,7 @@ sum(diag(mytable))/nrow(df) # 89.3%
 
 plot(df[3:4], col=df.kmeans$cluster, pch=16)
 
-+ 集群分析陡坡圖 (scree plots)
+# 集群分析陡坡圖 (scree plots)
 
 # install.packages("factoextra")
 library(factoextra)
@@ -326,7 +326,6 @@ fviz_nbclust(df, kmeans, method = "wss")
 
 fviz_nbclust(df, kmeans, method = "wss") +
   geom_vline(xintercept = 3, linetype = 2) # Add a vertical line at the chosen elbow point
-  
 
 # 🌸 5.6 補充篇-非監督式學習-關聯規則(Association rule) -----
 
@@ -357,6 +356,7 @@ fviz_nbclust(df, kmeans, method = "wss") +
 # https://mastertalks.tw/products/r-2?ref=MCLEE 
 # end
 # 謝謝您的聆聽 , Q & A
+
 
 
 
