@@ -314,18 +314,21 @@ sum(diag(mytable))/nrow(df) # 89.3%
 plot(df[3:4], col=df.kmeans$cluster, pch=16)
 
 # 集群分析陡坡圖 (scree plots)
+# https://en.wikipedia.org/wiki/Scree_plot
 
 # install.packages("factoextra")
 library(factoextra)
 
-# Example: Using the built-in 'iris' dataset
+# 使用內建 iris 資料集
 data(iris)
-df <- scale(iris[-5]) # Scale the data
-df
+df <- scale(iris[-5]) # 標準化資料
+
+# 陡坡圖
 fviz_nbclust(df, kmeans, method = "wss")
 
+# 陡坡圖+較佳集群數 k = 3 垂直線
 fviz_nbclust(df, kmeans, method = "wss") +
-  geom_vline(xintercept = 3, linetype = 2) # Add a vertical line at the chosen elbow point
+  geom_vline(xintercept = 3, linetype = 2)
 
 # 🌸 5.6 補充篇-非監督式學習-關聯規則(Association rule) -----
 
@@ -356,8 +359,3 @@ fviz_nbclust(df, kmeans, method = "wss") +
 # https://mastertalks.tw/products/r-2?ref=MCLEE 
 # end
 # 謝謝您的聆聽 , Q & A
-
-
-
-
-
