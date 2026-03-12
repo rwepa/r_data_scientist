@@ -6,7 +6,7 @@
 
 + R: https://github.com/rwepa/r_data_scientist/blob/main/anscombe_quartet_visualization.R
 
-+ ![image](https://github.com/rwepa/r_data_scientist/blob/main/imgs/anscombe_quartet_visualization.png)
+![image](https://github.com/rwepa/r_data_scientist/blob/main/imgs/anscombe_quartet_visualization.png)
 
 # 主題: 數位人才培育工作坊 - R進階實作
 
