@@ -5,6 +5,7 @@
 # 安斯庫姆四重奏資料視覺化 (Anscombe's Quartet)
 
 + R: https://github.com/rwepa/r_data_scientist/blob/main/anscombe_quartet_visualization.R
++ Date: 2026.3.13
 
 ![image](https://github.com/rwepa/r_data_scientist/blob/main/imgs/anscombe_quartet_visualization.png)
 
