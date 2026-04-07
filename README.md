@@ -176,7 +176,7 @@
     
     https://github.com/rwepa/r_data_scientist/tree/main/final_report_aqi
 
-7. K-means集群法動畫示範
+# K-means集群法動畫示範
 
 ![image](https://github.com/rwepa/r_data_scientist/blob/main/r_kmeans_animation.gif)
 
