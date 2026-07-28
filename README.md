@@ -6,7 +6,7 @@
 
 # 全球2米平均年溫度圖
 
-+ 全球2米平均年溫度圖R程式碼: global_2m_temperature.R
++ 全球2米平均年溫度圖R程式碼: https://github.com/rwepa/r_data_scientist/blob/main/global_2m_temperature.R
 
 + Date: 2026.07.28
 
