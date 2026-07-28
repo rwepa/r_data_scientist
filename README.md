@@ -6,11 +6,16 @@
 
 # 全球2米平均年溫度圖
 
++ 全球2米平均年溫度圖R程式碼: global_2m_temperature.R
+
++ Date: 2026.07.28
+
 ![image](https://github.com/rwepa/r_data_scientist/blob/main/imgs/global_2m_temperature.png)
 
 # Anscombe's Quartet
 
-+ 安斯庫姆四重奏資料視覺化 R: https://github.com/rwepa/r_data_scientist/blob/main/anscombe_quartet_visualization.R
++ 安斯庫姆四重奏資料視覺化R程式碼: https://github.com/rwepa/r_data_scientist/blob/main/anscombe_quartet_visualization.R
+
 + Date: 2026.3.13
 
 ![image](https://github.com/rwepa/r_data_scientist/blob/main/imgs/anscombe_quartet_visualization.png)
