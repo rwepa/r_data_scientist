@@ -1,5 +1,5 @@
 # file     : global_2m_temperature.R
-# title    : 繪製全球2公尺年平均氣溫 (2m Temperature)
+# title    : 全球2公尺年平均氣溫 (2m Temperature)
 # author   : Ming-Chang Lee
 # date     : 2026.07.28
 # YouTube  : https://www.youtube.com/@alan9956
