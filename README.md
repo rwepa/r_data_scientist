@@ -4,7 +4,7 @@
 
 + LINK: https://github.com/rwepa/business_analytics/
 
-# 全球2米平均年溫度圖
+# Global 2m Mean Temperature
 
 + 全球2米平均年溫度圖R程式碼: https://github.com/rwepa/r_data_scientist/blob/main/global_2m_temperature.R
 
