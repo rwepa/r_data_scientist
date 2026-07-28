@@ -4,6 +4,10 @@
 
 + LINK: https://github.com/rwepa/business_analytics/
 
+# 全球2米平均年溫度圖
+
+![image](https://github.com/rwepa/r_data_scientist/blob/main/imgs/global_2m_temperature.png)
+
 # Anscombe's Quartet
 
 + 安斯庫姆四重奏資料視覺化 R: https://github.com/rwepa/r_data_scientist/blob/main/anscombe_quartet_visualization.R
