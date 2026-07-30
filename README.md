@@ -2,6 +2,18 @@
 
 + LINK: https://github.com/rwepa/business_analytics/
 
+# 主題: R入門實作
+
+單位：桃園市政府青年事務局
+
+地點：桃園市青創指揮部
+
+日期：2026.08.02 ~ 2026.09.06
+
++ Day 1. R環境建置與語法基礎 PDF: https://github.com/rwepa/r_data_scientist/blob/main/hands-on_introduction_to_r_2026/hands_on_r_01_introduction.pdf
+
++ Day 1. R環境建置與語法基礎 R: https://github.com/rwepa/r_data_scientist/blob/main/hands-on_introduction_to_r_2026/hands_on_r_01_introduction.R
+
 # Global 2m Mean Temperature
 
 + 全球2米平均年溫度圖R程式碼: https://github.com/rwepa/r_data_scientist/blob/main/global_2m_temperature.R
