@@ -12,7 +12,7 @@
 
 + Day 1. R環境建置與語法基礎 PDF:
 
-https://github.com/rwepa/r_data_scientist/blob/main/hands-on_introduction_to_r_2026/hands_on_r_01_introduction.pdf
+   https://github.com/rwepa/r_data_scientist/blob/main/hands-on_introduction_to_r_2026/hands_on_r_01_introduction.pdf
 
 + Day 1. R環境建置與語法基礎 R: https://github.com/rwepa/r_data_scientist/blob/main/hands-on_introduction_to_r_2026/hands_on_r_01_introduction.R
 
