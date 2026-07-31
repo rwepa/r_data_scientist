@@ -2,7 +2,9 @@
 
 + LINK: https://github.com/rwepa/business_analytics/
 
-# 主題: R入門實作
+# Hands-on Introduction to R
+
+主題：R入門實作
 
 單位：桃園市政府青年事務局
 
