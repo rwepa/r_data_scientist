@@ -4,15 +4,15 @@
 
 # Hands-on Introduction to R
 
-主題：R入門實作
+主題: R入門實作
 
-單位：桃園市政府青年事務局
+單位: 桃園市政府青年事務局
 
-地點：桃園市青創指揮部
+地點: 桃園市青創指揮部
 
-日期：2026.08.02 ~ 2026.09.06
+日期: 2026.08.02 ~ 2026.09.06
 
-GitHub：https://github.com/rwepa/r_data_scientist/tree/main/hands-on_introduction_to_r_2026
+GitHub: https://github.com/rwepa/r_data_scientist/tree/main/hands-on_introduction_to_r_2026
 
 + Day 1. R環境建置與語法基礎 PDF:
 
@@ -38,7 +38,7 @@ GitHub：https://github.com/rwepa/r_data_scientist/tree/main/hands-on_introducti
 
 + 全球2米平均年溫度圖R程式碼: https://github.com/rwepa/r_data_scientist/blob/main/global_2m_temperature.R
 
-+ Date: 2026.07.28
++ 日期: 2026.07.28
 
 ![image](https://github.com/rwepa/r_data_scientist/blob/main/imgs/global_2m_temperature.png)
 
@@ -46,7 +46,7 @@ GitHub：https://github.com/rwepa/r_data_scientist/tree/main/hands-on_introducti
 
 + 安斯庫姆四重奏資料視覺化R程式碼: https://github.com/rwepa/r_data_scientist/blob/main/anscombe_quartet_visualization.R
 
-+ Date: 2026.3.13
++ 日期: 2026.3.13
 
 ![image](https://github.com/rwepa/r_data_scientist/blob/main/imgs/anscombe_quartet_visualization.png)
 
