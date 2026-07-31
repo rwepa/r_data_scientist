@@ -20,6 +20,10 @@
 
    https://github.com/rwepa/r_data_scientist/blob/main/hands-on_introduction_to_r_2026/hands_on_r_01_introduction.R
 
++ R下載: https://cran.csie.ntu.edu.tw/bin/windows/base/R-4.6.1-win.exe
+
++ RStudio下載: https://download1.rstudio.org/electron/windows/RStudio-2026.07.1-147.exe
+
 # Global 2m Mean Temperature
 
 + 全球2米平均年溫度圖R程式碼: https://github.com/rwepa/r_data_scientist/blob/main/global_2m_temperature.R
