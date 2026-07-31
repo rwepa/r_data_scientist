@@ -20,9 +20,13 @@
 
    https://github.com/rwepa/r_data_scientist/blob/main/hands-on_introduction_to_r_2026/hands_on_r_01_introduction.R
 
-+ R下載: https://cran.csie.ntu.edu.tw/bin/windows/base/R-4.6.1-win.exe
++ **R下載(Windows):** https://cran.csie.ntu.edu.tw/bin/windows/base/R-4.6.1-win.exe
 
-+ RStudio下載: https://download1.rstudio.org/electron/windows/RStudio-2026.07.1-147.exe
++ **RStudio下載(Windows):** https://download1.rstudio.org/electron/windows/RStudio-2026.07.1-147.exe
+
++ R下載(macOS): https://cran.csie.ntu.edu.tw/bin/macosx/sonoma-arm64/base/R-4.6.1-arm64.pkg
+
++ RStudio下載(macOS): https://download1.rstudio.org/electron/macos/RStudio-2026.07.1-147.dmg
 
 # Global 2m Mean Temperature
 
