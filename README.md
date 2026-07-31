@@ -12,6 +12,8 @@
 
 日期：2026.08.02 ~ 2026.09.06
 
+GitHub：https://github.com/rwepa/r_data_scientist/tree/main/hands-on_introduction_to_r_2026
+
 + Day 1. R環境建置與語法基礎 PDF:
 
    https://github.com/rwepa/r_data_scientist/blob/main/hands-on_introduction_to_r_2026/hands_on_r_01_introduction.pdf
