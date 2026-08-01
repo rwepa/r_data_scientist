@@ -42,6 +42,6 @@
     
 + haven       # 匯入統計檔案 SAS, SPSS
     
-+ data.table  # 匯出大型檔案 (100GB)
++ data.table  # 匯入大型檔案 (100GB)
    
 + tibble      # tibble 資料物件(Simple Data Frames)
