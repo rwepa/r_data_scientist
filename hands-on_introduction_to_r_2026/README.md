@@ -36,12 +36,12 @@
 
 + RStudio下載(macOS): https://download1.rstudio.org/electron/macos/RStudio-2026.07.1-147.dmg
 
-+ 套件總覽:
+套件總覽:
 
-    + e1071       # 支持向量機(svm)
++ e1071       # 支持向量機(svm)
     
-    + haven       # 匯入統計檔案 SAS, SPSS
++ haven       # 匯入統計檔案 SAS, SPSS
     
-    + data.table  # 匯出大型檔案 (100GB)
++ data.table  # 匯出大型檔案 (100GB)
    
-    + tibble      # tibble 資料物件(Simple Data Frames)
++ tibble      # tibble 資料物件(Simple Data Frames)
