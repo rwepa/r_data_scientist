@@ -36,7 +36,7 @@
 
 + RStudio下載(macOS): https://download1.rstudio.org/electron/macos/RStudio-2026.07.1-147.dmg
 
-套件總覽:
++ 套件總覽:
 
     + e1071       # 支持向量機(svm)
     
