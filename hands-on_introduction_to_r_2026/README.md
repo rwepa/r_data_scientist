@@ -10,6 +10,8 @@
 
 # 2026.08.02(日) Day1.R環境建置與語法基礎
 
+大綱:
+
 1.1 R/RStudio(或Posit Cloud)環境與專案管理
 
 1.2 物件、向量、矩陣、清單、data.frame/tibble
@@ -34,7 +36,7 @@
 
 + RStudio下載(macOS): https://download1.rstudio.org/electron/macos/RStudio-2026.07.1-147.dmg
 
-套件總覽
+套件總覽:
 
 + e1071       # 支持向量機(svm)
     
