@@ -14,18 +14,6 @@
 
 GitHub: https://github.com/rwepa/r_data_scientist/tree/main/hands-on_introduction_to_r_2026
 
-+ Day 1. R環境建置與語法基礎 PDF:
-
-   https://github.com/rwepa/r_data_scientist/blob/main/hands-on_introduction_to_r_2026/hands_on_r_01_introduction.pdf
-
-+ Day 1. R環境建置與語法基礎 R:
-
-   https://github.com/rwepa/r_data_scientist/blob/main/hands-on_introduction_to_r_2026/hands_on_r_01_introduction.R
-
-+ Day 1. 資料物件補充篇詳細說明:
-
-   https://github.com/rwepa/r_data_scientist/blob/main/hands-on_introduction_to_r_2026/hands_on_r_01_object.R
-
 + **R下載(Windows):** https://cran.csie.ntu.edu.tw/bin/windows/base/R-4.6.1-win.exe
 
 + **RStudio下載(Windows):** https://download1.rstudio.org/electron/windows/RStudio-2026.07.1-147.exe
