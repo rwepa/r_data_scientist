@@ -12,6 +12,8 @@
 
 日期: 2026.08.02 ~ 2026.09.06
 
+時間: 09:10-12:10, 13:30-16:30 (中間休息80分鐘)
+
 GitHub: https://github.com/rwepa/r_data_scientist/tree/main/hands-on_introduction_to_r_2026
 
 # Global 2m Mean Temperature
