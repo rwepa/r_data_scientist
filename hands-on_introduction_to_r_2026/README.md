@@ -47,3 +47,40 @@
 + data.table  # 匯入大型檔案 (100GB)
    
 + tibble      # tibble 資料物件(Simple Data Frames)
+
+# 2026.08.09(日) 第2章 資料清理與轉換(tidyverse)
+
+大綱:
+
+2.1 tidy data概念與常見資料問題(缺值、重複、型態)
+
+2.2 dplyr：filter/select/mutate/summarise/group_by
+
+2.3 tidyr：pivot_longer/pivot_wider、分欄/合欄
+
+2.4 合併資料：join家族與鍵值設計
+
+2.5 練習：完成一份可分析的乾淨資料集
+
++ Rmd: https://github.com/rwepa/r_data_scientist/blob/main/hands-on_introduction_to_r_2026/r_data_science_02_tidyverse_notebook.Rmd
+
++ HTML: https://github.com/rwepa/r_data_scientist/blob/main/hands-on_introduction_to_r_2026/r_data_science_02_tidyverse_notebook.html
+
++ PDF: https://github.com/rwepa/r_data_scientist/blob/main/hands-on_introduction_to_r_2026/r_data_science_02_tidyverse_notebook.pdf
+
++ DOCX: https://github.com/rwepa/r_data_scientist/blob/main/hands-on_introduction_to_r_2026/r_data_science_02_tidyverse_notebook.docx
+
+套件總覽:
+
+| 套件               | 主要功能                                                | 適用情境                                     |
+| ---------------- | -------------------------------------------------------------------- | ------------------------------- |
+| **magrittr**     | 提供 `%>%` 管線（Pipe）運算子，讓程式碼由左到右閱讀，更容易理解。         | 串接多個資料處理步驟。                     |
+| **dplyr**        | 資料整理套件，提供篩選、排序、選取、分組、彙總等功能。                     | 資料前處理、資料分析。                     |
+| **nycflights13** | 提供 2013 年紐約機場航班的教學資料集。                                   | 學習資料分析、`dplyr`、`ggplot2` 範例。    |
+| **tidyr**        | 將資料整理成 Tidy Data（整潔資料），例如寬表與長表互轉。                   | 資料清理與格式轉換。                      |
+| **tidyverse**    | 整合多個常用資料科學套件，如 `ggplot2`、`dplyr`、`tidyr`、`readr` 等。   | 一站式資料分析環境。                      |
+| **readr**        | 快速讀取與輸出 CSV、TXT 等文字資料。                                    | 匯入、匯出資料。                        |
+| **vcd**          | Visualizing Categorical Data，提供類別資料的統計圖形。                  | Mosaic Plot、Association Plot 等。 |
+| **RColorBrewer** | 提供美觀且適合資訊視覺化的配色方案。                                     | `ggplot2`、地圖、熱圖配色。              |
+| **GGally**       | 擴充 `ggplot2`，提供多變量資料探索圖形。                                | 散佈矩陣 (`ggpairs()`)、相關係數圖等。      |
+
