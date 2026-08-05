@@ -1,0 +1,1335 @@
+---
+title: "第2章 資料清理與轉換(tidyverse)"
+output:
+  word_document:
+    toc: true
+  html_notebook: default
+  pdf_document:
+    toc: true
+    number_sections: true
+    latex_engine: xelatex
+  html_document:
+    toc: true
+    df_print: paged
+---
+
+```{r}
+# file     : r_data_science_02_tidyverse.Rmd
+# title    : R入門實作班
+# subtitle : 2.資料清理與轉換(tidyverse)
+# author   : Ming-Chang Lee
+# date     : 2026.08.09
+# YouTube  : https://www.youtube.com/@alan9956
+# RWEPA    : http://rwepa.blogspot.tw/
+# GitHub   : https://github.com/rwepa
+# Email    : alan9956@gmail.com
+```
+
+## 大綱:
+
+- 2.1 tidy data概念與常見資料問題(缺值、重複、型態)
+- 2.2 dplyr：filter/select/mutate/summarise/group_by
+- 2.3 tidyr：pivot_longer/pivot_wider、分欄/合欄
+- 2.4 合併資料：join家族與鍵值設計
+- 2.5 練習：完成一份可分析的乾淨資料集
+
+# 🌸 2.1 tidy data概念與常見資料問題(缺值、重複、型態)
+
+## Tidy Data 簡介
+
+Tidy Data(整潔資料)是由資料科學 Hadley Wickham提出的資料整理原則，也是 tidyverse 生態系的核心概念。
+
+符合 Tidy Data 的資料，具有三項基本原則：
+
+1.每個變數(Variable)使用一個欄(Column)。
+
+2.每筆觀測(Observation)使用一列(Row)。
+
+3.每個資料值(Value)使用一個儲存格(Cell)。
+
+## Tidy Data 範例
+
+```{r}
+library(tibble)
+
+student <- tibble(
+  ID = c(1, 2, 3, 4),
+  Name = c("ALAN", "BOB", "Cathy", "David"),
+  Gender = c("F", "M", "F", "M"),
+  Math = c(95, 70, 80, 90),
+  English = c(80, 85, 90, 77)
+)
+
+print(student)
+```
+
+此資料廣義而言符合 Tidy Data 原則：
+
+- ID：變數。
+- Name：變數。
+- Gender：變數。
+- Math：變數。
+- English：變數。
+- 每一列代表一位學生。
+- 每個儲存格只有一個值。
+
+## 不符合 Tidy Data 範例
+
+上述範例嚴格來說，不完全符合 Tidy Data 的概念。
+
+1.每一欄代表一個變數（Variable），不符合 Tidy 原則，Math、English 其實都是同一個變數「科目」的不同值。
+
+2.每一列代表一筆觀測值（Observation），不符合 Tidy 原則，每位學生有兩筆成績，但目前只佔一列。
+
+3.每一個儲存格只有一個值（Value），完全符合，每個儲存格只有一個資料值。
+
+上例中的 Math, English 修改為 ２個欄位 (Subject, Score)，修改後為長資料(Long data)，修改後結果如下表所示。
+
+```{r}
+# > student_long
+# # A tibble: 8 × 5
+#      ID Name  Gender Subject Score
+#   <dbl> <chr> <chr>  <chr>   <dbl>
+# 1     1 ALAN  F      Math       95
+# 2     1 ALAN  F      English    80
+# 3     2 BOB   M      Math       70
+# 4     2 BOB   M      English    85
+# 5     3 Cathy F      Math       80
+# 6     3 Cathy F      English    90
+# 7     4 David M      Math       90
+# 8     4 David M      English    77
+```
+
+## 資料品質(Data Quality)
+
+實務上，資料分析約 60%～80% 的時間都花在資料前處理(Data Cleaning)，常見問題包括：
+
+1.遺漏值(Missing Values)。
+2.重複值(Duplicate Records)。
+3.資料型態錯誤(Incorrect Data Types)。
+
+## 1.遺漏值(Missing Values)
+
++ 遺漏值在R中顯示為NA, 不是空白.
+
+```{r}
+data(Cars93, package = "MASS")
+df <- Cars93
+print(head(df))
+```
+
+```{r}
+# 資料類別: data.frame 資料框物件
+class(df)
+```
+
+```{r}
+# 資料結構, 包括Factor因子(資料型態是字元character), num數值, int整數.
+str(df)
+```
+
+```{r}
+# Rear.seat.room等欄位有NA
+summary(df)
+```
+
+```{r}
+# 查看遺漏值
+is.na(df[1:3, 1:5])
+```
+
+```{r}
+# 每欄遺漏值數量, Rear.seat.room, Luggage.room 有遺漏值
+colSums(is.na(df))
+```
+
+```{r}
+# 每列遺漏值數量
+rowSums(is.na(df))
+```
+
+```{r}
+# 找出含 NA 的資料列
+df[!complete.cases(df), ]
+```
+
+```{r}
+# 刪除遺漏值, df資料沒有改變，只是顯示執行結果
+# 如果希望
+na.omit(df)
+```
+
+## 填補遺漏值
+
+### 方法一：平均數
+```{r}
+df$Luggage.room[is.na(df$Luggage.room)] <- mean(df$Luggage.room, na.rm = TRUE)
+colSums(is.na(df)) # Luggage.room 欄位已經沒有遺漏值
+```
+
+### 方法二：中位數
+```{r}
+df$Rear.seat.room <- median(df$Rear.seat.room, na.rm = TRUE)
+sum(is.na(df[,'Rear.seat.room']))
+```
+
+### 方法三：固定值
+```{r}
+# replace_na {tidyr}
+```
+
+## 2.重複值(Duplicate Records)
+
+範例：
+
+Bob 有重複。
+
+| ID  | Name    | Gender | Math | English |
+|-----|---------|--------|------|---------|
+| 1   | ALAN    | F      | 95   | 80      |
+| 2   | BOB     | M      | 70   | 85      |
+| 2   | BOB     | M      | 70   | 85      |
+| 4   | DAVID   | M      | 90   | 77      |
+
+```{r}
+df <- data.frame(
+  ID      = c(1, 2, 2, 4),
+  Name    = c("ALAN", "BOB", "BOB", "DAVID"),
+  Gender  = c("F", "M", "M", "M"),
+  Math    = c(95, 70, 70, 90),
+  English = c(80, 85, 85, 77)
+)
+df
+```
+
+### 找出重複資料列
+```{r}
+duplicated(df)
+```
+
+### 查看重複資料
+```{r}
+df[duplicated(df), ]
+```
+
+### 刪除重複資料列
+```{r}
+unique(df)
+```
+
+### 刪除重複資料列 {dplyr}
+```{r}
+library(dplyr)
+distinct(df)
+```
+
+## 3.資料型態錯誤(Incorrect Data Types)
+
+### 常見資料型態錯誤
+
+| 問題                     | 常見原因          | 解決方式          |
+| ------------------------ | -------------------- | -------------- |
+| 數值變成文字 (character) | Excel混入文字、單位  | as.numeric()   |
+| 日期變成文字             | CSV匯入              | as.Date()      |
+| 類別變成文字             | 性別、縣市           | factor()       |
+| 一欄存多個資訊           | "男,25"              | separate()     |
+| 多欄代表同一變數         | Jan、Feb、Mar        | pivot_longer() |
+| 一欄混合不同型態         | "100kg"              | 去除單位再轉型 |
+| 缺失值表示方式不一致     | "", "-", "NA"        | 統一成 NA      |
+| 重複資料                 | 匯入重覆             | distinct()     |
+| 欄名不一致               | Age、AGE、age        | rename()       |
+
+
++ 字串轉換為數值: df\$Column <- as.numeric(df\$Column)
+
++ 數值轉換為字串: df\$Column <- as.character(df\$Column)
+
++ 字串轉換為日期: df\$Column <- as.Date(df\$Column)
+
+### 字串轉換為日期
+```{r}
+tmp <- as.Date("31/08/2026", format="%d/%m/%Y")
+print(tmp)
+class(tmp)
+```
+
+### 字串轉換為因子 (Factor)
+```{r}
+# df$Column <- as.factor(df$Column)
+```
+
+### 因子轉換字串
+```{r}
+# df$Column <- as.character(df$Column)
+```
+
+# 🌸 2.2 dplyr：filter/select/mutate/summarise/group_by
+
+## 管線運算子(`%>%`)
+
++ magrittr 套件中主要的功能是提供 `%>%` 管線運算子(Pipe Operator)
+
++ 管線運算子使用 '|>'或 '%>%' 是一種將前一個指令或函數的輸出結果(output), 直接傳遞給下一個函數作為輸入的工具(input), 即做為右側函數的第一個參數輸入.
+
++ 它能讓程式碼由左至右、由上而下順暢閱讀, 提升可讀性避免多層巢狀括號的混亂.
+
++ 管線運算子能減少暫存變數, 不需要為每一個中間步驟宣告額外的變數.
+
++ RStudio \ Global Options \ Tools \ Code \ Editing: [Use native pipe operator,|> (requires R 4.1+)] 打勾
+
++ CRAN magrittr 套件: https://cran.r-project.org/web/packages/magrittr/index.html
+
++ magrittr 套件簡介:  https://cran.r-project.org/web/packages/magrittr/vignettes/magrittr.html
+
++ magrittr 套件範例
+
+```{r}
+# 1加侖 = 3.785公升
+# 1公里 = 0.621371192 英里
+# 原資料: miles per gallon
+# 新資料: kilometers per liter
+# 新資料 = miles per gallon*((1/0.621371192)/3.785)=0.42519
+
+library(magrittr)
+
+car_data <- 
+  mtcars %>%
+  subset(hp > 100) %>%
+  aggregate(. ~ cyl, data = ., FUN = . %>% mean %>% round(2)) %>%
+  transform(kpl = mpg %>% multiply_by(0.4251)) %>%
+  print
+```
+
+## 認識dplyr套件
+
++ r cran dplyr: https://cran.r-project.org/web/packages/dplyr/index.html
++ dplyr: A Grammar of Data Manipulation 資料操作文法
++ dplyr = data frame + plyr
++ plyr 發音 plier (鉗子), plyr 是 dplyr 的前個套件版本, 作者推薦使用 dplyr 套件
++ plyr: https://www.slideshare.net/hadley/plyr-one-data-analytic-strategy
+
+
+## flights 2013年NYC機場航班資料, 33萬筆資料
+```{r}
+library(dplyr)
+library(nycflights13)
+```
+
+```{r}
+data(flights) # tibble: 336776*19
+print(flights)
+```
+
+```{r}
+class(flights) # "tbl_df" "tbl" "data.frame"
+```
+
++ flights 資料集變數說明
+
+| 變數           | 資料型態  | 中文說明           | 範例                   |
+| -------------- | --------- | ------------------ | ---------------------- |
+| year           | integer   | 年份               | 2013                   |
+| month          | integer   | 月份               | 1~12                   |
+| day            | integer   | 日期               | 1~31                   |
+| dep_time       | integer   | 實際起飛時間(HHMM) | 517(表示05:17), NA取消 |
+| sched_dep_time | integer   | 表定起飛時間(HHMM) | 515                    |
+| dep_delay      | double    | 起飛延誤(分鐘)     | 2、-5、60              |
+| arr_time       | integer   | 實際抵達時間(HHMM) | 830                    |
+| sched_arr_time | integer   | 表定抵達時間(HHMM) | 819                    |
+| arr_delay      | double    | 抵達延誤(分鐘)     | 11、-20                |
+| carrier        | character | 航空公司代碼       | AA、DL                 |
+| flight         | integer   | 航班編號           | 1545                   |
+| tailnum        | character | 飛機註冊編號       | N14228                 |
+| origin         | character | 起飛機場           | JFK                    |
+| dest           | character | 目的地機場         | LAX                    |
+| air_time       | double    | 飛行時間(分鐘)     | 150                    |
+| distance       | double    | 飛行距離(英里)     | 950                    |
+| hour           | double    | 表定起飛小時       | 5                      |
+| min            | double    | 表定起飛分鐘       | 15                     |
+| time_hour      | POSIXct   | 日期時間(UTC)      | 2013-01-01 05:00       |
+
++ dep_delay:
+
+  + dep_delay 起飛延誤 = 實際起飛 - 表定起飛
+  
+  + -10: 提早10分鐘
+  
+  + 0:	準時
+  
+  + 15:	延誤15分鐘
+  
+  + 120: 延誤2小時
+  
++ arr_delay:
+
+  + arr_delay 抵達延誤 = 實際抵達 - 表定抵達, **抵達延誤可用於分析航班績效重要的變數**
+  
+  + 11: 晚11分鐘抵達
+  
+  + -20: 提早20分鐘抵達
+
++ 資料檢視函數,快速查看資料框（data.frame 或 tibble）的結構.
+```{r}
+glimpse(flights)
+```
++ 資料結構
+```{r}
+str(flights)
+```
+
++ 資料摘要
+```{r}
+summary(flights) # 有NA
+```
+
++ 如何轉換為 tbl_df, 使用 tibble::as.tbl
+```{r}
+mytbl <- tibble::as_tibble(iris)
+class(mytbl)
+```
+
++ 前6筆資料
+```{r}
+head(flights)
+```
+
++ 後6筆資料
+```{r}
+# 注意:資料最後日期為12月31日, 但資料排序不是依照月,日排序, 最後一筆是9月30日
+tail(flights)
+```
+
+## dplyr 套件重要函數
+
+| 函數         | 說明                    |
+| ------------ | ----------------------- | 
+| filter       | 條件式篩選資料          |
+| slice        | 列的指標篩選資料        |
+| arrange      | 排序                    |
+| select       | 選取行/更改欄位名稱     |
+| rename       | 選取所有行/更改欄位名稱 | 
+| distinct     | 選取不重覆資料          |
+| mutate       | 新增欄位,保留原資料     |
+| transmute    | 新增欄位,不保留原資料   |
+| summarise    | 群組計算                |
+
+### filter 條件式篩選資料
+
+```{r}
+filter(flights, month == 1, day == 1)
+```
+
+```{r}
+flights[flights$month == 1 & flights$day == 1, ] # 基本指令, same as filter
+```
+
+```{r}
+filter(flights, month == 1 | month == 2) # AND 條件篩選, 同理 OR 使用 | 
+```
+
+### slice 列的指標篩選資料
+
+```{r}
+# 第1筆
+slice(flights, 1)
+```
+
+```{r}
+# 最後一筆
+slice(flights, n()) 
+```
+
+```{r}
+# 第123456筆至最後一筆
+slice(flights, 123456:n())
+```
+
+### arrange 排序
+
+```{r}
+# 依照年,月,日遞增排序
+arrange(flights, year, month, day)
+```
+
+```{r}
+# 依照延誤時間遞減排序
+arrange(flights, desc(arr_delay))
+```
+
+### select 選取行
+```{r}
+# 選取3行資料
+select(flights, year, month, day)
+```
+
+### select 選取行, 使用冒號(:)表示連續範圍
+```{r}
+select(flights, year:dep_delay)
+```
+
+### select 選取行, 使用負號(-)表示刪除
+```{r}
+select(flights, -(year:day))
+```
+
+### select 選取行並且更改欄位名稱
+```{r}
+# select 只選取 tailnum 1行資料, 更名為 tail_num
+select(flights, tail_num = tailnum)
+```
+
+### select 選取行, 使用 starts_with 等參數
+```{r}
+iris %>% select(starts_with("Sepal"))
+```
+
++ starts_with(): Starts with a prefix.
+
++ ends_with(): Ends with a suffix.
+
++ contains(): Contains a literal string.
+
++ matches(): Matches a regular expression.
+
++ num_range(): Matches a numerical range like 1:100.
+
+### rename 更改欄位名稱
+```{r}
+rename(flights, ActualDepatureTime = dep_time)
+```
+
+### distinct 選取不重覆資料
+```{r}
+set.seed(168)
+
+df <- data.frame(
+  x = sample(10, 100, replace = TRUE), # rep = replace
+  y = sample(10, 100, rep = TRUE)
+) # 100*2
+
+head(df)
+```
+
+```{r}
+# 不重複列
+distinct(df)
+```
+
+```{r}
+# nrow 列數
+nrow(distinct(df))
+```
+
+```{r}
+nrow(distinct(df, x, y))
+```
+
+```{r}
+distinct(df, x) # 與下列結果相同 unique(df$x)
+```
+
+```{r}
+distinct(df, y) # 與下列結果相同 unique(df$y)
+```
+
+### mutate 新增欄位
+
+```{r}
+# mutate 新增欄位,保留原資料
+print(mutate(mtcars, displ_l = disp / 61.0237))
+```
+
+### summarise - 計算加總
+
+```{r}
+# 計算航班總數
+flights %>%
+  summarise(            # summarise()：將所有資料彙整成一列
+    total_flights = n() # n()：資料筆數
+  )
+```
+
+### summarise - 平均起飛延誤
+```{r}
+flights %>%
+  summarise(
+    mean_dep_delay = mean(dep_delay, na.rm = TRUE)
+  )
+```
+
+### summarise - 多個統計量
+```{r}
+flights %>%
+  summarise(
+    avg = mean(dep_delay, na.rm = TRUE),
+    sd  = sd(dep_delay, na.rm = TRUE),
+    min = min(dep_delay, na.rm = TRUE),
+    max = max(dep_delay, na.rm = TRUE)
+  )
+```
+
+### group_by + summarise
+
+```{r}
+# 每家航空公司的平均延誤
+flights %>%
+  group_by(carrier) %>%
+  summarise(
+    avg_delay = mean(dep_delay, na.rm = TRUE)
+  )
+```
+
+```{r}
+# 計算航空公司的班次總計
+flights %>%
+  group_by(carrier) %>%
+  summarise(
+    flights = n()
+  )
+```
+
+### group_by 多群組 + summarise
+
+```{r}
+# 依航空公司與月份
+flights %>%
+  group_by(carrier, month) %>%
+  summarise(
+    avg_delay = mean(dep_delay, na.rm = TRUE)
+  )
+```
+
+### 計算航空公司的平均延誤時間, 由大至小排序
+```{r}
+flights %>%
+  group_by(carrier) %>%
+  summarise(
+    avg_delay = mean(dep_delay, na.rm = TRUE)
+  ) %>%
+  arrange(desc(avg_delay))
+```
+
+### dplyr in R Cheat Sheet
+
+https://nyu-cdsc.github.io/learningr/assets/data-transformation.pdf
+
+
+## 熟悉開放資料集於dplyr應用
+
++ 2025.07.12_DATASETS_WISHLIST
+  + https://github.com/rwepa/r_data_scientist/tree/main/r_training_advanced_ppt_codes_2025#20250712_datasets_wishlist
+
+```{r}
+# 學員練習
+```
+
+# 🌸 2.3 tidyr：pivot_longer/pivot_wider、分欄/合欄
+
+## 長寬資料簡介
+
++ tidyr 套件中的 pivot_longer()（將寬表格轉為長表格）與 pivot_wider()（將長表格轉為寬表格）是 R 語言中重塑資料（Reshaping Data）的核心函數。
+
++ pivot_longer 寬轉長: 當你的資料中欄位名稱包含資料變數（例如把年份 2021, 2022 放成欄位名）時, 非常適合使用 pivot_longer.
+
++ pivot_longer 範例
+
+```{r}
+library(tidyr)
+library(dplyr)
+
+# 建立寬表格 (Wide Format)
+df_wide <- tibble(
+  student = c("Alice", "Bob"),
+  Math = c(90, 80),
+  English = c(85, 95)
+)
+
+print(df_wide)
+```
+
+```{r}
+# 轉為長表格 (Long Format)
+df_long <- df_wide %>% 
+  pivot_longer(
+    cols = c(Math, English),     # 要合併的欄位（也可以寫 -student）
+    names_to = "subject",        # 舊欄位名稱要放入的新欄位名稱
+    values_to = "score"          # 舊欄位數值要放入的新欄位名稱
+  )
+
+print(df_long) # subject 欄位已經改為長資料
+```
+
++ pivot_wider 長轉寬: 當你需要將資料做交叉表統計, 或是有些欄位的類別需要拆分成獨立欄位時, 使用 pivot_wider.
+
++ pivot_wider 範例
+
+```{r}
+# 轉為寬表格 (Wide Format)
+df_recreated_wide <- df_long %>% 
+  pivot_wider(
+    names_from = subject,   # 哪一個欄位的值做為新欄位名稱
+    values_from = score     # 哪一個欄位的值填入新欄位中
+  )
+
+print(df_recreated_wide)
+```
++ 寬表格的欄位名包含多個資訊 (例如 Math_2021, Math_2022)
+
+```{r}
+# 包含科目與年份的複合欄位名
+df_complex <- tibble(
+  student = c("Alice", "Bob"),
+  Math_2021 = c(90, 80),
+  Math_2022 = c(92, 85),
+  English_2021 = c(85, 95),
+  English_2022 = c(88, 98)
+)
+print(df_complex)
+```
+
+```{r}
+# 使用 names_sep 或 names_pattern 一次拆分成兩個新欄位
+df_complex_long <- df_complex %>% 
+  pivot_longer(
+    cols = -student,                 # 負號表示除了此欄位的其他所有欄位
+    names_to = c("subject", "year"), # 長資料的2個新欄位名稱
+    names_sep = "_",                 # 根據底線拆分
+    values_to = "score"              # 長資料的值
+  )
+
+print(df_complex_long)
+```
+
+## tidyr + ggplot2 --> 使用 tidyverse 整合套件
+
+```{r}
+# 1. 載入所需套件
+library(tidyverse) # 包含 tidyr, ggplot2, dplyr, readr 等
+
+# 2. 建立模擬資料（寬表格：包含 Month, Product_A, Product_B, Product_C）
+set.seed(42)
+df_sales_wide <- tibble(
+  month = 1:12,
+  Product_A = cumsum(rnorm(12, mean = 5, sd = 2)) + 100,
+  Product_B = cumsum(rnorm(12, mean = 3, sd = 3)) + 80,
+  Product_C = cumsum(rnorm(12, mean = 7, sd = 1.5)) + 60
+)
+
+print("原始寬表格 (df_sales_wide)：")
+print(head(df_sales_wide, 3))
+```
+
+```{r}
+# 3. 使用 pivot_longer 轉為長表格
+df_sales_long <- df_sales_wide %>%
+  pivot_longer(
+    cols = starts_with("Product_"), # 選擇要合併的欄位 (也可以寫 -month)
+    names_to = "product_type",      # 舊欄位名稱轉入此新欄位
+    values_to = "sales_amount"      # 舊欄位數值轉入此新欄位
+  )
+
+print("轉換後的長表格 (df_sales_long)：")
+print(head(df_sales_long, 6))
+```
+
+```{r}
+# 4. 結合 ggplot2 繪製多指標折線圖
+ggplot(df_sales_long, aes(x = month, y = sales_amount, color = product_type)) +
+  
+  # 繪製折線與資料點
+  geom_line(linewidth = 1) +
+  geom_point(size = 2.5) +
+  
+  # 設定 X 軸刻度（顯示 1~12 月）
+  scale_x_continuous(breaks = 1:12) +
+  
+  # 設定顏色與圖例名稱
+  scale_color_brewer(
+    palette = "Set1",
+    name = "產品類別",
+    labels = c("產品 A", "產品 B", "產品 C")
+  ) +
+  
+  # 標題與軸標籤
+  labs(
+    title = "2025 年各產品月銷售額趨勢圖",
+    subtitle = "使用 tidyr::pivot_longer 轉檔後繪製",
+    x = "月份",
+    y = "銷售額 (萬元)",
+    caption = "資料來源：OO企業銷售部"
+  ) +
+
+  # 套用簡潔主題與細節微調
+  theme_minimal(base_size = 12) + # 簡潔主題風格(無背景填色, 無外框線, 保留網格線), 基礎文字大小=12
+  theme(
+    
+    # 將標題置中對齊 (hjust = 0.5)，並加粗
+    plot.title = element_text(hjust = 0.5, face = "bold", size = 16),
+    
+    # 副標題一起置中對齊
+    plot.subtitle = element_text(hjust = 0.5, size = 12, color = "gray30"),
+    
+    # 將圖例移至下方
+    legend.position = "bottom", 
+    
+    # 移除次要網格線
+    panel.grid.minor = element_blank()
+  )
+```
+
+## 近十年國防預算結構分析
+
++ 下載: https://data.gov.tw/dataset/139911
++ 檔名: 近十年國防預算結構分析_290973.csv
+
+```{r}
+# 載入套件
+library(readr)
+library(dplyr)
+
+# 匯入CSV
+df <- read_csv("近十年國防預算結構分析_290973.csv")
+
+# 顯示資料集
+df # 46*8
+```
+
+
++ 資料檢視函數,快速查看資料框（data.frame 或 tibble）的結構.
+```{r}
+glimpse(df)
+```
+
++ 資料結構
+```{r}
+str(df)
+```
+
++ 資料摘要
+```{r}
+summary(df) # 有NA
+```
+```{r}
+# 前6筆
+head(df)
+```
+
+```{r}
+# 後6筆
+tail(df)
+```
+
+## 長資料(1行軍事投資,作業維持,人員維持,其他)轉換為寬資料(4行)
+
+```{r}
+library(tidyr) # spread
+library(dplyr)
+```
+
+### 方法1 不使用管線操作
+```{r}
+defense_long <- select(df, Annual:Percentage)
+
+defense_long <- select(defense_long, -c(ItemName))
+
+# spread 表示將長資料轉換為寬資料
+defense_wide <- spread(defense_long, key=Category, value=Percentage)
+
+defense_wide
+```
+
+### 方法2 使用%>%
+```{r}
+defense_wide <- df %>%
+  select(Annual:Percentage) %>%
+  select(-c(ItemName)) %>%
+  spread(key=Category, value=Percentage) 
+
+defense_wide
+```
+
+## 國防預算結構統計圖
+```{r}
+plot(defense_wide$軍事投資, type="l", 
+     xlab="年度", 
+     ylab="國防預算百分比", 
+     main="101~113年國防預算結構統計圖",
+     axes=FALSE,
+     cex=0.5,
+     ylim=c(0, max(defense_wide[2:5], na.rm=TRUE)))
+lines(defense_wide$作業維持, col="red", lty=2)
+lines(defense_wide$人員維持, col="blue", lty=3)
+lines(defense_wide$其他, col="grey", lty=4)
+
+#ind <- round(seq(1, nrow(defense_wide), length.out=5))
+axis(1, at=c(1:13), labels=defense_wide$Annual)
+axis(2)
+legend(x="bottomright", 
+       inset = c(0.02, 0.02),
+       legend=c("軍事投資", "作業維持", "人員維", "其他"),
+       col=c("black", "red", "blue", "grey"),
+       lty=c(1:4),
+       lwd=2,
+       cex = 0.8)
+box()
+# legend(x設定值= "xxx")
+# topleft    top    topright
+# left       center right
+# bottomleft bottom bottomright
+```
++ 練習使用 pivot_wider, pivot_longer {tidyr}進行長寬資料轉換
+
+# 🌸 2.4 合併資料：join家族與鍵值設計
+
+## 合併簡介
+
++ tidyverse 中的 join 是資料整合（Data Joining）的核心功能，主要由 dplyr 套件提供。它可以依據一個或多個共同欄位（Key），將兩個資料框（data.frame 或 tibble）合併，功能類似 SQL 的 JOIN。
+
++ Join 的目的通常是「將右表（第二個資料框）的欄位加入左表（第一個資料框）」。
+
++ 共同欄位（ID）只是拿來配對，一般不會新增右表之共同欄位。
+
++ dplyr 套件六種合併資料
+
+| 函數         |   保留左表    |  保留右表 | 新增右表欄位 | 常見用途          |
+| ------------ | ------------- | ---------- | ---------- | ------------------- |
+| inner_join() |   共同資料    | 共同資料   |    ✔       | 交集分析           |
+| left_join()  |    ✔          | 只有符合者 |    ✔       | 最常用，補充欄位     |
+| right_join() |  只有符合者   |   ✔        |    ✔       | 保留右表             |
+| full_join()  |    ✔          |   ✔        |    ✔       | 完整整合資料          |
+| semi_join()  |  ✔（符合者）  |   ✖        |    ✖       | 篩選存在於右表的資料 |
+| anti_join()  | ✔（未符合者） |   ✖        |    ✖       |  找遺漏、異常資料    |    
+
+  + 註1: semi_join() 的用途不是合併資料，而是依據右表是否存在符合條件的鍵值來篩選左表資料，因此只回傳左表原本的欄位。
+  
+  + 註2: anti_join() 的目的也是篩選，只留下左表中找不到配對的列，因此同樣不會加入右表的任何欄位。
+
+## 範例1 left_join - 左表新增右表的１個欄位
+
+```{r}
+library(dplyr)
+
+students <- tibble(
+  ID = c(1,2,3),
+  Name = c("Alan","Bob","Cathy")
+)
+print("student - 左表")
+print(students)
+
+scores <- tibble(
+  ID = c(1,2,3),
+  Math = c(90,80,95)
+)
+print("scores - 右表")
+print(scores)
+```
+
+```{r}
+students %>%
+    left_join(scores, by = "ID")
+```
+
+## 範例２ left_join - 左表新增右表的多個欄位
+
+```{r}
+scores <- tibble(
+  ID = c(1,2,3),
+  Math = c(90,80,95),
+  English = c(88,76,91),
+  Science = c(92,81,94)
+)
+
+students %>%
+    left_join(scores, by="ID")
+```
+
+## 範例３ left_join - 右表的欄位找不到
+
+```{r}
+
+print(students)
+
+scores <- tibble(
+  ID = c(1,2),
+  Math = c(90,80)
+)
+print("scores - 右表")
+print(scores)
+```
+
+```{r}
+# 新增結果為 NA
+students %>%
+    left_join(scores)
+```
+
+# 🌸 2.5 練習：完成一份可分析的乾淨資料集
+
+## 參考Open Data 等資料，完成 Tidy Data。
+
+## 熟悉以下資料集之資料操作
+
+1. AirPassengers  : ts         時間序列
+2. Titanic        : table      表格
+3. airquality     : data.frame 資料框
+4. iris           : data.frame 資料框 
+5. mtcars         : data.frame 資料框
+6. penguins       : data.frame 資料框
+
+### 1. AirPassengers 空中旅客人數資料集 -----
+
++ 1949-1960年航空旅客每月平均乘客數,單位:千人.
++ 12年*12個月=144筆資料
++ 時間序列是一組按照時間發生先後順序進行排列的資料序列.
++ 通常一組時間序列的時間間隔為一固定值.
++ https://github.com/rwepa/r_data_scientist/blob/main/r_training_ppt_codes_2025/r_data_science_02_r_object.R#L652
+
+```{r}
+?AirPassengers
+```
+
+```{r}
+data("AirPassengers")
+
+AirPassengers
+```
+
+```{r}
+class(AirPassengers) # ts
+
+length(AirPassengers)
+```
+```{r}
+str(AirPassengers)
+```
+
+```{r}
+summary(AirPassengers)
+```
+
+```{r}
+# 繪製 ts 資料
+plot(AirPassengers, main="AirPassengers時間序列圖")
+grid()
+# 找出樣式 (Patterns)
+```
+
+### 2. Titanic 1912年鐵達尼號資料集
+
+```{r}
+?Titanic
+
+data(Titanic)
+
+Titanic # Titanic 不是 data.frame, 而是一個四維列聯表 (Contingency Table)
+
+class(Titanic) # table
+
+sum(Titanic) # 總人數
+```
+
+```{r}
+# 物件結構, 有4個維度(列: Class, 行: Sex, 第3維度: Age, 第4維度: Survived)
+# 4*2*2*2 = 32 種組合
+str(Titanic)
+```
+
+```{r}
+summary(Titanic)
+```
+
+```{r}
+# 繪製 table 資料
+# Mosaic Plot (馬賽克圖)是一種專門用來呈現多維類別資料 (Multivariate Categorical Data)的圖形.
+# 馬賽克圖用來呈現32種組合的人數. 矩形越大, 代表該組合的人數越多.
+# Crew > 3rd (三等艙) > 1st(頭等艙) > 2nd(二等艙)
+plot(Titanic)
+```
+```{r}
+# 兒童存活率較高嗎？
+apply(Titanic, c(3, 4), sum)
+```
+
+```{r}
+# 女性的存活率更高？
+apply(Titanic, c(2, 4), sum)
+```
+
+```{r}
+# 使用 mosaicplot() 自訂顏色
+mosaicplot(
+  Titanic,
+  color = c(
+    "#4E79A7",  # 藍
+    "#F28E2B",  # 橘
+    "#59A14F",  # 綠
+    "#E15759",  # 紅
+    "#76B7B2",  # 青
+    "#EDC948",  # 黃
+    "#B07AA1",  # 紫
+    "#FF9DA7"   # 粉
+  ),
+  main = "Titanic",
+  xlab = "Class",
+  ylab = "Sex"
+)
+```
+
+```{r}
+# 依 Survival 著色
+
+# 生還 (Yes): 綠色
+# 死亡 (No) : 紅色
+
+cols <- c(
+  "#2ECC71",   # 生還
+  "#E74C3C"    # 死亡
+)
+
+mosaicplot(
+  Titanic,
+  color = cols,
+  main = "Titanic Mosaic Plot with Survival",
+  xlab = "Class",
+  ylab = "Sex"
+)
+```
+
+```{r}
+# 使用 vcd 套件
+# install.packages("vcd")
+library(vcd)
+
+mosaic(
+  Titanic,
+  shade = TRUE,
+  legend = TRUE,
+  main = "Titanic Mosaic Plot with vcd package"
+)
+# 左側（Y 軸）Class, 依序為: 1st, 2nd, 3rd, Crew, 每一列代表一種艙等.
+# 上方 Sex, 區分成: Male, Female, 左右兩區比較男女差異.
+# 下方 Survived, 區分成: No, Yes, 可以直接比較 死亡 vs 生還.
+# 最右側 Age, 區分成: Adult, Child.
+# 右側圖例顏色代表示 Pearson residuals, 即 Pearson 標準化殘差, 表示'實際人數'與'理論期望人數'的差異.
+# 藍色表示 實際人數 > 期望值人數, Observed > Expected. 例如: 頭等艙女性生還, Crew 男性死亡 都是深藍色.
+# 紅色表示 實際人數 < 期望值人數, Observed < Expected. 例如: 頭等艙男性生還是紅色.
+# 灰色表示 實際人數 大約等於 期望值人數, Observed ≒ Expected, 即沒有顯著差異.
+# 圖例下方表示 p-value < 2.22e-16, 卡方獨立性檢定 (Chi-square Test of Independence) 的檢定結果.
+# 其意義為:
+#   虛無假設 (H0): Class、Sex、Age 與 Survived 彼此獨立, 沒有關聯.
+#   對立假設 (H1): Class、Sex、Age 與 Survived 彼此有關聯.
+# 檢定結果: p-value 極小 (遠小於 0.05), 因此拒絕虛無假設.
+# 檢定結論: 艙等(Class), 性別(Sex), 年齡(Age) 與是否生還(Survived)之間存在顯著關聯.
+
+# 第1列結果:
+# 1.男性區塊比女性寬, 表示頭等艙男性乘客較多.
+# 2.女性的 Yes(生還) 區塊遠大於 No (死亡).
+# 3.男性的 No (死亡) 區塊仍相當大.
+# 4.幾乎全部都是 Adult (成人), 兒童非常少.
+# 5.Female No  深紅: 死亡遠低於期望值.
+# 6.Female Yes 深藍: 生還遠高於期望值.
+# 7.第1列結論: 男性沒有明顯偏向生還或死亡, 女性呈現極端結果——幾乎都生還, 很少死亡.
+```
+
+```{r}
+# 使用 ColorBrewer 配色
+library(RColorBrewer)
+
+mosaicplot(
+  Titanic,
+  # color = brewer.pal(8, "Set2"),
+  color = brewer.pal(8, "Pastel1"),
+  main = "Titanic Mosaic Plot with ColorBrewer"
+)
+```
+
+```{r}
+# 將 table 轉換為 data.frame
+titanic_df <- as.data.frame(Titanic)
+titanic_df
+```
+
+### 3. airquality 1973年紐約空氣品質資料集
+
+```{r}
+?airquality # 153*6
+
+data(airquality)
+
+airquality # 153*6
+```
+
+```{r}
+class(airquality)
+
+str(airquality)
+# Ozone	: Ozone (ppb)             : 平均臭氧濃度
+# Solar.R	: Solar R (lang)        : 太陽輻射頻率
+# Wind	: Wind (mph)              : 平均風速(英里/小時)
+# Temp	: Temperature (degrees F) : 每日最高溫(華氏)
+# Month	: Month (1--12)           : 月份
+# Day	  : Day of month (1--31)    : 日期
+```
+
+```{r}
+# 有 NA 值
+summary(airquality)
+```
+
+```{r}
+# 散佈圖矩陣 (Scatterplot Matrices)
+pairs(airquality, 
+      panel = panel.smooth, 
+      main = "1973年紐約空氣品質-散佈圖矩陣")
+# 找出樣式 (Patterns)
+```
+
+### 4. iris 鳶尾花資料集------
+
+```{r}
+?iris
+
+data(iris)
+
+iris # 150*5
+```
+
+```{r}
+str(iris) # Species 為 factor物件, 有3種花 ("setosa", "versicolor", "virginica")
+levels(iris$Species)
+```
+```{r}
+summary(iris) # 沒有 NA 值, 3種花的樣本數皆各為50筆.
+```
+```{r}
+# 相關係數
+panel.cor <- function(x, y, digits = 2, prefix = "", cex.cor, ...) {
+  par(usr = c(0, 1, 0, 1))
+  r <- abs(cor(x, y))
+  txt <- format(c(r, 0.123456789), digits = digits)[1]
+  txt <- paste0(prefix, txt)
+  if(missing(cex.cor)) cex.cor <- 0.8/strwidth(txt)
+  text(0.5, 0.5, txt, cex = cex.cor * r)
+}
+
+# iris-散佈圖矩陣
+pairs(iris[1:4], 
+      col = iris$Species, 
+      pch = 16, 
+      lower.panel = panel.smooth, # 使用 lowess
+      upper.panel = panel.cor)
+
+legend(x = 0.5,
+       y = 1, 
+       levels(iris$Species), 
+       pch = 16,
+       col = (1:3),
+       bty = "n",
+       horiz = TRUE, 
+       xjust = 0.5, 
+       yjust = 0.2, 
+       xpd = TRUE)
+# bty = "n" 取消圖例外框
+# xpd = TRUE: 所有繪圖都會被裁切至圖形區域(figure region)
+# xpd = FALSE: 所有繪圖都會被裁切至繪圖(plot region)
+# 找出樣式 (Patterns)
+```
+
+### 5. mtcars 汽車資料集
+
+```{r}
+?mtcars
+# 
+# mpg	 : Miles/(US) gallon                       ; 英里/加侖
+# cyl	 : Number of cylinders                     ; 汽缸數
+# disp : Displacement (cu.in.)                   ; 排氣量
+# hp   : Gross horsepower                        ; 總馬力
+# drat : Rear axle ratio                         ; 後軸傳動比
+# wt   : Weight (1000 lbs)                       ; 重量
+# qsec : 1/4 mile time                           ; 加速至1/4英哩時間
+# vs   : Engine (0 = V-shaped, 1 = straight)     ; 引擎排列
+# am   : Transmission (0 = automatic, 1 = manual); 變速箱(0=自排, 1=手排)
+# gear : Number of forward gears                 ; 前進檔數
+# carb : Number of carburetors                   ; 化油器數量
+data(mtcars)
+
+mtcars # 32*11
+```
+
+```{r}
+str(mtcars) # 所有資料皆為數值型
+```
+
+```{r}
+summary(mtcars) # 資料沒有 NA
+```
+
+```{r}
+# mtcars-散佈圖矩陣
+pairs(mtcars, 
+      main = "mtcars data", 
+      gap = 1/4)
+# gap: 對角線上的變數名稱(Label)與左右散佈圖保留多少空白距離, 本例將預設留白縮小為0.25, 整張圖會更緊湊.
+```
+```{r}
+# mtcars-條件圖(區分不同 cyl條件)
+coplot(mpg ~ disp | as.factor(cyl), 
+       data = mtcars,
+       panel = panel.smooth, 
+       rows = 1)
+```
+
+### 6. penguins 南極洲帕爾默站企鵝
+
+```{r}
+?penguins
+
+# species: factor, with levels Adelie, Chinstrap, and Gentoo; 3個物種: 阿德利企鵝(Adelie penguin), 頰帶企鵝(chinstrap penguin), 巴布亞企鵝(Gentoo penguin) 
+# island: factor, with levels Biscoe, Dream, and Torgersen) ; 島嶼
+# bill_len: numeric, bill length (millimeters)              ; 喙長(公釐, mm)
+# bill_dep: numeric, bill depth (millimeters)               ; 喙深
+# flipper_len: integer, flipper length (millimeters)        ; 鳍長
+# body_mass: integer, body mass (grams)                     ; 重量
+# sex: factor, with levels female and male                  ; 性別
+# year: integer, study year: 2007, 2008, or 2009            ; 研究年份
+
+data(penguins)
+
+penguins # 344*8
+```
+
+```{r}
+str(penguins) # 資料集包括3種不同資料型態: Factor, num, int
+```
+
+```{r}
+summary(penguins) # 有 NA 值
+```
+
+```{r}
+names(penguins)
+```
+
+```{r}
+# 各欄位之遺漏值數量
+colSums(is.na(penguins))
+```
+
+```{r}
+# install.packages("GGally")
+
+library(GGally)
+
+ggpairs(
+  penguins,
+  columns =
+    c("bill_len",
+      "bill_dep",
+      "flipper_len",
+      "body_mass"),
+  aes(color=species)
+)
+# 找出樣式 (Patterns)
+```
+
+###### end
