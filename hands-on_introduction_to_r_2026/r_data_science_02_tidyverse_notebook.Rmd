@@ -976,7 +976,7 @@ students %>%
 5. mtcars         : data.frame 資料框
 6. penguins       : data.frame 資料框
 
-### 1. AirPassengers 空中旅客人數資料集 -----
+### 1. AirPassengers 空中旅客人數資料集
 
 + 1949-1960年航空旅客每月平均乘客數,單位:千人.
 + 12年*12個月=144筆資料
@@ -1184,7 +1184,7 @@ pairs(airquality,
 # 找出樣式 (Patterns)
 ```
 
-### 4. iris 鳶尾花資料集------
+### 4. iris 鳶尾花資料集
 
 ```{r}
 ?iris
