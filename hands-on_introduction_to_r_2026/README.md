@@ -62,13 +62,13 @@
 
 2.5 練習：完成一份可分析的乾淨資料集
 
-+ Rmd: https://github.com/rwepa/r_data_scientist/blob/main/hands-on_introduction_to_r_2026/r_data_science_02_tidyverse_notebook.Rmd
++ Rmd: https://github.com/rwepa/r_data_scientist/blob/main/hands-on_introduction_to_r_2026/hands_on_r_02_tidyverse_notebook.Rmd
 
-+ HTML: https://github.com/rwepa/r_data_scientist/blob/main/hands-on_introduction_to_r_2026/r_data_science_02_tidyverse_notebook.html
++ HTML: https://github.com/rwepa/r_data_scientist/blob/main/hands-on_introduction_to_r_2026/hands_on_r_02_tidyverse_notebook.html
 
-+ PDF: https://github.com/rwepa/r_data_scientist/blob/main/hands-on_introduction_to_r_2026/r_data_science_02_tidyverse_notebook.pdf
++ PDF: https://github.com/rwepa/r_data_scientist/blob/main/hands-on_introduction_to_r_2026/hands_on_r_02_tidyverse_notebook.pdf
 
-+ DOCX: https://github.com/rwepa/r_data_scientist/blob/main/hands-on_introduction_to_r_2026/r_data_science_02_tidyverse_notebook.docx
++ DOCX: https://github.com/rwepa/r_data_scientist/blob/main/hands-on_introduction_to_r_2026/hands_on_r_02_tidyverse_notebook.docx
 
 套件總覽:
 
