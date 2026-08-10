@@ -14,7 +14,7 @@ output:
 ---
 
 ```{r}
-# file     : r_data_science_02_tidyverse.Rmd
+# file     : hands_on_r_02_tidyverse_notebook.Rmd
 # title    : R入門實作班
 # subtitle : 2.資料清理與轉換(tidyverse)
 # author   : Ming-Chang Lee
