@@ -1,16 +1,18 @@
 ---
 title: "第2章 資料清理與轉換(tidyverse)"
 output:
-  html_document:
-    toc: true
-    df_print: paged
-  html_notebook: default
-  pdf_document:
-    toc: true
-    number_sections: true
-    latex_engine: xelatex
   word_document:
     toc: true
+    number_sections: false
+    df_print: paged
+  html_document:
+    toc: true
+    number_sections: false
+    df_print: paged
+  html_notebook:
+    toc: true
+    number_sections: false
+    df_print: paged
 ---
 
 ```{r}
@@ -1017,7 +1019,7 @@ grid()
 ### 2. Titanic 1912年鐵達尼號資料集
 
 ```{r}
-?Titanic
+# ?Titanic
 
 data(Titanic)
 
@@ -1152,7 +1154,7 @@ titanic_df
 ### 3. airquality 1973年紐約空氣品質資料集
 
 ```{r}
-?airquality # 153*6
+# ?airquality # 153*6
 
 data(airquality)
 
@@ -1187,7 +1189,7 @@ pairs(airquality,
 ### 4. iris 鳶尾花資料集
 
 ```{r}
-?iris
+# ?iris
 
 data(iris)
 
@@ -1238,8 +1240,8 @@ legend(x = 0.5,
 ### 5. mtcars 汽車資料集
 
 ```{r}
-?mtcars
-# 
+# ?mtcars
+
 # mpg	 : Miles/(US) gallon                       ; 英里/加侖
 # cyl	 : Number of cylinders                     ; 汽缸數
 # disp : Displacement (cu.in.)                   ; 排氣量
@@ -1282,7 +1284,7 @@ coplot(mpg ~ disp | as.factor(cyl),
 ### 6. penguins 南極洲帕爾默站企鵝
 
 ```{r}
-?penguins
+# s?penguins
 
 # species: factor, with levels Adelie, Chinstrap, and Gentoo; 3個物種: 阿德利企鵝(Adelie penguin), 頰帶企鵝(chinstrap penguin), 巴布亞企鵝(Gentoo penguin) 
 # island: factor, with levels Biscoe, Dream, and Torgersen) ; 島嶼
