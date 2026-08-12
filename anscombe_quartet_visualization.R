@@ -1,5 +1,11 @@
-# Title: Anscombe's Quartet Visualization
-# Date: 2026.3.12
+# file     : anscombe_quartet_visualization.R
+# title    : Anscombe's Quartet Visualization (安斯庫姆四重奏資料視覺化)
+# author   : Ming-Chang Lee
+# date     : 2026.03.12
+# YouTube  : https://www.youtube.com/@alan9956
+# RWEPA    : http://rwepa.blogspot.tw/
+# GitHub   : https://github.com/rwepa
+# Email    : alan9956@gmail.com
 
 # 方法1 ggplot2 -----
 
@@ -7,7 +13,13 @@ library(ggplot2)
 library(dplyr)
 library(tidyr)
 
+# 載入資料集
+data(anscombe)
+
 df <- anscombe
+
+# 資料摘要
+summary(df)
 
 anscombe_long <- df %>%
   mutate(id = 1:n()) %>%
@@ -27,9 +39,6 @@ ggplot(anscombe_long, aes(x = x, y = y)) +
   theme(plot.title = element_text(hjust = 0.5))
 
 # 方法2 plot{graphics} -----
-
-data(anscombe)
-summary(anscombe)
 
 # 建立迴歸模型
 ff <- y ~ x
