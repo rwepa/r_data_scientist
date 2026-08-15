@@ -10,7 +10,7 @@
 
 下載: https://github.com/rwepa/r_data_scientist/tree/main/hands-on_introduction_to_r_2026
 
-# 2026.08.02(日) Day1.R環境建置與語法基礎
+# 2026.08.02(日) Day1. R環境建置與語法基礎
 
 大綱:
 
@@ -48,7 +48,7 @@
    
 + tibble      # tibble 資料物件(Simple Data Frames)
 
-# 2026.08.09(日) 第2章 資料清理與轉換(tidyverse)
+# 2026.08.09(日) Day2. 資料清理與轉換(tidyverse)
 
 大綱:
 
@@ -72,16 +72,46 @@
 
 套件總覽:
 
-| 套件               | 主要功能                                                | 適用情境                                     |
-| ---------------- | -------------------------------------------------------------------- | ------------------------------- |
-| **magrittr**     | 提供 `%>%` 管線（Pipe）運算子，讓程式碼由左到右閱讀，更容易理解。         | 串接多個資料處理步驟。                    |
-| **dplyr**        | 資料整理套件，提供篩選、排序、選取、分組、彙總等功能。                     | 資料前處理、資料分析。                   |
-| **nycflights13** | 提供 2013 年紐約機場航班的教學資料集。                                   | 學習資料分析、`dplyr`、`ggplot2` 範例。  |
-| **tidyr**        | 將資料整理成 Tidy Data（整潔資料），例如寬表與長表互轉。                   | 資料清理與格式轉換。                     |
-| **tidyverse**    | 整合多個常用資料科學套件，如 `ggplot2`、`dplyr`、`tidyr`、`readr` 等。   | 整合式資料分析環境。                     |
-| **readr**        | 快速讀取與輸出 CSV、TXT 等文字資料。                                    | 匯入、匯出資料。                         |
-| **vcd**          | Visualizing Categorical Data，提供類別資料的統計圖形。                  | Mosaic Plot、Association Plot 等。      |
-| **RColorBrewer** | 提供美觀且適合資訊視覺化的配色方案。                                     | `ggplot2`、地圖、熱圖配色。              |
-| **GGally**       | 擴充 `ggplot2`，提供多變量資料探索圖形。                                | 散佈圖矩陣 (`ggpairs()`)、相關係數圖等。  |
+| 套件 | 主要功能 | 適用情境 |
+|:---|:---|:---|
+| **dplyr** | 資料整理套件，提供篩選、排序、選取、分組、彙總等功能。 | 資料前處理、資料分析。 |
+| **GGally** | 擴充 **ggplot2**，提供多變量資料探索圖形。 | 散佈圖矩陣 `ggpairs()`、相關係數圖等。 |
+| **magrittr** | 提供 `%>%` 管線（Pipe）運算子，讓程式碼由左到右閱讀，更容易理解。 | 串接多個資料處理步驟。 |
+| **nycflights13** | 提供 2013 年紐約機場航班的教學資料集。 | 學習資料分析、`dplyr`、`ggplot2` 範例。 |
+| **RColorBrewer** | 提供美觀且適合資訊視覺化的配色方案。 | `ggplot2`、地圖、熱圖配色。 |
+| **readr** | 快速讀取與輸出 CSV、TXT 等文字資料。 | 資料匯入與匯出。 |
+| **tidyr** | 將資料整理成 Tidy Data（整潔資料），例如寬表與長表互轉。 | 資料清理與格式轉換。 |
+| **tidyverse** | 整合多個常用資料科學套件，如 `ggplot2`、`dplyr`、`tidyr`、`readr` 等。 | 整合式資料分析環境。 |
+| **vcd** | *Visualizing Categorical Data*，提供類別資料的統計圖形。 | Mosaic Plot、Association Plot 等。 |
+
+# 2026.08.23(日) Day3. 資料視覺化與洞察(ggplot2)
+
+大綱:
+
+3.1 圖表語法(aes、geom、scale、theme)
+
+3.2 常用圖表：長條/折線/散點/箱型圖與選用情境
+
+3.3 分面與分組比較(facet、color/fill)
+
+3.4 圖表標註與故事化呈現(標題、註解、重點標示)
+
+3.5 練習：產出一頁「關鍵洞察」圖表集
+
++ Rmd: https://github.com/rwepa/r_data_scientist/blob/main/hands-on_introduction_to_r_2026/hands_on_r_03_ggplot2_notebook.Rmd
+
++ HTML: https://github.com/rwepa/r_data_scientist/blob/main/hands-on_introduction_to_r_2026/hands_on_r_03_ggplot2_notebook.html
+
++ PDF: https://github.com/rwepa/r_data_scientist/blob/main/hands-on_introduction_to_r_2026/hands_on_r_03_ggplot2_notebook.pdf
+
+套件總覽:
+
+| 套件 | 主要功能 | 適用情境 |
+|:---|:---|:---|
+| `DiagrammeR` | 用於建立流程圖、關係圖、網路圖與圖形結構，支援 Mermaid、Graphviz（DOT）等語法。 | 資料分析流程圖、系統架構圖、決策流程圖、關係圖。 |
+| `dplyr` | 提供資料篩選、選取、排序、欄位新增、分組、彙總及資料合併等功能。 | 資料清理、資料前處理、探索性資料分析（EDA）、資料彙總。 |
+| `ggplot2` | 依據 Grammar of Graphics 建立資料視覺化圖表，支援多種圖層與統計圖形。 | 資料探索、統計圖表、資料視覺化及分析報告。 |
+| `httr` | 提供 HTTP 請求功能，讓 R 可以與 Web API、REST API 及網路服務進行資料交換。 | API 串接、取得網路資料、政府開放資料、第三方服務整合。 |
+| `readr` | 提供快速且一致的文字資料讀取與寫入功能，例如 CSV、TSV 等格式。 | CSV、TSV、TXT 等文字資料的匯入與匯出。 |
 
 未完 ...
