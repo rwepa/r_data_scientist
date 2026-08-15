@@ -1,0 +1,1008 @@
+---
+title: "第3章 資料視覺化與洞察(ggplot2)"
+output:
+  html_document:
+    toc: true
+    number_sections: false
+    df_print: paged
+    always_allow_html: true
+  word_document:
+    toc: true
+    number_sections: false
+    df_print: paged
+  html_notebook:
+    toc: true
+    number_sections: false
+    df_print: paged
+    always_allow_html: true
+---
+
+```{r}
+# file     : hands_on_r_03_ggplot2_notebook.Rmd
+# title    : R入門實作班
+# subtitle : 3.資料視覺化與洞察(ggplot2)
+# author   : Ming-Chang Lee
+# date     : 2026.08.09
+# YouTube  : https://www.youtube.com/@alan9956
+# RWEPA    : http://rwepa.blogspot.tw/
+# GitHub   : https://github.com/rwepa
+# Email    : alan9956@gmail.com
+```
+
+## 大綱:
+
+- 3.1 圖表語法(aes、geom、scale、theme)
+- 3.2 常用圖表：長條/折線/散點/箱型圖與選用情境
+- 3.3 分面與分組比較(facet、color/fill)
+- 3.4 圖表標註與故事化呈現(標題、註解、重點標示)
+- 3.5 練習：產出一頁「關鍵洞察」圖表集
+
+# 🌸 3.1 圖表語法(aes、geom、scale、theme)
+
+## 資料視覺化（Data Visualization）的定義
+
++ 資料視覺化（Data Visualization）是指將原始資料或分析結果，透過圖表、圖形、地圖、色彩、符號等視覺元素呈現，將複雜或大量的數據轉換成容易理解的視覺資訊，以協助人們快速發現趨勢、比較差異、了解分布、辨識異常與探索變數之間的關係。
+
++ 簡單來說: 資料視覺化 = 將「數據」轉換成「容易看懂的圖像」，讓資料能夠被快速理解並支持決策。
+
++ 資料視覺化 = 說故事能力 + 創造力 + 判斷力
+
++ 輝達（NVIDIA）執行長黃仁勳他認為「說故事能力、創造力、判斷力」這3種特質難以被AI取代，持續具有高度價值。（東森財經 2026年5月27日週三 下午2:27，https://tw.stock.yahoo.com/news/ai時代讀哪科不重要-黃仁勳點名-3大能力-不可或缺-062700855.html)
+
+\newpage
+
+## 資料視覺化七大類型
+
+| 類型                       | 目的       | 圖表 | 踩雷區 |
+| -------------------------- | -------- | -------------------------------------------------------------------------- | --------------------------------------------- |
+| **1. 比較 (Comparison)**   | 比較大小、差異  | 長條圖、群組長條圖、水平群組長條圖 | 類別太多、沒有排序、色彩凌亂 |
+| **2. 趨勢 (Trend)**        | 時間變化     | 折線圖、面積圖 | 非時間資料、Y 軸刻度錯誤 |
+| **3. 組成 (Composition)**  | 結構比例     | 圓餅圖、100%堆疊長條圖、樹狀圖 (Treemap) | 圓餅圖使用太多類別（類別 ≤ 5）、多個圓餅圖並排比較 |
+| **4. 關聯 (Relationship)** | 變數之關聯   | 散佈圖、氣泡圖 (Bubble Chart) | 點重疊嚴重 (Overplotting)、分類資料視為連續變數、同時使用大小＋顏色＋標籤 |
+| **5. 分布 (Distribution)** | 異常值與資料分布 | 盒鬚圖、直方圖 | 沒有加上註解、忽略資料是否雙峰、忽略偏態與極端值 |
+| **6. 地理 (Geospatial)**   | 地理差異     | 填色地圖 (Filled Map)、符號地圖 (Symbol Map)、密度圖 (Density Map／熱度圖) | 數值差異很小、沒有地理關係 |
+| **7. 階層型 (Hierarchy)**  | 層級結構     | 樹狀圖、Sunburst、Sankey、主題式地圖 (Thematic Map／Choropleth Map) | 無結構關係、誤用於呈現時間趨勢 |
+
+## 圖表的二大核心價值
+
+1. 強化決策價值: 圖表不是用來展示資料，而是用來找出樣式並幫助決策。
+
+2. 降低認知負荷: 好的視覺化，是降低思考成本，而不是增加美術效果。
+
+## 圖表的常見錯誤
+
+❌ 一開始就直接做圖, 沒有思考圖表的目的為何
+
+❌ KPI 沒定義清楚
+
+❌ 無資料驗證
+
+❌ 只做描述分析，沒有策略
+
+❌ 沒有加上故事線
+
+❌ 缺少決策行動方案
+
+## 成功的資料視覺化-4大關鍵
+
+1.資訊 Information: 準確性, 真實性, 一致性
+
+2.故事 Story: 資料視覺化的認同性
+
+3.目標 Goal: 找到重要結論
+
+4.視覺表現 Visual Form: 藝術的呈現
+
+  + 參考資料 https://informationisbeautiful.net/visualizations/what-makes-a-good-data-visualization/
+
+  + David McCandless , Knowledge Is Beautiful: Impossible Ideas, Invisible Patterns, Hidden Connections - Visualized, Oct 21, 2014.
+  
+## 資料視覺化流程
+
+
+1. 視覺化目標
+
+2. 資料準備, 資料理解, 資料整理
+
+3. 視覺化繪圖結構
+
+4. 視覺化結果
+
+
+```{r, echo=FALSE}
+# install.packages("DiagrammeR")
+
+# library(DiagrammeR)
+# 
+# grViz("
+# digraph flowchart {
+# 
+#   node [shape = box, 
+#         style = 'filled, rounded',
+#         color = lightblue]
+# 
+#   A [label = '1.視覺化目標']
+#   B [label = '2.資料準備, 資料理解, 資料整理']
+#   C [label = '3.視覺化繪圖結構']
+#   D [label = '4.視覺化結果']
+# 
+#   A -> B -> C -> D
+# }
+# ")
+```
+
+## 視覺化目標考量
+
+1.資料來源 (內部/外部, 免費/付費)
+
+2.聽眾 vs. 觀眾
+
+3.期望結果: 高層主管 vs. 基層員工
+
+4.確認視範化目標
+
+  + 產品銷售資料分析(產品別, 部門別, 時間別)
+  + 教務研究-學生休退學預警分析(院別, 系別, 學習, 休學, 退學)
+  + 醫學研究-疾病/藥品預測分析 (類別預測, 數值預測)
+  + 製造分析-生產最佳化分析
+  + 社會經濟資料分析 (趨勢)
+
+5.視覺化圖表: https://datavizcatalogue.com/
+
+\newpage
+
+## 安斯庫姆四重奏（Anscombe's quartet)
+
++ 安斯庫姆四重奏是四組基本的統計特性一致的數據，但由它們繪製出的圖表則截然不同。
+
++ 每一組數據都包括了11個(x,y)點。這四組數據由統計學家弗朗西斯·安斯庫姆（Francis Anscombe）於1973年構造，他的目的是用來說明在分析數據前先**繪製圖表**的重要性，以及離群值對統計的影響之大。
+
++ ![](https://raw.githubusercontent.com/rwepa/r_data_scientist/main/imgs/anscombe_quartet_visualization.png)
+
++ R程式碼: https://github.com/rwepa/r_data_scientist#anscombes-quartet
+
+
+## 第一個著名的視覺化案例-俄法戰爭
+
+![](https://upload.wikimedia.org/wikipedia/commons/2/29/Minard.png)
+
++ 資料來源: https://en.wikipedia.org/wiki/Charles_Joseph_Minard#/media/File:Minard.png
+
++ 繪製者: Charles Joseph Minard, a French engineer, in 1869.
+
++ 主題: 說明拿破崙軍隊在1812年6月至1812年11月向莫斯科進軍期間所遭受的損失數量。
+
++ 出發人數: 42.2萬
+
++ 到達人數: 10萬
+
++ 回國人數: 1萬
+
+## 基本繪圖函數`plot{graphics}`
+
++ 繪圖使用內建 `grapics`套件, 包括高階繪圖與低階繪圖.
+
++ 高階繪圖(high-level plotting): 在圖形裝置(graphic device)上建立新的繪圖區。例：散佈圖、直線圖、長條圖、直方圖、圓形圖、盒鬚圖與3D繪圖。
+
++ 低階繪圖(low-level plotting): 在一個已經存在的繪圖上，加上其它圖形元素。例：額外的點、線、文字與圖例等。
+
+```{r}
+# 繪圖函數清單, 選取第1項[Generic X-Y Plotting]
+methods(plot)
+```
+
+```{r}
+# 繪圖線上說明
+# ?plot
+```
+
+\newpage
+
+## 散佈圖 plot
+```{r}
+data(Cars93, package = "MASS")
+plot(x=Cars93$Horsepower, 
+     y=Cars93$Price, 
+     xlab="Horsepower", 
+     ylab="Car Price", 
+     main="Horsepower vs. Car Price")
+```
+
+\newpage
+
+## 散佈圖矩陣
+```{r}
+data(mtcars)
+pairs(mtcars[, 1:7])
+```
+
+\newpage
+
+## 客製化散佈圖矩陣
+```{r}
+panel.hist <- function(x, ...)
+{
+    usr <- par("usr")
+    par(usr = c(usr[1:2], 0, 1.5) )
+    h <- hist(x, plot = FALSE)
+    breaks <- h$breaks; nB <- length(breaks)
+    y <- h$counts; y <- y/max(y)
+    rect(breaks[-nB], 0, breaks[-1], y, col = "cyan", ...)
+}
+pairs(USJudgeRatings[1:5], panel = panel.smooth,
+      cex = 1.5, pch = 24, bg = "light blue", horOdd=TRUE,
+      diag.panel = panel.hist, cex.labels = 2, font.labels = 2)
+```
+
+\newpage
+
+## 盒鬚圖 boxplot
+```{r}
+boxplot(Cars93$Price)
+Cars93_Price <- boxplot(Cars93$Price)
+Cars93_Price
+```
+
+\newpage
+
+## 群組盒鬚圖 OrchardSprays 果園噴霧劑
+```{r}
+boxplot(decrease ~ treatment, 
+        data = OrchardSprays, 
+        col = "bisque")
+```
+
+\newpage
+
+## 水平群組盒鬚圖
+```{r}
+boxplot(decrease ~ treatment, 
+        data = OrchardSprays, 
+        col = "bisque",
+        horizontal=TRUE)
+```
+
+\newpage
+
+## 群組盒鬚圖-Y軸取log值
+```{r}
+boxplot(decrease ~ treatment, 
+        data = OrchardSprays, 
+        col = "bisque", 
+        log = "y")
+```
+
+\newpage
+
+## 長條圖 barplot
+```{r}
+counts <- table(mtcars$gear)
+
+barplot(counts, 
+        main="Car Distribution",
+        xlab="Number of Gears",
+        ylim = c(0, 20))
+```
+
+\newpage
+
+## 直方圖 hist
+```{r}
+hist(iris$Petal.Length,
+     xlab = "Petal Length",
+     col = "orange",
+     border = "blue",
+     main = "iris-Petal.Length 直方圖")
+```
+
+\newpage
+
+## 直方圖優化
+```{r}
+hist(iris$Petal.Length,
+     xlab = "Petal Length",
+     col = "orange",
+     border = "blue",
+     main = "iris-Petal.Length 直方圖",
+     ylim = c(0,40))
+```
+
+\newpage
+
+## R的圖形輸出
+
++ http://rwepa.blogspot.com/2013/05/r.html
+
+
+```{r}
+# 將繪圖結果輸出為 PDF 檔案
+data(Cars93, package = "MASS")
+
+pdf("Cars93_xyplot.pdf")
+
+plot(Cars93$Horsepower, Cars93$Price,
+     main = "Cars93 Scatter Plot",
+     xlab = "Horsepower",
+     ylab = "Price",
+     pch = 16,
+     col = Cars93$Type)
+
+legend("topleft", 
+       legend = levels(Cars93$Type), 
+       col = 1:length(levels(Cars93$Type)),
+       pch = 16)
+
+dev.off()
+```
+
+\newpage
+
+## 進階繪圖函數
+
++ plot – type 參數
+```{r}
+# "p" : points
+# "l" : lines
+# "b" : both points and lines
+# "c" : for empty points joined by lines
+# "o" for overplotted points and lines
+# "s" and "S" for stair steps
+# "h" for histogram-like vertical lines
+# "n" does not produce any points or lines (不繪圖)
+```
+
+## 加上點
+```{r}
+# ?points
+# pch = {0:18} # 1: 空心圓, 16: 實心圓
+```
+
+## 加上線
+```{r}
+# ?lines
+# lty值, 預設值 lty = 1
+# 0  "blank"
+# 1  "solid"
+# 2  "dashed"
+# 3  "dotted"
+# 4  "dotdash"
+# 5  "longdash"
+# 6  "twodash"
+```
+
+## 加上區域
+```{r}
+# ?polygon
+```
+
+## 熱繪圖 image {graphics}
+```{r}
+# ?image
+```
+
+## 平行座標軸
+```{r}
+# help(parcoord, package = "MASS")
+```
+
+## 單變數繪圖
+```{r}
+# ?curve
+
+# f(x)=x^3 + 2*x^2 - 10*x + 1
+# Google -> f(x)=x^3 + 2*x^2 - 10*x + 1
+
+curve(x^3 + 2*x^2 - 10*x + 1) # 結果怪怪的!!!
+```
+
+## GFC案例討論
+
+```{r}
+# https://github.com/rwepa/DataDemo/blob/master/gfc.csv
+
+# library(readr)
+# library(httr)
+# 
+# urls <- "https://raw.githubusercontent.com/rwepa/DataDemo/refs/heads/master/gfc.csv"
+# 
+# # Fetch content directly via GET
+# response <- GET(urls)
+# gfc <- read_csv(content(response, as = "raw"), show_col_types = FALSE)
+
+# 下列程式碼適用於 Rmd 轉換至 Word
+library(readr)
+
+urls <- "https://raw.githubusercontent.com/rwepa/DataDemo/refs/heads/master/gfc.csv"
+
+download.file(
+  urls,
+  destfile = "gfc.csv",
+  mode = "wb",
+  method = "libcurl"
+)
+
+gfc <- read_csv("gfc.csv", show_col_types = FALSE)
+```
+
+```{r}
+head(gfc)
+str(gfc)
+summary(gfc)
+```
+
+\newpage
+
+```{r}
+# 訂購量趨勢圖
+plot(gfc$amount, type = "l") # 結果似乎有進步的空間!!!
+
+# 優化結果: https://github.com/rwepa/DataDemo/blob/master/gfc_2_vis.R
+```
+
+\newpage
+
+## ggplot2簡介
+
++ ggplot2 是 R 語言最常用的資料視覺化套件之一，由 Hadley Wickham 於 2005 年創立。
+
++ ggplot2 是基於「圖形文法」（Grammar of Graphics）設計，採用圖層疊加的概念，能讓使用者把資料、美學對映（aes）與幾何圖形（geom）組合成專業圖表。
+
++ 它的特色是把一張圖拆成不同的「圖形元件」，再利用加號運算子 (+) 將這些元件組合起來。
+
++ Wikipedia: https://en.wikipedia.org/wiki/Ggplot2
+
++ ggplot2 CRAN: https://cran.r-project.org/web/packages/ggplot2/index.html
+
++ 概念: ggplot2: Create Elegant Data Visualisations Using the Grammar of Graphics (使用圖形文法建立**優雅**的資料視覺化)
+
+
+## ggplot2的三大元素
+
++ **data=**：指定視覺化的資料集。
+
++ **aes()**：將資料中的變數對應到繪圖的美學屬性(aesthetic properties)，即是指定X、Y等對應變數。
+
++ **geom_**：指定幾何物件的類型，例：點、線、長條圖，例：geom_point、geom_line、geom_smooth、geom_bar。
+
++ ggplot2參考: https://r-graph-gallery.com/
+
+## ggplot2-aes
+
+```{r loading_packages}
+# 載入套件
+library(ggplot2)
+
+# 查閱鑽石資料集(diamonds)
+# ?diamonds
+```
+
+```{r diamonds_dataset}
+diamonds # tibble 53940*10
+```
+
+``` {r data_structure}
+# 資料結構
+str(diamonds) # 53940*10
+```
+
+``` {r data_summary}
+# 資料摘要
+summary(diamonds) # 資料沒有 NA
+```
+
+``` {r sampling}
+# 設定亂數種子，使用大於或等於1整數
+set.seed(168)
+
+# 使用 sample函數自所有列數隨機抽取500筆資料
+dsmall <- diamonds[sample(nrow(diamonds), 500),]
+
+# 顯示隨機抽取500筆資料集
+dsmall # 500*10
+```
+
+\newpage
+
+```{r scatterplot}
+# ggplot: 散佈圖(散點圖)
+p <- ggplot(data=dsmall, mapping=aes(carat, price)) +
+  geom_point()
+p
+```
+
+\newpage
+
+### ggplot2-scale
+
+  + 控制顏色: 離散資料時常用的有 scale_color_manual() 或 scale_color_brewer()連續資料則常使用 scale_color_gradient()。
+  
+```{r}
+library(ggplot2)
+
+# 離散變數顏色人工設定
+ggplot(iris, aes(x = Sepal.Length, y = Sepal.Width, color = Species)) +
+  geom_point(size = 3) +
+  scale_color_manual(
+    name = "花卉品種",
+    values = c("setosa" = "#E69F00", "versicolor" = "#56B4E9", "virginica" = "#009E73")
+  )
+```
+
+\newpage
+
+```{r}
+# 連續變數漸層色 (Gradient)
+ggplot(mtcars, aes(x = wt, y = mpg, color = hp)) +
+  geom_point(size = 3) +
+  scale_color_gradient(
+    name = "馬力 (HP)",
+    low = "#56B4E9",   # 低數值顏色
+    high = "#D55E00"   # 高數值顏色
+  )
+```
+
+  + 控制座標軸: 連續對數/區間與離散標籤, 利用 scale_x_continuous() 可以設定軸界線、刻度標籤或進行對數轉換。
+
+\newpage
+
+```{r}
+# 調整 X 軸刻度與圍範，並對 Y 軸做對數轉換
+ggplot(dsmall, aes(x = carat, y = price)) +
+  geom_point(alpha = 0.3) +
+  scale_x_continuous(
+    name = "克拉數 (Carat)",
+    breaks = seq(0, 5, by = 0.5), # 設定刻度位置
+    limits = c(0, 3)) +           # 設定顯示範圍 (0 ~ 3)
+  scale_y_log10(
+    name = "價格 (Log10 Scale)",
+    labels = scales::dollar)     # 搭配 scales 套件於Y軸刻度轉換成美元格式
+```
+
+\newpage
+
+## ggplot2-theme
+
+```{r}
+ggplot(iris, aes(x = Sepal.Length, y = Sepal.Width, color = Species)) +
+  geom_point(size = 3) +
+  labs(
+    title = "鳶尾花花萼長度與寬度關係圖",
+    subtitle = "使用自訂 ggplot2 theme 調整樣式",
+    x = "花萼長度 (cm)",
+    y = "花萼寬度 (cm)",
+    caption = "資料來源：Iris Dataset") +
+  theme_minimal(base_size = 14) + # 1. 套用內建基礎主題，並統一加大基底字體
+  theme(
+    # --- 標題與文字 ---
+    plot.title = element_text(face = "bold", size = 18, color = "#2c3e50", hjust = 0), # 主標題加粗
+    plot.subtitle = element_text(size = 12, color = "#7f8c8d", margin = margin(b = 10)), # 副標題下留白
+    plot.caption = element_text(size = 9, face = "italic", color = "#95a5a6"),
+    
+    # --- 座標軸 ---
+    axis.title = element_text(face = "bold", size = 12),
+    axis.text = element_text(color = "#34495e"),
+    axis.line = element_line(color = "#bdc3c7", linewidth = 0.8), # 顯示座標軸線
+    
+    # --- 網格線 ---
+    panel.grid.major = element_line(color = "#ecf0f1", linetype = "dashed"), # 主網格線改虛線
+    panel.grid.minor = element_blank(), # 隱藏次網格線
+    
+    # --- 圖例 (Legend) ---
+    legend.position = "top",              # 圖例擺放位置："top", "bottom", "left", "right", "none"
+    legend.title = element_text(face = "bold"),
+    legend.background = element_rect(fill = "#f8f9fa", color = NA), # 圖例背景色
+    
+    # --- 整體背景與邊界 ---
+    plot.background = element_rect(fill = "white", color = NA),
+    plot.margin = margin(t = 15, r = 15, b = 15, l = 15) # 上右下左留白 (mm)
+  )
+```
+
+\newpage
+
+# 🌸 3.2 常用圖表：長條/折線/散點/箱型圖與選用情境
+
+## 常用圖形使用時機
+
+## 長條圖
+
+```{r}
+# cut 各類別的長條圖
+# X 軸: cut, Y 軸: 資料筆數（count）
+ggplot(dsmall, aes(x = cut)) +
+  geom_bar() +
+  labs(
+    title = "Number of Diamonds by Cut",
+    x = "Cut",
+    y = "Count"
+  )
+```
+
+\newpage
+
+```{r}
+# 使用 fill = cut 填滿顏色
+ggplot(dsmall, aes(x = cut, fill = cut)) +
+  geom_bar() +
+  labs(
+    title = "Number of Diamonds by Cut",
+    x = "Cut",
+    y = "Count"
+  ) +
+  theme_minimal()
+```
+
+## 補充篇-直方圖
+
++ price 呈現右偏分布（Right-Skewed Distribution / Positive Skewness）。
++ 大部分資料集中在左側，也就是較低價格區間，而右側則拖出一條很長的尾巴。
++ 大多數鑽石的價格集中在相對較低的價格區間。
++ 右側高價格資料相對較少。
++ price 資料分布不是常態分配。
++ 資料呈現 Mean > Median。
+
+\newpage
+
+```{r}
+ggplot(dsmall, aes(x = price)) +
+  geom_histogram()
+```
+
+\newpage
+
+## 折線圖
+
+### 美國經濟指標資料集 economics {ggplot2}
+
+```{r}
+# 資料來源: FRED是聯邦儲備經濟數據 (Federal Reserve Economic Data)
+# 載入資料集 economics
+data(economics)
+```
+
+```{r}
+# 第１欄位為 Date 資料型別，其餘為數值。
+# 資料集考慮第１個欄位為日期資料型態。
+economics # 574*6
+```
+
+\newpage
+
+```{r}
+# 使用 geom_line() 繪製時間序列圖（線圖）
+ggplot(economics, aes(date, unemploy)) + 
+  geom_line()
+```
+
+### 美國經濟時間序列資料集(長資料) economics_long {ggplot2}
+```{r}
+# 載入資料集 economics_long, 此為economics 轉換為長資料(Long data)
+data(economics_long)
+```
+
+```{r}
+# 資料已經轉換為長資料，value01 表示 Min-Max Normalization，將資料轉換為０～１。
+economics_long
+```
+
+\newpage
+
+```{r}
+# 使用 key_glyph 群組不同經濟指標
+ggplot(economics_long, aes(date, value01, colour = variable)) +
+  geom_line(key_glyph = "timeseries") # 圖例的圖示 (Key glyphs for legends)
+```
+
+\newpage
+
+```{r}
+# 改為垂直型時間序列圖
+ggplot(economics, aes(unemploy, date)) + 
+  geom_line(orientation = "y")
+```
+
+\newpage
+
+### iris 折線圖
+
+``` {r}
+# ggplot: 線圖
+ggplot(iris, aes(Petal.Length, Petal.Width)) +
+  geom_line()
+```
+
+\newpage
+
+``` {r}
+# ggplot: 線圖+群組+顏色
+ggplot(iris, aes(Petal.Length, Petal.Width, group=Species, color=Species)) + # group: 群組
+  geom_line()
+```
+
+\newpage
+
+``` {r}
+# ggplot: 線圖+分面
+ggplot(iris, aes(Sepal.Length, Sepal.Width)) + 
+  geom_line(aes(color=Species), linewidth=2) + 
+  facet_wrap(~Species, ncol=1)
+```
+
+\newpage
+
+``` {r}
+# ggplot: 線圖+分面
+# theme_ 設定繪圖風格，例：theme_gray、theme_bw、theme_minimal、theme_classic
+# 參考`?theme_classic`
+ggplot(iris, aes(Sepal.Length, Sepal.Width)) +
+  geom_line(aes(color=Species), size=1) + 
+  facet_wrap(~Species, ncol=1) +
+  theme_minimal()
+```
+
+\newpage
+
+## 散佈圖(散點圖)
+
+```{r}
+# 使用 dsmall 資料集
+# ggplot: 群組散佈圖
+# 等號左側color表示群組參數，右側color表示變數名稱
+p <- ggplot(data=dsmall, mapping=aes(carat, price, color=color)) +
+  geom_point(size=4)
+p
+```
+
+\newpage
+
+```{r}
+# ggplot: 散佈圖 + 線性迴歸 + 95%信賴區間
+p <- ggplot(dsmall, aes(carat, price)) + 
+  geom_point() +
+  geom_smooth(method="lm")
+p
+```
+
+\newpage
+
+```{r}
+# ggplot: 散佈圖 + 線性迴歸 + 不顯示信賴區間
+ggplot(dsmall, aes(carat, price)) + 
+  geom_point() +
+  geom_smooth(method="lm", formula = 'y ~ x', se=FALSE) # 省略 formula = 'y ~ x' 亦可以執行
+```
+
+\newpage
+
+```{r}
+# ggplot: 散佈圖 + 群組lm (lm: Linear Model 線性模型)
+ggplot(dsmall, aes(carat, price, group=color)) + 
+  geom_point(aes(color=color), size=2) + 
+  geom_smooth(aes(color=color), method="lm", se=FALSE)
+```
+
+\newpage
+
+```{r}
+# ggplot: 散佈圖 + 群組loess (Local Polynomial Regression Fitting)
+# LOESS = Local Polynomial Regression Fitting 局部多項式迴歸擬合（也常稱為 區域多項式迴歸）
+# 它是一種非參數（non-parametric）迴歸方法，主要用來在散佈圖中找出資料的非線性趨勢。
+# 與一般的線性迴歸：y = β₀ + β₁x 不同，LOESS 不要求整體資料必須符合一條直線特性。
+# LOESS = 局部資料 + 加權 + 多項式迴歸 + 平滑曲線
+# ?loess
+ggplot(dsmall, aes(carat, price, group=color)) + 
+  geom_point(aes(color=color), size=2) + 
+  geom_smooth(aes(color=color), method="loess", se=FALSE)
+```
+
+\newpage
+
+```{r}
+# ggplot: 散佈圖 + span
+ggplot(dsmall, aes(carat, price)) +
+  geom_point() + 
+  geom_smooth(span = 0.3) # span 數值愈小，曲線愈彎曲。
+```
+
+\newpage
+
+```{r}
+# ggplot: 散佈圖 + span
+ggplot(dsmall, aes(carat, price)) +
+  geom_point() + 
+  geom_smooth(span = 0.8)
+```
+
+## 箱型圖
+
++ 箱型圖（Boxplot / Box-and-Whisker Plot）是一種用來快速了解數值資料分布情形的統計圖形。
+
++ 特色是利用中位數、四分位數與離群值，在一張圖中呈現資料的分布、集中程度、變異程度與異常值。
+
++ 箱子的大小 IQR（Interquartile Range，四分位距）$IQR = Q_3 − Q_1$
+
++ 離群值（Outliers）通常以超過箱體範圍：$Q_1 − 1.5 \times IQR$ 到 $Q_3 + 1.5 \times IQR$ 作為離群值的基準。
+
+```{r}
+# price 變數的整體分佈
+ggplot(dsmall, aes(y = price)) +
+  geom_boxplot()
+```
+
+\newpage
+
+```{r}
+# 依 cut 為組紅的 price 箱型圖
+# Fair < Good < Very Good < Premium < Ideal, 愈右側水準表示切割品質愈好.
+ggplot(dsmall, aes(x = cut, y = price)) +
+  geom_boxplot()
+```
+
+\newpage
+
+```{r}
+# 依 cut 為群組的 price 箱型圖
+# 依 cut 為群組會有不同填色
+ggplot(dsmall, aes(x = cut, y = price)) +
+  geom_boxplot(aes(fill = cut))
+```
+
+\newpage
+
+```{r}
+# 省略圖例 show.legend = FALSE
+ggplot(dsmall, aes(x = cut, y = price)) +
+  geom_boxplot(aes(fill = cut), show.legend = FALSE)
+```
+
+\newpage
+
+```{r}
+# 加入原始資料點 geom_jitter
+ggplot(dsmall, aes(x = cut, y = price)) +
+  geom_boxplot(aes(fill = cut), alpha = 0.6) +
+  geom_jitter(
+    width = 0.2,
+    alpha = 0.3
+  )
+```
+
+\newpage
+
+```{r}
+# 水平箱型圖
+ggplot(dsmall, aes(x = price, y = cut)) +
+  geom_boxplot(aes(fill = cut), show.legend = FALSE)
+```
+
+\newpage
+
+```{r}
+# 標示離群值
+ggplot(dsmall, aes(x = cut, y = price)) +
+  geom_boxplot(outlier.colour = "red",
+               outlier.shape = 16)
+```
+
+## ggplot2 雙軸(Y1,Y2)繪圖
+參考: http://rwepa.blogspot.com/2017/09/ggplot2-2y-packagelist.html
+
+## ggplot2-新增數學式-以迴歸分析模型為例
+參考: http://rwepa.blogspot.com/2020/09/ggplot2-equation.html
+
+## 弦圖 (Chord diagram)
+參考: http://rwepa.blogspot.com/2019/10/chord-diagram.html
+
+# 🌸 3.3 分面與分組比較(facet、color/fill)
+
+```{r}
+# 參考 3.1, 3.2
+```
+
+# 🌸 3.4 圖表標註與故事化呈現(標題、註解、重點標示)
+
+```{r}
+# 參考 3.1, 3.2
+```
+
+# 🌸 3.5 練習：產出一頁「關鍵洞察」圖表集
+```{r}
+# 學員練習
+```
+
+## 案例-ggplot2於製程不良率視覺化應用
+
+ChatGPT: 模擬10萬筆台積電公司製程不良率資料, 資料至少包括年月日時間, location, 批號, 生產量, 使用 dplyr, ggplot2 套件進行資料預處理分析, 視覺化分析.
+
+```{r import_packages}
+# 載入套件
+library(dplyr)
+library(ggplot2)
+```
+
+``` {r prepare_dataset}
+# 設定資料集大小
+datasize <- 100000
+
+# 亂數種子
+set.seed(123)
+
+# 建立模擬製程資料
+df <- data.frame(
+  id = 1:datasize,
+  year = sample(2018:2023, size = datasize, replace = TRUE),
+  month = sample(1:12, size = datasize, replace = TRUE),
+  day = sample(1:31, size = datasize, replace = TRUE),
+  location = sample(c("台中", "高雄", "新竹"), size = datasize, replace = TRUE),
+  batch_number = paste0("Batch", sample(1:10, size = datasize, replace = TRUE)),
+  production_volume = runif(datasize, min = 0.001, max = 100),
+  defect_rate = rnorm(datasize, mean = 0.05, sd = 0.01)
+)
+
+# 轉換為 tbl_df
+df <- tibble::as_tibble(df)
+
+# 類別
+class(df) # "tbl_df" "tbl" "data.frame"
+
+df
+```
+
+```{r data_process}
+# 新增製程日期變數
+df <- df %>%
+  mutate(process_date = as.Date(paste0(year, "/", month, "/", day)))
+
+# 計算每日平均不良率
+df_summary <- df %>%
+  group_by(process_date) %>%
+  summarise(AvgDefectRate = mean(defect_rate))
+
+# 刪除NA值
+df_summary <- df_summary %>%
+  na.omit()
+
+# 資料結構
+str(df_summary)
+
+# 資料摘要
+summary(df_summary)
+
+# 前6筆資料
+head(df_summary)
+
+# 後6筆資料
+tail(df_summary)
+
+# 顯示資料
+df_summary
+
+```
+
+\newpage
+
+``` {r AvgDefectRate_lineplot}
+# 使用ggplot2 資料視覺化
+ggplot(df_summary, aes(x = process_date, y = AvgDefectRate)) +
+  geom_line()
+# 發現什麼樣式 (patterns) --> NONE
+# Try: 優化視覺化結果, 加入平均線
+```
+
+```{r rear_year}
+# Try: facet_wrap_year
+```
+
+```{r rear_month}
+# Try: facet_wrap_month
+```
+
+```{r location}
+# Try: facet_wrap_location
+```
+
+## 案例-ggplot2於高速公路案例
+
++ https://rwepa.blogspot.com/2019/05/highway.html
+
+###### end
