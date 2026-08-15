@@ -12,6 +12,8 @@
 
 日期: 2026.08.02 ~ 2026.09.06
 
+課程: https://ievents.iii.org.tw/EventS.aspx?t=0&id=3216
+
 GitHub: https://github.com/rwepa/r_data_scientist/tree/main/hands-on_introduction_to_r_2026
 
 # Global 2m Mean Temperature
