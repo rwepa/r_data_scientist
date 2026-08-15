@@ -1,15 +1,15 @@
 ---
 title: "第3章 資料視覺化與洞察(ggplot2)"
 output:
+  word_document:
+    toc: true
+    number_sections: false
+    df_print: paged
   html_document:
     toc: true
     number_sections: false
     df_print: paged
     always_allow_html: true
-  word_document:
-    toc: true
-    number_sections: false
-    df_print: paged
   html_notebook:
     toc: true
     number_sections: false
@@ -512,7 +512,7 @@ p
 
 \newpage
 
-### ggplot2-scale
+## ggplot2-scale
 
   + 控制顏色: 離散資料時常用的有 scale_color_manual() 或 scale_color_brewer()連續資料則常使用 scale_color_gradient()。
   
