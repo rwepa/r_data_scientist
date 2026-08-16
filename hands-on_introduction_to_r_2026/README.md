@@ -10,6 +10,8 @@
 
 下載: https://github.com/rwepa/r_data_scientist/tree/main/hands-on_introduction_to_r_2026
 
+課程: https://ievents.iii.org.tw/EventS.aspx?t=0&id=3216
+
 # 2026.08.02(日) Day1. R環境建置與語法基礎
 
 大綱:
