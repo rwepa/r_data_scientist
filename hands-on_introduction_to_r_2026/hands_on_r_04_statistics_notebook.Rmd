@@ -1,0 +1,1559 @@
+---
+title: "第4章 基礎統計分析與解讀"
+output:
+  html_document:
+    toc: true
+    number_sections: false
+    df_print: paged
+    always_allow_html: true
+  html_notebook:
+    toc: true
+    number_sections: false
+    df_print: paged
+    always_allow_html: true
+  word_document:
+    toc: true
+    number_sections: false
+    df_print: paged
+---
+
+```{r}
+# file     : hands_on_r_04_statistics_notebook.Rmd
+# title    : R入門實作班
+# subtitle : 4.基礎統計分析與解讀
+# author   : Ming-Chang Lee
+# date     : 2026.08.30
+# YouTube  : https://www.youtube.com/@alan9956
+# RWEPA    : http://rwepa.blogspot.tw/
+# GitHub   : https://github.com/rwepa
+# Email    : alan9956@gmail.com
+```
+
+![](https://raw.githubusercontent.com/rwepa/r_data_scientist/main/hands-on_introduction_to_r_2026/images/hands_on_r_04_statistics_notebook_1cover.PNG)
+
+![](https://raw.githubusercontent.com/rwepa/r_data_scientist/main/hands-on_introduction_to_r_2026/images/hands_on_r_04_statistics_notebook_2agenda.PNG)
+
+\newpage
+
+## 大綱:
+
+- 4.1 描述統計與分配概念(平均、變異、常態性)
+- 4.2 推論統計入門：t檢定、卡方、ANOVA(擇要)
+- 4.3 相關與迴歸(cor/lm)與結果解讀
+- 4.4 常見假設檢查與視覺化診斷
+- 4.5 練習：用真實資料完成分析並寫出結論
+
+# 🌸 4.1 描述統計與分配概念(平均、變異、常態性)
+
+## 1. 描述統計簡介
+
++ 統計學（Statistics）是一門從資料中蒐集、整理、分析、解釋與推論資訊的科學，目的在於從資料中找出規律，並協助我們做出合理的決策。
+
++ 統計學包括二大類別：敘述統計（Descriptive Statistics，或描述統計）與推論統計（Inferential Statistics）。
+
+  + 敘述統計表示描述「資料」；推論統計為推論「母體」。
+
+  + 敘述統計（Descriptive Statistics ）是統計學的基礎，主要目的在於整理、摘要與描述資料的特徵，讓大量且複雜的資料能以容易理解的方式呈現。
+
+  + 敘述統計主題包括：集中趨勢指標、離散程度指標、位置指標、極端值、離群值與圖表呈現。
+  
+  + 推論統計（Inferential Statistics）的目的，是利用樣本（Sample）資料，推論我們真正關心的母體（Population）。
+  
+  + 推論統計包括抽樣、估計、假設檢定、變異數分析、迴歸等主題。
+
+  + 統計分配（Statistical Distribution，又稱為統計分布）是用於描述隨機變數在不同數值或區間出現機率的數學模型。
+  
+  + 常見的統計分配包括機率分配與抽樣分配兩大類。
+  
+    + 機率分配（Probability Distributions）：描述單一隨機變數（如個別學生的成績）出現各種數值的機率結構。
+    
+    + 抽樣分配（Sampling Distributions）：當我們從母體中隨機抽取容量為 $n$ 的樣本（例如：隨機抽取 25 位學生組成一個小組），其樣本統計量（如樣本平均數 $\bar{X}$）本身也是一個隨機變數，其機率分配稱為抽樣分配。
+
+## 2.集中趨勢指標
+
+集中趨勢指標，用以描述描述資料的中心位置。
+
++ 平均數（Mean）：計算方法是將全部數值加起來，再除以數值的總個數。
+  
+$$
+\bar{x} = \frac{\sum_{i=1}^{n} x_i}{n}
+$$
+
++ 中位數（中央値, Median）：將資料排序後位於中間位置的數值。如果是偶數個數值，則取中間二個數值的平均值為中位數。
+
++ 眾數（Mode）：資料中出現次數最多的值，可能不只一個眾數值。
+
+## 3.離散程度指標，用以描述資料的分散程度。
+
++ 全距（Range）：
+
+$$全距 = 最大值 − 最小值
+$$
+  
++ 變異數（Variance）：每個資料值與平均數的差距平方」的平均，用來衡量資料的分散程度，包括母體變異數與樣本變異數。
+
+$$
+Var(X) = E\left[(X - E(X))^2\right] = E(X^2) - [E(X)]^2
+$$
+
++ 母體變異數（Population Variance）
+
+$$
+\sigma^2 = \frac{\sum_{i=1}^{N}(x_i-\mu)^2}{N}，N：母體資料筆數，\mu：母體平均數
+$$
+
++ 樣本變異數（Sample Variance）
+
+$$
+s^2 = \frac{\sum_{i=1}^{n}(x_i-\bar{x})^2}{n-1}，n：樣本資料筆數，(n-1)\ 自由度（Degree\ of\ Freedom）
+$$
+
++ 自由度
+
+  + 自由度表示計算統計量時，資料可以自由呈現的獨立資訊數量。
+
+  + 自由度範例：  考慮母體平均值未知 $\mu$，改用樣本平均數 $\bar{x}$估計。在絕大多數實驗中，我們不知道母體平均數 $\mu$，只能先用資料計算出一組樣本平均數 $\bar{x}$ 來代替。但是，樣本平均數 $\bar{x}$ 滿足一個數學數學恆等式：$\sum_{i=1}^{n} (x_i - \bar{x}) = 0$，此恆等式表示只要知道了前 $(n-1)$ 個偏差值 $(x_i - \bar{x})$，第 $n$ 個偏差值就已經被唯一確定了。因此，計算平方和時，真正具備「自由變動能力」的資料量只有 $(n-1)$ 個。
+
++ 母體變異數的機率密度函數圖
+
+```{r}
+library(ggplot2)
+
+# -----------------------------
+# 參數設定
+# -----------------------------
+mu <- 0
+variance <- 1.96
+sigma <- sqrt(variance)
+
+# 建立1000筆資料
+x <- seq(mu - 4 * sigma, mu + 4 * sigma, length.out = 1000)
+
+# dnorm() 是常態分配（Normal Distribution 的機率密度函數（Probability Density Function, PDF）。
+# 它用來計算「當隨機變數為特定數值 x 時，常態分配曲線上的相對高度（密度值）」。
+
+df <- data.frame(
+  x = x,
+  y = dnorm(x, mean = mu, sd = sigma)
+)
+
+# 填色區域：μ - σ 到 μ + σ
+df_fill <- subset(df, x >= mu - sigma & x <= mu + sigma)
+
+# -----------------------------
+# 繪圖
+# -----------------------------
+ggplot(df, aes(x, y)) +
+  
+  # μ - σ 到 μ + σ 的區域
+  geom_area(
+    data = df_fill,
+    aes(x, y),
+    fill = "steelblue",
+    alpha = 0.35
+  ) +
+  
+  # 常態分配曲線
+  geom_line(
+    linewidth = 1.2,
+    colour = "royalblue"
+  ) +
+  
+  # 平均數 μ 垂直線
+  geom_vline(
+    xintercept = mu,
+    linetype = "dashed",
+    colour = "grey30"
+  ) +
+  
+  # -σ 垂直線
+  geom_vline(
+    xintercept = mu - sigma,
+    linetype = "dotted",
+    colour = "royalblue"
+  ) +
+  
+  # +σ 垂直線
+  geom_vline(
+    xintercept = mu + sigma,
+    linetype = "dotted",
+    colour = "royalblue"
+  ) +
+  
+  # X 軸標籤
+  annotate(
+    "text",
+    x = mu - sigma,
+    y = 0.01,
+    label = "-σ",
+    size = 6
+  ) +
+  
+  annotate(
+    "text",
+    x = mu,
+    y = 0.01,
+    label = "μ",
+    size = 6
+  ) +
+  
+  annotate(
+    "text",
+    x = mu + sigma,
+    y = 0.01,
+    label = "+σ",
+    size = 6
+  ) +
+  
+  # 左上角文字
+  annotate(
+    "text",
+    x = mu - 3.2 * sigma,
+    y = max(df$y) * 1.12,
+    label = "Var(X) ≈ 1.96",
+    hjust = 0,
+    size = 6
+  ) +
+  
+  # 座標軸
+  scale_x_continuous(
+    breaks = NULL,
+    expand = expansion(mult = c(0.02, 0.02))
+  ) +
+  
+  scale_y_continuous(
+    breaks = NULL,
+    expand = expansion(mult = c(0, 0.08))
+  ) +
+  
+  labs(
+    x = NULL,
+    y = NULL
+  ) +
+  
+  theme_minimal() +
+  
+  theme(
+    panel.grid = element_blank(),
+    axis.text = element_blank(),
+    axis.ticks = element_blank()
+  )
+```
+
++ 標準差（Standard Deviation）：變異數開根號，也是最常用的離散程度指標。
+  
++ 四分位距（IQR，Interquartile Range）：四分位距用來衡量資料中間 50% 資料的分散程度。計算公式：$四分位距 = 第三四分位數 − 第一四分位數$。四分位距較不容易受到極端值（Outliers）的影響。
+
+$$
+IQR = Q_3 - Q_1
+$$
+
+## 4.位置指標（Measures of Location ）
+
+位置指標是用於描述某一特定資料點在整個資料集中相對位置的統計量，有助於迅速釐清資料的相對高低或極端程度。
+
+### 1.百分位數（Percentile, $P_k$）
+
+百分位數將排序後的資料等分為 100 個部分，第 $k$ 個百分位數（$P_k$）代表至少有 $k\%$ 的資料小於或等於該數值，且至少有 $(100-k)\%$ 的資料大於或等於該數值。
+
+  + 應用場景：標準化測驗成績（如：學測 PR 值， PR 90 表示你的分數贏過或追平 90% 的考生。）、嬰幼兒生長曲線圖（如：身高第 85 百分位數）。
+  
+  + 計算步驟：
+  
+    1. 將 $n$ 筆資料由小到大排序。
+    
+    2. 計算位置指數 $i = \left(\frac{k}{100}\right) \times n$。
+    
+    3. 若 $i$ 非整數，無條件進位至下一個整數，對應的數值即為 $P_k$；若 $i$ 為整數，則取第 $i$ 位與第 $i+1$ 位數值的平均值。
+    
+  + 範例：自訂百分位數函數
+  
+```{r}
+# 主題：百分位數自訂函數
+# 注意：percentile_custom 函數計算結果與R內建 quantile() 函數計算方式不同，quantile採用線性插值方式。
+
+percentile_custom <- function(x, k) {
+  
+  # 1. 將資料由小到大排序
+  x <- sort(x)
+  
+  # 資料筆數
+  n <- length(x)
+  
+  # 2. 計算位置指數
+  i <- (k / 100) * n
+  
+  # 3. 判斷 i 是否為整數
+  if (i %% 1 != 0) {
+    
+    # i 非整數：無條件進位
+    position <- ceiling(i)
+    
+    # 取第 position 位
+    Pk <- x[position]
+    
+  } else {
+    
+    # i 為整數：
+    # 取第 i 位與第 i+1 位的平均
+    Pk <- (x[i] + x[i + 1]) / 2
+  }
+  
+  return(Pk)
+}
+```
+
+```{r}
+x <- c(12, 15, 18, 20, 23, 25, 28, 30, 35, 40)
+
+# 計算第 65 百分位數
+percentile_custom(x, 65) # 28
+```
+
+```{r}
+# 使用 quantile 函數，答案與＂百分位數自訂函數＂不相同
+quantile(x, 0.65) # 27.55
+```
+
+### 2.四分位數（Quartiles, $Q_1, Q_2, Q_3$）
+
+四分位數將排序後的資料等分為 4 個相等部分，每部分包含約 25% 的資料量，是百分位數的特例。
+
+  + 第一四分位數（$Q_1$）：等於第 25 百分位數（$P_{25}$），代表前 25% 的資料分界點。
+  
+  + 第二四分位數（$Q_2$）：等於第 50 百分位數（$P_{50}$），即中位數（Median），代表中間 50% 的分界點。
+  
+  + 第三四分位數（$Q_3$）：等於第 75 百分位數（$P_{75}$），代表前 75% 的資料分界點。
+  
+  + 實務應用：四分位距（IQR）：$\text{IQR} = Q_3 - Q_1$，代表中間 50% 資料的分散程度，常用於建構盒鬚圖（Boxplot）與判定異常值（Outliers）。
+
+### 3.Z分數（Z-Score / Standard Score）
+
+Z 分數衡量單一資料點距離平均數有幾個標準差，能去除原始單位的限制，進行**不同資料集**之間的跨組比較。
+
+  + 計算公式
+  
+    + 母體 Z 分數：$$Z = \frac{X - \mu}{\sigma}$$
+    
+    + 樣本 Z 分數：$$Z = \frac{X - \bar{X}}{s}$$
+    
+    + 數值解讀
+    
+      + $Z = 0$：該資料點恰好等於平均數。
+    
+      + $Z > 0$：資料點高於平均數。
+      
+      + $Z < 0$：資料點低於平均數。
+
+### 4.標準常態分配特性（68-95-99.7經驗法則）
+    
+      1. 約 68% 的資料落於 $Z \in [-1, 1]$ 之間。
+      
+      2. 約 95% 的資料落於 $Z \in [-2, 2]$ 之間。
+      
+      3. 約 99.7% 的資料落於 $Z \in [-3, 3]$ 之間（一般常將 $\vert{}Z\vert{} > 3$ 的資料視為極端值）。
+
+### 5.常態分配觀念指引
+
++ 常態分配約 68% 的資料落於 [-1, 1] 之間？
+
+  + 錯誤，應修正為約 68% 的資料落在：[μ−σ, μ+σ] 之間。
+
++ 標準常態分配約 68% 的資料落於 [-1, 1] 之間？
+
+  + 正確。
+
++ 任意樣本資料進行 Z 分數轉換後一定是標準常態分配？
+
+  + 錯誤，應修正為不一定是標準常態分配。Z 分數轉換主要是把資料的尺度重新標準化，而不是把資料的「分配形狀」變成常態分配。
+
++ 任意樣本資料進行 Z 分數轉換後一定是常態分配?
+
+  + 錯誤，應修正為不一定是常態分配，參考上題說明。
+
+### 6.極端值 vs. 離群值
+
++ 極端值（Extreme Value）與離群值（Outlier）比較表
+
+
+| 比較               | 極端值                   | 離群值                                |
+| ------------------ | ------------------------ | ------------------------------------- |
+| 定義               | 數值非常大或非常小       | 與資料大多數觀察值明顯不同            |
+| 判斷方式           | 著重數值本身是否極端     | 著重是否偏離整體分配                  |
+| 一定是異常嗎？     | 不一定                   | 通常值得進一步調查                    |
+| 可能是真實資料嗎？ | 是                       | 是，也可能是錯誤判斷                  |
+| 常見原因           | 真實事件、自然變異       | 測量錯誤、輸入錯誤、特殊事件、不同族群|
+| 常用判斷           | 最大值、最小值、百分位數 | IQR、Z-score、資料分配模型            |
+| 範例               | 年薪 1,000 萬元          | 大多數年薪 40～80 萬，某筆為 1,000 萬 |
+
++ 極端值：極端值是指數值位於資料分配的非常邊緣。
+
++ 範例-極端值
+
+考慮｛10, 11, 12, 13, 14, 15, 100｝資料集，其中 100 明顯比其他數值大，因此可以稱為極端值。但如果這是一個班級學生的考試成績，100 分可能只是正常的滿分，並不代表極端值。
+
++ 離群值：離群值是指某個觀察值與資料整體的分配型態明顯不同。
+
++ 範例-離群值
+
+考慮｛70, 72, 75, 76, 78, 80, 82, 85, 150｝資料集，如果這些資料代表一般成人的身高，150 是否為離群值要看整體資料與研究情境；但如果資料是其他測量指標，就可能完全合理。
+
++ 結論：離群值不是單純「很大」或「很小」，而是「相對於整體資料分配而言異常」。
+
+### 7.判斷離群值方法
+
+1. IQR 方法
+
++ 箱型圖（Boxplot）常使用 IQR 判斷離群值，$IQR = Q_3 - Q_1$
+
++ 下界 = $Q_1 - 1.5×IQR$
+
++ 上界 = $Q_3 + 1.5×IQR$
+
++ 超過上下界的觀察值（$資料 < Q_1 - 1.5×IQR 或是 資料 > Q_3 + 1.5×IQR$）通常稱為潛在離群值（Potential Outlier）。
+
+2. Z-score 方法
+
+$$
+Z = \frac{X-\mu}{\sigma}
+$$
+
++ 一般實務應用可以使用 $|Z| > 3$ 作為極端觀察值的判斷標準，但實際判斷仍應考慮資料分配與研究領域。
+
+## 5.常態性（Normality）簡介
+
++ 常態性（Normality）是統計分析中非常重要的概念，用來描述資料是否符合常態分配（Normal Distribution）。
+
++ 常態分配是一種左右對稱、呈現鐘形的機率分配，許多統計方法，例如 t 檢定、變異數分析（ANOVA）、線性迴歸等，在特定情況下會有常態性的假設。
+
++ 常態分配具有鐘形、左右對稱，以及平均數、中位數、眾數大致相等的特徵。
+
+### 1.常態分配機率密度函數
+
++ 若隨機變數 $X$ 服從平均數為 $μ$、變異數為 $σ^2$ 的常態分配，可表示為：
+
+$$
+X \sim N(\mu,\sigma^2)
+$$
+
++ 考慮隨機變數的觀察值 $x$，則常態分配的機率密度函數（Probability Density Function, PDF）為：
+
+$$
+f(x)
+=
+\frac{1}{\sigma\sqrt{2\pi}}
+\exp\left(
+-\frac{(x-\mu)^2}{2\sigma^2}
+\right)
+$$
+
++ 常態分配具有以下特徵：
+
+1. 左右對稱。
+2. 平均數 = 中位數 = 眾數。
+3. 中央位置最高，兩側逐漸下降。
+4. 資料大多集中在平均數附近。
+5. 理論上左右兩端會無限延伸。
+
++ 標準常態分配（Standard Normal Distribution）
+
+  當 $\mu=0$ 且 $\sigma=1$ 時，稱為標準常態分配（Standard Normal Distribution），以 $Z \sim N(0,1)$ 表示。
+
+
+### 2.常態分配 68–95–99.7 法則
+
++ 常態分配的機率 = 機率密度函數曲線下的面積，單一點的機率值為零。
+
++ 考慮 $X \sim N(0, 1)$，則 $P(X=0) = 0，P(X=1) = 0$。
+
++ 常態分配重要的經驗法則：
+
+$$
+P(\mu-\sigma<X<\mu+\sigma)\approx68.27\%
+$$
+
+$$
+P(\mu-2\sigma<X<\mu+2\sigma)\approx95.45\%
+$$
+
+$$
+P(\mu-3\sigma<X<\mu+3\sigma)\approx99.73\%
+$$
+
+因此，如果資料接近常態分配，落在平均數 **±3 個標準差**之外的觀察值非常少。
+
+---
+
+### 3.常態分配範例：假設學生考試成績符合常態分配
+
+假設某班學生考試成績近似 $X\sim N(70,10^2)$，即平均數 = 70，標準差 = 10，根據 68–95–99.7 法則，大約：
+
++ 60～80 分：68%
+
++ 50～90 分：95%
+
++ 40～100 分：99.7%
+
+因此，如果一組資料大致呈現「**鐘形、左右對稱、中央集中**」，通常可以說資料具有良好的常態性。
+
+### 4.使用 rnorm 模擬常態分配
+
+可以利用 `rnorm()` 產生常態分配資料。
+
+```{r}
+set.seed(123)
+
+# rnorm(n, mean, sd)
+x <- rnorm(
+  n = 1000,
+  mean = 70,
+  sd = 10
+)
+
+head(x)
+```
+
+### 5.使用 ggplot2 繪製直方圖
+
+```{r}
+library(ggplot2)
+
+set.seed(123)
+
+data <- data.frame(
+  score = rnorm(1000, mean = 70, sd = 10)
+)
+
+ggplot(data, aes(x = score)) +
+  geom_histogram(
+    bins = 30,
+    aes(y = after_stat(density))
+  ) +
+  labs(
+    title = "Normal Distribution",
+    x = "Score",
+    y = "Density"
+  ) +
+  theme_minimal()
+```
+
++ 本例使用 `density`參數，原始直方圖的 Y 軸通常是「次數（Count）」。加入：`aes(y = after_stat(density))` 之後，Y 軸改成**密度（Density）**，就可以進一步疊加理論上的常態分配曲線。
+
+### 6. 使用 ggplot2 繪製直方圖+核密度圖
+
++ 本例直方圖與常態曲線大致吻合，表示資料看起來具有良好的常態性。
+
+```{r}
+library(ggplot2)
+
+set.seed(123)
+
+data <- data.frame(
+  score = rnorm(1000, mean = 70, sd = 10)
+)
+
+ggplot(data, aes(x = score)) +
+  geom_histogram(
+    bins = 30,
+    aes(y = after_stat(density))
+  ) +
+  stat_function(
+    fun = dnorm,
+    args = list(
+      mean = 70,
+      sd = 10
+    ),
+    linewidth = 1
+  ) +
+  labs(
+    title = "Normal Distribution",
+    x = "Score",
+    y = "Density"
+  ) +
+  theme_minimal()
+```
+
+### 7. 偏態性（Skewness）
+
++ 理解常態性時，可以將常態資料與偏態資料進行比較。
+
+```{r}
+set.seed(123)
+
+normal_data <- rnorm(1000, mean = 70, sd = 10)
+
+skewed_data <- rexp(1000, rate = 1)
+
+df <- data.frame(
+  value = c(normal_data, skewed_data),
+  type = rep(
+    c("Normal", "Right-skewed"),
+    each = 1000
+  )
+)
+
+ggplot(df, aes(x = value)) +
+  geom_histogram(
+    bins = 30,
+    aes(y = after_stat(density))
+  ) +
+  facet_wrap(~type, scales = "free") +
+  labs(
+    title = "Normality vs. Right-Skewed Distribution",
+    x = "Value",
+    y = "Density"
+  ) +
+  theme_minimal()
+```
+
++ 左圖常態分配呈現大致對稱的鐘形。
+
++ 右圖資料大多集中在左側，右側有較長的尾巴，因此稱為右偏（Right-skewed）或正偏（Positively Skewed）。
+
+  + 右偏範例：薪資、房價。
+
+  + 右偏通常具有：平均數 > 中位數 > 眾數
+
++ 左偏（Left-skewed）又稱負偏（Negatively Skewed）。資料大多集中在右側，但左側有一條較長的尾巴。
+
+  + 左偏範例：非常容易的考試成績。
+  
+  + 左偏通常具有：平均數 < 中位數 < 眾數
+
+### 8.判斷資料是否符合常態性
+
+實務上不應只依靠單一種方法，通常會結合圖形與統計檢定。
+
+#### (1).直方圖法（Histogram）
+
+```{r}
+data <- iris
+ggplot(data, aes(x = Sepal.Width)) +
+  geom_histogram(bins = 30)
+```
+
+觀察是否符合常態分配特性：
+
++ 鐘形 
++ 左右大致對稱
++ 沒有嚴重偏態
+
+本例直方圖說明：
+
++ 對稱性：以 3.0 為中心，左右兩側的次數逐漸遞減，整體呈中間高、兩邊低的「鐘形（Bell-shaped）」分配。
++ 集中趨勢：資料明顯集中在 3.0 附近，峰值最高，代表花萼寬度最常見的數值為 3.0 cm。
++ 結論：
+  1. 初步外觀評估：此直方圖具備單峰、大致對稱與鐘形特徵，視覺上**非常接近常態分配**。
+  2. 右側尾部稍微較長（在 4.0 到 4.4 之間有少量離群值），呈現微幅的正偏（Right-skewed）。
+  3. 由於 iris 資料集包含三個不同品種花卉（Setosa、Versicolor、Virginica），若將三個品種混合觀察，整體看似常態；另可考慮**群組**技巧獨立三個品種分析，理解個別品種的花萼寬度常態性之特質。
+
+#### (2).密度圖（Density Plot）
+
+```{r}
+data <- iris
+ggplot(data, aes(x = Sepal.Width)) +
+  geom_density()
+```
+
+密度圖可以更清楚觀察資料的分配形狀。
+
+X 軸（Sepal.Width）：花萼寬度的連續數值（單位：公分）。
+
+Y 軸（density）：相對機率密度值，曲線下方總面積等於 1。
+
+$$
+\int_{-\infty}^{\infty} f(x) dx = 1
+$$
+
+本例密度圖說明：
+
++ 中心趨勢（眾數/峰值）：分佈最高點落在 Sepal.Width ≈ 3.0 cm 附近（機率密度接近 1.0），顯示絕大多數鳶尾花樣本的花萼寬度集中在 3.0 cm 左右。
+
++ 數據分佈範圍：數值介於 2.0 cm 到 4.4 cm 之間。
+
++ 對稱性與偏態：整體呈單峰（Unimodal）且接近常態分佈，但右側（3.5 至 4.4 cm）有微幅延伸的長尾，顯示存在少數花萼較寬較大值的樣本。
+
+#### (3).盒鬚圖（Boxplot）
+
+```{r}
+data <- iris
+ggplot(data, aes(x = Sepal.Width)) +
+  geom_boxplot()
+```
+
+可以觀察：
+
+* 中位數位置
+* 四分位距
+* 偏態
+* 潛在離群值
+
+---
+
+#### (4).QQ圖（Q-Q Plot）
+
+QQ圖**（Q-Q Plot，Quantile-Quantile Plot）**是判斷資料是否接近常態分配重要方法之一。
+
+```{r}
+data <- iris
+ggplot(data, aes(sample = Sepal.Width)) +
+  stat_qq() +
+  stat_qq_line() +
+  labs(
+    title = "Normal Q-Q Plot",
+    x = "Theoretical Quantiles",
+    y = "Sample Quantiles"
+  ) +
+  theme_minimal()
+```
+
+如果資料接近常態分配：點大致落在直線附近，點越接近直線表示常態性越好。
+
+如果兩端明顯偏離直線，可能代表：
+
+* 偏態（Skewness）
+* 尾部過重（Heavy tails）
+* 離群值（Outliers）
+* 資料並非來自常態分配
+
+#### (5).Shapiro-Wilk 常態性檢定（簡稱 S-W 檢定）
+
++ 使用統計檢定：
+
+```{r}
+data <- iris
+shapiro.test(data$Sepal.Width)
+```
+
+S-W 檢定之假設為：
+
+虛無假設 $H_0$: 資料符合常態分配
+
+對立假設  $H_1$: 資料不符合常態分配
+
+一般而言：
+
++ p-value > 0.05，沒有足夠證據拒絕 H₀，即資料沒有顯著偏離常態分配，可以假設資料符合常態分配**（不是100%是常態分配）**。
+
++ p-value ≤ 0.05，拒絕 H₀，資料顯著偏離常態分配。
+
++ 本範例 p-value > 0.05，因此 iris資料集的 Sepal.Width 變數符合常態分配。
+
+### 9.機率分配查表與 pnorm, qnorm 應用
+
++ https://rwepa.blogspot.com/2017/03/pnorm-qnorm.html
+
+# 🌸 4.2 推論統計入門：t檢定、卡方、ANOVA(擇要)
+
+推論統計入門介紹三種常用的統計推論方法：
+
+1. **t 檢定（t-test）**：比較平均數。
+2. **卡方檢定（Chi-square test）**：分析類別資料的關聯或檢驗觀察次數是否符合期望分布。
+3. **變異數分析（ANOVA）**：比較三個以上群組的平均數。
+
+三者的核心概念都是：
+
+> 建立虛無假設 $H_0$ 與對立假設 $H_1$，利用檢定統計量與 $p$ 值判斷是否有足夠證據拒絕 $H_0$。
+
+> **重要：**「無法拒絕 $H_0$」不等於「證明 $H_0$ 一定正確」。
+
+## 1.假設檢定的基本流程
+
+1. 定義研究問題。
+2. 建立 $H_0$ 與 $H_1$。
+3. 設定顯著水準 $\alpha$，常用 $\alpha=0.05$。
+4. 計算檢定統計量。
+5. 求得 $p$ 值。
+6. 判斷：
+   - 若 $p < \alpha$：拒絕 $H_0$。
+   - 若 $p \geq \alpha$：無法拒絕 $H_0$。
+7. 以研究問題的專業語言解釋結果。
+
+## 2.t檢定
+
+### 1.t檢定的目的
+
+t 檢定主要用於比較平均數，常見情境包括：
+
+- 單一樣本平均數是否等於某個特定值。
+- 兩個獨立群組的平均數是否不同。
+- 同一批受試者前後測平均數是否不同。
+
+例如：
+
+> 某班學生平均成績是否與 70 分不同？
+
+或：
+
+> 男生與女生的平均成績是否不同？
+
+### 2.單一樣本t檢定
+
+假設母體平均數為 $\mu$，樣本平均數為 $\bar{x}$。
+
+虛無假設：
+
+$$
+H_0:\mu=\mu_0
+$$
+
+對立假設：
+
+$$
+H_1:\mu\ne\mu_0
+$$
+
+t 統計量：
+
+$$
+t=\frac{\bar{x}-\mu_0}{s/\sqrt{n}}
+$$
+
+其中：
+
+- $\bar{x}$：樣本平均數
+- $\mu_0$：假設的母體平均數
+- $s$：樣本標準差
+- $n$：樣本數
+
+自由度：
+
+$$
+df=n-1
+$$
+
+### 3.t檢定範例
+
+```{r}
+scores <- c(68, 72, 75, 71, 69, 80, 77, 74, 73, 70)
+
+t.test(scores, mu = 70)
+```
+
+### 4.兩獨立樣本t檢定
+
+假設兩群組母體平均數分別為 $\mu_1$ 與 $\mu_2$。
+
+虛無假設：
+
+$$
+H_0:\mu_1=\mu_2
+$$
+
+對立假設：
+
+$$
+H_1:\mu_1\ne\mu_2
+$$
+
+R 的 `t.test()` 預設使用 Welch t-test，不要求兩群組變異數完全相等。
+
+### 5.兩獨立樣本t檢定範例
+
+```{r}
+set.seed(123)
+
+group_A <- rnorm(30, mean = 75, sd = 8)
+group_B <- rnorm(30, mean = 68, sd = 8)
+
+t.test(group_A, group_B)
+```
+
+### 6.ggplot2-兩獨立樣本t檢定`視覺化
+
+```{r}
+library(ggplot2)
+
+df_t <- data.frame(
+  group = rep(c("A組", "B組"), each = 30),
+  score = c(group_A, group_B)
+)
+
+ggplot(df_t, aes(x = group, y = score, fill = group)) +
+  geom_boxplot(alpha = 0.7) +
+  geom_jitter(width = 0.08, alpha = 0.6) +
+  labs(
+    title = "兩組成績比較",
+    x = "Group",
+    y = "Score"
+  ) +
+  theme_minimal() +
+  theme(legend.position = "none")
+```
+
+### 7.成對樣本t檢定
+
+當兩筆資料來自同一個對象的前後測量時，可使用 paired t-test。
+
+令差值：
+
+$$
+d_i=X_i-Y_i
+$$
+
+則檢定統計量為：
+
+$$
+t=\frac{\bar{d}}{s_d/\sqrt{n}}
+$$
+
+自由度：
+
+$$
+df=n-1
+$$
+
+### 8.成對樣本t檢定範例
+
+```{r}
+before <- c(65, 70, 72, 68, 75, 71, 69, 74, 67, 73)
+after  <- c(70, 74, 75, 72, 78, 76, 73, 79, 71, 77)
+
+t.test(before, after, paired = TRUE)
+```
+
+### 9.t檢定的假設與注意事項
+
+常見假設：
+
+- 資料為數值型。
+- 觀察值具有獨立性（配對 t 檢定除外）。
+- 母體分布在小樣本時應大致接近常態。
+- Welch t-test 對變異數不等較有彈性。
+
+若資料嚴重偏態、存在極端離群值或樣本很小，可考慮非參數方法，例如 Wilcoxon 檢定。
+
+## 3.卡方檢定
+
+### 1.卡方檢定的目的
+
+卡方檢定主要處理**類別資料的次數（count）**。
+
+常見兩種類型：
+
+1. **適合度檢定（Goodness-of-fit test）**
+2. **獨立性檢定（Test of independence）**
+
+---
+
+### 2.卡方檢定-適合度
+
+目的：
+
+> 判斷觀察到的類別次數是否符合某個理論分布。
+
+例如一顆骰子投擲 120 次，理論上六個點數應具有相同機率。
+
+觀察次數：
+
+```{r}
+observed <- c(18, 22, 17, 23, 21, 19)
+names(observed) <- 1:6
+
+chisq.test(observed)
+```
+
+若 $H_0$ 為「六個類別的機率相同」，則期望次數：
+
+$$
+E_i=np_i
+$$
+
+卡方統計量：
+
+$$
+\chi^2=\sum_{i=1}^{k}\frac{(O_i-E_i)^2}{E_i}
+$$
+
+其中：
+
+- $O_i$：觀察次數
+- $E_i$：期望次數
+- $k$：類別數
+
+自由度：
+
+$$
+df=k-1
+$$
+
+### 3. ggplot2-卡方適合度檢定視覺化
+
+```{r}
+df_chisq <- data.frame(
+  outcome = names(observed),
+  observed = as.numeric(observed),
+  expected = sum(observed) / length(observed)
+)
+
+ggplot(df_chisq, aes(x = outcome)) +
+  geom_col(aes(y = observed), alpha = 0.8) +
+  geom_point(aes(y = expected), size = 3) +
+  geom_line(aes(y = expected, group = 1), linewidth = 1) +
+  labs(
+    title = "卡方適合度檢定：觀察次數與期望次數",
+    x = "結果",
+    y = "次數"
+  ) +
+  theme_minimal()
+```
+
+### 4.卡方檢定-獨立性
+
+目的：
+
+> 判斷兩個類別變數是否具有關聯。
+
+例如研究「性別」與「是否購買產品」是否有關聯。
+
+建立列聯表：
+
+```{r}
+purchase <- matrix(
+  c(45, 25,
+    30, 40),
+  nrow = 2,
+  byrow = TRUE
+)
+
+dimnames(purchase) <- list(
+  性別 = c("男性", "女性"),
+  購買 = c("是", "否")
+)
+
+purchase
+```
+
+執行檢定：
+
+```{r}
+chisq.test(purchase)
+```
+
+虛無假設：
+
+$$
+H_0:\text{兩個類別變數相互獨立}
+$$
+
+對立假設：
+
+$$
+H_1:\text{兩個類別變數不獨立}
+$$
+
+期望次數：
+
+$$
+E_{ij}=
+\frac{(\text{第 }i\text{ 列合計})(\text{第 }j\text{ 欄合計)}
+{\text{總樣本數}}
+$$
+
+卡方統計量：
+
+$$
+\chi^2=
+\sum_i\sum_j
+\frac{(O_{ij}-E_{ij})^2}{E_{ij}}
+$$
+
+自由度：
+
+$$
+df=(r-1)(c-1)
+$$
+
+其中 $r$ 為列數，$c$ 為欄數。
+
+### 5.ggplot2-列聯表視覺化
+
+```{r}
+# df_purchase <- as.data.frame(purchase)
+# 將列聯表轉換成長格式資料框
+df_purchase <- as.data.frame(as.table(purchase))
+
+names(df_purchase) <- c("Gender", "Purchase", "Count")
+#names(df_purchase) <- c("Gender", "Purchase")
+ggplot(df_purchase,
+       aes(x = Gender, y = Count, fill = Purchase)) +
+  geom_col(position = "dodge") +
+  labs(
+    title = "性別與購買行為",
+    x = "性別",
+    y = "人數",
+    fill = "購買"
+  ) +
+  theme_minimal()
+```
+
+### 6.卡方檢定的注意事項
+
+卡方檢定使用的是**次數資料**，不是直接將連續型數值拿來做卡方檢定。
+
+一般而言，期望次數不宜過小。若列聯表有非常小的期望次數，可考慮 Fisher's exact test：
+
+```{r}
+fisher.test(purchase)
+```
+
+## 4.ANOVA 變異數分析
+
+### 1.ANOVA 的目的
+
+ANOVA（Analysis of Variance）用來比較三個或以上群組的平均數。
+
+例如：
+
+> 三種教學方法的平均成績是否相同？
+
+假設有 $k$ 個群組：
+
+$$
+H_0:\mu_1=\mu_2=\cdots=\mu_k
+$$
+
+對立假設：
+
+$$
+H_1:\text{至少有一個群組平均數不同}
+$$
+
+> ANOVA 顯著時，只能知道「至少有一組不同」，不能直接知道是哪兩組不同。此時通常需要進一步進行事後比較（post-hoc test）。
+
+### 2.ANOVA 的核心概念
+
+ANOVA 將總變異分解為：
+
+$$
+SS_T=SS_B+SS_W
+$$
+
+其中：
+
+- $SS_T$：總平方和（Total Sum of Squares）
+- $SS_B$：組間平方和（Between-group Sum of Squares）
+- $SS_W$：組內平方和（Within-group Sum of Squares）
+
+組間平方和：
+
+$$
+SS_B=
+\sum_{i=1}^{k}n_i(\bar{x}_i-\bar{x})^2
+$$
+
+組內平方和：
+
+$$
+SS_W=
+\sum_{i=1}^{k}\sum_{j=1}^{n_i}
+(x_{ij}-\bar{x}_i)^2
+$$
+
+平均平方：
+
+$$
+MS_B=\frac{SS_B}{k-1}
+$$
+
+$$
+MS_W=\frac{SS_W}{N-k}
+$$
+
+F 統計量：
+
+$$
+F=\frac{MS_B}{MS_W}
+$$
+
+直觀上：
+
+> 如果「組間差異」相對於「組內差異」很大，F 值就會較大。
+
+### 3.ANOVA範例
+
+建立三種教學方法的成績資料：
+
+```{r}
+set.seed(123)
+
+df_anova <- data.frame(
+  method = factor(rep(c("傳統教學", "數位教學", "AI輔助"), each = 30)),
+  score = c(
+    rnorm(30, 70, 6),
+    rnorm(30, 76, 6),
+    rnorm(30, 82, 6)
+  )
+)
+
+head(df_anova)
+```
+
+建立 ANOVA 模型：
+
+```{r}
+model_aov <- aov(score ~ method, data = df_anova)
+
+summary(model_aov)
+```
+
+### 4.ggplot2-ANOVA視覺化
+
+```{r}
+ggplot(df_anova, aes(x = method, y = score, fill = method)) +
+  geom_boxplot(alpha = 0.7) +
+  geom_jitter(width = 0.08, alpha = 0.5) +
+  labs(
+    title = "三種教學方法的成績比較",
+    x = "教學方法",
+    y = "成績"
+  ) +
+  theme_minimal() +
+  theme(legend.position = "none")
+```
+
+三種方法可以形成一個非常實用的統計推論架構：
+
++ t 檢定 → 兩組平均數
+
++ 卡方檢定 → 類別／次數資料
+
++ ANOVA → 三組以上平均數
+
+搭配 **R + ggplot2**，可以同時完成統計檢定、資料視覺化與結果解讀。
+
+
+# 🌸 4.3 相關與迴歸(cor/lm)與結果解讀
+
+## 1. 相關（Correlation）
+
+### 1.相關的目的
+
+相關（Correlation）用來描述兩個數值變數之間，包括下列三個特性：
+
+1. 方向：正相關或負相關
+2. 強度：關係強或弱
+3. 線性關係的程度：特別是 Pearson correlation
+
+範例：
+
+1. 廣告費越高，銷售額是否越高？
+2. 房屋坪數越大，房價是否越高？
+3. 學習時間越長，考試成績是否越高？
+
+相關分析回答的是：
+
+> **兩個變數是否具有線性關係？關係方向與程度如何？**
+
+> 但相關本身**不能證明因果關係**。
+
+### 2.皮爾森相關係數
+
+皮爾森相關係數（Pearson correlation coefficient，又稱皮爾森積差相關係數，簡稱相關係數）是用來衡量兩組連續型變數之間線性相關程度與方向的統計指標，其數值範圍介於 -1 到 1 之間。Pearson 相關係數通常以 $r$ 表示：
+
+$$
+r = \frac{\operatorname{Cov}(X,Y)}
+{\sigma_X\sigma_Y}
+$$
+
+相關係數範圍：
+
+$$
+-1 \le r \le 1
+$$
+
+相關係數強弱意涵：
+
+| $r$ | 意義 |
+|---:|---|
+| $r \approx 1$ | 強烈正線性相關 |
+| $r > 0$ | 正相關 |
+| $r \approx 0$ | 線性相關很弱或沒有 |
+| $r < 0$ | 負相關 |
+| $r \approx -1$ | 強烈負線性相關 |
+
+> **重要：$r=0$ 並不代表兩個變數完全沒有任何關係，只代表沒有明顯的線性關係。**
+
+### 3.相關係數範例
+
+```{r}
+# 學習時間越長，考試成績是否越高，學習時間與考試成績相關性之研究。
+
+library(ggplot2)
+
+set.seed(123)
+
+df <- data.frame(
+  StudyHours = c(1, 2, 2, 3, 3, 4, 4, 5, 5, 6,
+                 6, 7, 7, 8, 8, 9, 10, 10, 11, 12),
+  Score = c(52, 55, 58, 61, 60, 65, 67, 70, 69, 74,
+            73, 78, 80, 82, 84, 87, 90, 91, 94, 96)
+)
+
+head(df)
+```
+
+
+
+```{r}
+# 使用散佈圖觀察關係
+ggplot(df, aes(x = StudyHours, y = Score)) +
+  geom_point(size = 3) +
+  labs(
+    title = "Study Hours vs. Exam Score",
+    x = "Study Hours",
+    y = "Exam Score")
+```
+
+從圖形可以初步觀察：
+
+- 點大致由左下往右上分布。
+- 可能存在正線性關係。
+- 但圖形本身不能直接告訴我們關係有多強。
+
+因此可以進一步計算相關係數。
+
+### 4.使用 `cor()` 進行相關分析
+
+```{r}
+# 計算 Pearson 相關係數
+r <- cor(df$StudyHours, df$Score)
+
+r
+```
+
+直接使用參數 method：
+
+```{r cor-basic2}
+cor(df$StudyHours, df$Score, method = "pearson")
+```
+
+結果解讀：
+
+> StudyHours 與 Score 具有非常強的正線性相關。也就是說，讀書時間越長時，考試成績通常也越高。
+
+但不可以直接寫成：
+
+> 讀書時間增加會造成考試成績提高。因為相關分析不能證明因果。
+
+| method       | 中文                  | 主要概念                         | 適用情境                            |
+| ------------ | --------------------- | -------------------------------- | ----------------------------------- |
+| `"pearson"`  | Pearson 共變異數      | 原始數值的線性關係               | 連續數值、近似線性關係              |
+| `"spearman"` | Spearman 等級共變異數 | 將資料轉成排名（rank）後計算     | 單調（monotonic）關係、離群值影響時 |
+| `"kendall"`  | Kendall 等級共變異數  | 根據資料排序的一致／不一致對計算 | 小樣本、序位資料、關係不一定線性    |
+
+
+### 5.使用 `cor.test()` 檢定相關性是否顯著
+
+若希望同時取得 p-value 與信賴區間，可以使用：
+
+```{r cor-test}
+cor.test(
+  df$StudyHours,
+  df$Score,
+  method = "pearson"
+)
+```
+
+常見輸出包括：
+
+- correlation coefficient：相關係數 $r$
+- p-value：顯著性檢定
+- 95% confidence interval：相關係數的信賴區間
+
+
+
+
+### 6.相關性檢定之假設
+
+計算樣本相關係數 r，進行推論母體相關係數 $\rho$
+
+$$
+H_0: \rho = 0
+$$
+
+$$
+H_1: \rho \ne 0
+$$
+
+其中 $\rho$ 是母體相關係數。
+
+若：
+
+```text
+p-value < 0.05
+```
+
+通常表示：
+
+> 有統計證據拒絕「母體線性相關為 0」的虛無假設。即接受母體相關係數不等於0。
+
+## 2.迴歸（Regression）
+
+### 1.迴歸分析的目的
+
+1. 了解變數間的關係：例如探討「讀書時間」是否會影響「考試成績」。
+2. 預測結果：根據已知的自變數(X)，預測依變數(Y)的數值。
+3. 判斷影響程度：了解某個因素對結果的影響方向與大小（迴歸係數）。
+4. 檢驗假設：判斷變數之間的關係是否具有統計上的顯著性，或是可以直接刪除。
+5. 建立數學模型：用迴歸方程式描述變數之間的關係。
+
+> 使用自變數 $X$ 解釋或預測應變數 $Y$。
+
+簡單線性迴歸模型：
+
+$$
+Y = \beta_0 + \beta_1X + \epsilon
+$$
+
+其中：
+
+- $Y$：應變數（Dependent Variable）
+- $X$：自變數（Independent Variable）
+- $\beta_0$：截距（Intercept）
+- $\beta_1$：斜率（Slope）
+- $\epsilon$：誤差項
+
+估計後得到：
+
+$$
+\hat{Y} = b_0 + b_1X
+$$
+
+### 2使用 `lm()` 建立模型
+
+```{r lm-basic}
+model <- lm(Score ~ StudyHours, data = df)
+
+model
+```
+
+完整摘要：
+
+```{r lm-summary}
+summary(model)
+```
+
+### 3.迴歸方程式
+
+可以取得係數：
+
+```{r coefficients}
+coef(model)
+```
+模型可以寫成：
+
+$$
+\hat{Score} = 48.64 + 4.17 \times StudyHours
+$$
+
+### 4.將迴歸線畫在散佈圖上
+
+```{r}
+ggplot(df, aes(x = StudyHours, y = Score)) +
+  geom_point(size = 3) +
+  geom_smooth(
+    method = "lm",
+    formula = y ~ x,
+    se = TRUE
+  ) +
+  labs(
+    title = "Linear Regression: Study Hours vs. Exam Score",
+    x = "Study Hours",
+    y = "Exam Score"
+  ) +
+  theme_minimal()
+```
+
+圖中的：
+
+- 點：實際觀察值
+- 線：線性迴歸估計線
+- 灰色區域：迴歸線的信賴區間
+
+
+
+### 5.迴歸係數與 p-value
+
+查看迴歸係數：
+
+```{r coef-table}
+summary(model)$coefficients
+```
+
+對 StudyHours 而言：
+
+$$
+H_0:\beta_1=0
+$$
+
+$$
+H_1:\beta_1\ne0
+$$
+
+本例：
+
+```text
+p-value < 0.05
+```
+
+結論：
+
+> StudyHours 的迴歸係數達統計顯著（接受 $H_1:\beta_1\ne0$），表示 StudyHours 與 Score 之間具有顯著的線性關係。
+
+### 6.$R^2$ 模型解釋力
+
+決定係數：
+
+$$
+R^2 =
+1-\frac{SS_{Residual}}{SS_{Total}}
+$$
+
+例如：
+
+```text
+Multiple R-squared: 0.95
+```
+
+可解讀為：
+
+> 模型中的 StudyHours 可以解釋 Score 約 95% 的變異。
+
++ 注意：$R^2=0.95$ 不代表預測準確率為 95%。
+
++ $R^2$ 是**變異解釋比例**，不是分類準確率，也不是預測正確率。
+
+### 7.預測值
+
+```{r}
+# predict(lm_model, newdata = new_data)
+new_data <- data.frame(StudyHours = c(2.5, 4.6))
+new_data$Score_predict <- predict(model, newdata = new_data)
+new_data
+```
+
+
+# 🌸 4.4 常見假設檢查與視覺化診斷
+
++ 參考 4.3 相關與迴歸(cor/lm)與結果解讀
+
+# 🌸 4.5 練習：用真實資料完成分析並寫出結論
+
++ 參考 2026年資料集願望清單：
+https://github.com/rwepa/r_data_scientist/blob/main/hands-on_introduction_to_r_2026/2026_Dataset_Wishlist.md
+
++ marketing資料集-迴歸分析(regression analysis)：https://github.com/rwepa/DataDemo/blob/master/marketing.R
+
++ 3D互動式視覺化應用
+
+![3dplot](https://raw.githubusercontent.com/rwepa/r_data_scientist/main/hands-on_introduction_to_r_2026/images/scatter3d.gif)
+
++ 3Dplot: https://github.com/rwepa/r_data_scientist/blob/main/hands-on_introduction_to_r_2026/images/scatter3d.gif
+
+
+![](https://raw.githubusercontent.com/rwepa/r_data_scientist/main/hands-on_introduction_to_r_2026/images/hands_on_r_04_statistics_notebook_3reference.PNG)
+
+![](https://raw.githubusercontent.com/rwepa/r_data_scientist/main/hands-on_introduction_to_r_2026/images/hands_on_r_04_statistics_notebook_4q_a.PNG)
+
+###### end
