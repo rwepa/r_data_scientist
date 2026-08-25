@@ -149,6 +149,9 @@ Rmd 轉換為 Word 的命令提示列:
 1. 考慮 Rscript.exe 之安裝目錄為 C:\Program Files\R\R-4.6.1\bin
 2. 開啟命令提示列
 3. 輸入以下指令:
+
 "C:\Program Files\R\R-4.6.1\bin\Rscript.exe" -e "rmarkdown::render('hands_on_r_04_statistics_notebook.Rmd', output_format = 'word_document')"
+
+![rmdtoword](https://github.com/rwepa/r_data_scientist/blob/main/hands-on_introduction_to_r_2026/images/rmd_to_word.png)
 
 未完 ...
