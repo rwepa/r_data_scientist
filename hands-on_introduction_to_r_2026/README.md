@@ -120,4 +120,35 @@ https://github.com/rwepa/r_data_scientist/blob/main/hands-on_introduction_to_r_2
 | **httr** | 提供 HTTP 請求功能，讓 R 可以與 Web API、REST API 及網路服務進行資料交換。 | API 串接、取得網路資料、政府開放資料、第三方服務整合。 |
 | **readr** | 提供快速且一致的文字資料讀取與寫入功能，例如 CSV、TSV 等格式。 | CSV、TSV、TXT 等文字資料的匯入與匯出。 |
 
+# 2026.08.30(日) Day4. 基礎統計分析與解讀
+
+4.1 描述統計與分布概念(平均、變異、常態性)
+
+4.2 推論統計入門：t檢定、卡方、ANOVA(擇要)
+
+4.3 相關與迴歸(cor/lm)與結果解讀
+
+4.4 常見假設檢查與視覺化診斷
+
+4.5 練習：用真實資料完成分析並寫出結論
+
++ Rmd: https://github.com/rwepa/r_data_scientist/blob/main/hands-on_introduction_to_r_2026/hands_on_r_04_statistics_notebook.Rmd
+
++ HTML: https://github.com/rwepa/r_data_scientist/blob/main/hands-on_introduction_to_r_2026/hands_on_r_04_statistics_notebook.html
+
++ PDF: https://github.com/rwepa/r_data_scientist/blob/main/hands-on_introduction_to_r_2026/hands_on_r_04_statistics_notebook.pdf
+
+套件總覽:
+
+| 套件 | 主要功能 | 適用情境 |
+|:---|:---|:---|
+| **ggplot2** | 依據 Grammar of Graphics 建立資料視覺化圖表，支援多種圖層與統計圖形。 | 資料探索、統計圖表、資料視覺化及分析報告。 |
+
+Rmd 轉換為 Word 的命令提示列:
+
+1. 考慮 Rscript.exe 之安裝目錄為 C:\Program Files\R\R-4.6.1\bin
+2. 開啟命令提示列
+3. 輸入以下指令:
+"C:\Program Files\R\R-4.6.1\bin\Rscript.exe" -e "rmarkdown::render('hands_on_r_04_statistics_notebook.Rmd', output_format = 'word_document')"
+
 未完 ...
