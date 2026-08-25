@@ -144,7 +144,7 @@ https://github.com/rwepa/r_data_scientist/blob/main/hands-on_introduction_to_r_2
 |:---|:---|:---|
 | **ggplot2** | 依據 Grammar of Graphics 建立資料視覺化圖表，支援多種圖層與統計圖形。 | 資料探索、統計圖表、資料視覺化及分析報告。 |
 
-Rmd 轉換為 Word 的命令提示列:
++ Rmd 轉換為 Word 的命令提示列:
 
 1. 考慮 Rscript.exe 之安裝目錄為 C:\Program Files\R\R-4.6.1\bin
 2. 開啟命令提示列
@@ -154,11 +154,15 @@ Rmd 轉換為 Word 的命令提示列:
 
 ![rmdtoword](https://github.com/rwepa/r_data_scientist/blob/main/hands-on_introduction_to_r_2026/images/rmd_to_word.png)
 
-RGL-3D互動式視覺化:
++ 3D互動式視覺化:
 
 ![3dplot](https://github.com/rwepa/r_data_scientist/blob/main/hands-on_introduction_to_r_2026/images/scatter3d.gif)
 
-Ubuntu + RStudio 使用步驟:
++ 3D互動式視覺化 R 程式碼
+
+https://github.com/rwepa/DataDemo/blob/master/marketing.R
+
++ Ubuntu + RStudio + 3D互動式視覺化-使用步驟:
 
 1. 加上 options(rgl.printRglwidget = TRUE)
 
