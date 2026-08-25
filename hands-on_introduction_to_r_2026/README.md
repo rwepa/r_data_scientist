@@ -158,4 +158,12 @@ RGL-3D互動式視覺化:
 
 ![3dplot](https://github.com/rwepa/r_data_scientist/blob/main/hands-on_introduction_to_r_2026/images/scatter3d.gif)
 
+Ubuntu + RStudio 使用步驟:
+
+1. 加上 options(rgl.printRglwidget = TRUE)
+
+2. 使用 scatter3d( ) 繪圖
+
+3. 加上 htmltools::html_print(rglwidget())
+
 未完 ...
