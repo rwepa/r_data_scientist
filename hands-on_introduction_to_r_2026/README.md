@@ -154,4 +154,8 @@ Rmd 轉換為 Word 的命令提示列:
 
 ![rmdtoword](https://github.com/rwepa/r_data_scientist/blob/main/hands-on_introduction_to_r_2026/images/rmd_to_word.png)
 
+RGL-3D互動式視覺化:
+
+![3dplot](https://github.com/rwepa/r_data_scientist/blob/main/hands-on_introduction_to_r_2026/images/scatter3d.gif)
+
 未完 ...
