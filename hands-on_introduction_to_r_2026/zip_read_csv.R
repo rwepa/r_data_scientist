@@ -6,7 +6,7 @@
 # GitHub   : https://github.com/rwepa
 # Email    : alan9956@gmail.com
 
-# 主題: 114年傷亡道路交通事故資料分析
+# 主題: 114年傷亡道路交通事故資料 
 # 網址: https://data.gov.tw/dataset/177136
 # 說明: ZIP 檔案大量CSV檔案處理
 
@@ -33,7 +33,7 @@ if (!dir.exists(extract_dir)) {
   dir.create(extract_dir)
 }
 
-# 2.解壓縮檔案至 extract_dir 目錄 -----
+# 2.解壓縮檔案(Windows, macOS, Ubuntu) -----
 
 # Error：中文檔名解壓縮錯誤
 # unzip(
@@ -161,12 +161,10 @@ df <- df %>%
     )
   )
 
-# 7.查看結果 -----
-
 # 查看整體結果
 print(df)
 
-# 8.處理單位名稱警局層 -----
+# 7.變數:處理單位名稱警局層 -----
 
 # 處理單位名稱警局層之群組名稱, 合計有29個
 levels(df$處理單位名稱警局層)
@@ -179,7 +177,7 @@ df_unit <- df %>%
 # 查看群組個數總計
 print(df_unit, n=Inf)
 
-# 9.天候名稱 -----
+# 8.變數:天候名稱 -----
 
 # 天候名稱之群組個數總計
 df_weather <- df %>%
@@ -189,7 +187,7 @@ df_weather <- df %>%
 # 查看群組個數總計
 print(df_weather, n=Inf)
 
-# 10.發生日期資料視覺化 -----
+# 9.變數:發生日期資料視覺化 -----
 
 # 發生日期之群組個數總計
 df_date <- df %>%
