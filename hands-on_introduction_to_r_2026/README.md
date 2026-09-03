@@ -170,4 +170,22 @@ https://github.com/rwepa/DataDemo/blob/master/marketing.R
 
 3. 加上 htmltools::html_print(rglwidget())
 
-未完 ...
+# 2026.09.06(日) Day5. 可重現報告與專題實作（Capstone）
+
+5.1 R Markdown/Quarto：報告結構、程式區塊與輸出格式
+
+5.2 參數化報告與自動化輸出（HTML/PDF）
+
+5.3 專題題目設計：指標定義、資料流程、視覺化呈現
+
+5.4 分組/個人實作：完成小型分析專題
+
+5.5 成果發表與回饋：同儕審閱、改版清單
+
+Rmd: https://github.com/rwepa/r_data_scientist/blob/main/hands-on_introduction_to_r_2026/hands_on_r_05_rmarkdown.Rmd
+
+HTML: https://github.com/rwepa/r_data_scientist/blob/main/hands-on_introduction_to_r_2026/hands_on_r_05_rmarkdown.html
+
+PDF: https://github.com/rwepa/r_data_scientist/blob/main/hands-on_introduction_to_r_2026/hands_on_r_05_rmarkdown.pdf
+
+完成囉 ^_^
