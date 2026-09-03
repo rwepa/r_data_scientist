@@ -1,0 +1,625 @@
+---
+header-includes:
+- \usepackage{ctex}
+output:
+  html_document:
+    toc: true
+    toc_float: true
+    number_sections: false
+    df_print: paged
+    always_allow_html: true
+  pdf_document: 
+    toc: true
+    df_print: paged
+    latex_engine: xelatex
+  html_notebook:
+    toc: true
+    number_sections: false
+    df_print: paged
+    always_allow_html: true
+  word_document:
+    toc: true
+    number_sections: false
+    df_print: paged
+params:
+  analyst: "學員姓名"
+  department: "資料分析組"
+  report_date: "2026-09-06"
+  ozone_threshold: 60
+---
+
+\thispagestyle{empty}
+\centering
+
+\vspace*{2cm}
+
+![](https://raw.githubusercontent.com/rwepa/r_data_scientist/main/hands-on_introduction_to_r_2026/images/hands_on_r_05_rmarkdown_1cover.png)
+
+![](https://raw.githubusercontent.com/rwepa/r_data_scientist/main/hands-on_introduction_to_r_2026/images/hands_on_r_05_rmarkdown_2agenda.png)
+\newpage
+
+```{r}
+# file     : hands_on_r_04_statistics_notebook.Rmd
+# title    : R入門實作班
+# subtitle : 5.可重現報告與專題實作（Capstone）
+# author   : Ming-Chang Lee
+# date     : 2026.09.06
+# YouTube  : https://www.youtube.com/@alan9956
+# RWEPA    : http://rwepa.blogspot.tw/
+# GitHub   : https://github.com/rwepa
+# Email    : alan9956@gmail.com
+```
+
+大綱:
+
+可重現報告與專題實作（Capstone）
+
+- 5.1 R Markdown/Quarto：報告結構、程式區塊與輸出格式
+
+- 5.2 參數化報告與自動化輸出（HTML/PDF）
+
+- 5.3 專題題目設計：指標定義、資料流程、視覺化呈現
+
+- 5.4 分組/個人實作：完成小型分析專題
+
+- 5.5 成果發表與回饋：同儕審閱、改版清單
+
+# 🌸 5.1 R Markdown/Quarto：報告結構、程式區塊與輸出格式
+
+## 1.認識「可重現報告」？
+
+一般分析工作常將資料處理、統計分析、圖表與 Word / PowerPoint 報告分開進行。這種方式容易出現：
+
+- 資料更新後，圖表沒有同步更新。
+- 報告中的數值與程式計算結果不一致。
+- 忘記當初使用哪些篩選條件或分析步驟。
+- 不同分析人員得到不同版本的結果。
+
+可重現報告（Reproducible Report）的核心概念是：
+
+> 將「文字說明、分析程式、表格、圖形與結果」放在同一份文件中，資料更新後可重新執行並產生一致的報告。
+
+> 可重現報告之基本流程：`原始資料 → 整理 → 分析 → 視覺化 → 結論 → 輸出報告`
+
+在R程式語言中，可重現報告可以使用`rmarkdwon套件`或`Quarto`等工具。
+
+## 2.R Markdown 的基本結構
+
+一份 `.Rmd` 文件通常包含三個部分：
+
+1. YAML 標頭（YAML Header）
+2. Markdown 文字
+3. R 程式區塊（Code Chunk）
+
+### (1).YAML 範例
+
+```yaml
+---
+title: "銷售分析報告"
+author: "王小明"
+date: "2026-09-06"
+output:
+  html_document:
+    toc: true
+    number_sections: true
+---
+```
+
++ 常用 YAML 使用說明表
+
+| 標題 | 功能 |
+| ---- | ----- |
+| `---` | YAML 區塊的開始與結束。這個區塊必須放在 .Rmd 文件最前面。|
+| title	| 文件標題| 
+| author	| 作者 |
+| date	| 日期 |
+| output	                | 文件輸出格式 |
+| 空白字元                | YAML 使用空白表示階層 |
+| html_document:          | 輸出 HTML 文件 |
+| toc: true               | 產生目錄 (Table of Contents) |
+| toc_float: true         | 浮動目錄，讓目錄固定在頁面側邊，捲動文件時目錄仍可看到 |
+| number_sections: false  | 不顯示章節編號 |
+| df_print: paged         | 分頁顯示資料框，不使用全部顯示，以免版面太多。 |
+| always_allow_html: true | 即使輸出格式不是 HTML，也允許文件中使用 HTML 元素 |
+
+### (2).Markdown 常用語法
+
+```markdown
+# 第一層標題
+## 第二層標題
+### 第三層標題
+
+**粗體**
+*斜體*
+
+- 項目一
+- 項目二
+
+1. 步驟一
+2. 步驟二
+```
+
++ https://cran.r-project.org/web/packages/rmarkdown/index.html
+
++ https://github.com/rstudio/rmarkdown
+
++ https://rmarkdown.rstudio.com/lesson-1.html
+
+### (3).rmarkdown程式碼區塊
+
++ 最基本的 R Chunk
+
+  + 3個反引號「`」為開頭。
+  + 使用小寫英文 {r} 表示使用 R程式碼。
+  + 執行結果包括 (1).R程式碼 (2).顯示R執行結果。
+  + 3個反引號「`」為結尾。
+
+![](https://raw.githubusercontent.com/rwepa/r_data_scientist/main/hands-on_introduction_to_r_2026/images/rmarkdown_basic.png)
+
++ 執行結果
+
+```{r basic-chunk}
+summary(cars)
+```
+
+### (4).常用 Chunk Options
+
++ 常用 Chunk Options 使用說明表
+
+| 選項                   | 功能 |
+|------------------------|---|
+| `echo = TRUE/FALSE`    | 是否顯示 R 程式碼，TRUE顯示 |
+| `eval = TRUE/FALSE`    | 是否執行程式碼 |
+| `include = TRUE/FALSE` | 是否將程式碼與結果放入文件 |
+| `message = FALSE`      | 隱藏套件訊息  |
+| `warning = FALSE`      | 隱藏警告訊息   |
+| `fig.width`            | 圖形寬度 |
+| `fig.height`           | 圖形高度 |
+| `fig.cap`              | 圖形標題 |
+
++ 範例：只顯示執行結果，不顯示程式碼，使用`, echo=FALSE`。
+
+![](https://raw.githubusercontent.com/rwepa/r_data_scientist/main/hands-on_introduction_to_r_2026/images/rmarkdown_echo_FALSE.png)
+
++ 範例：執行結果沒有R程式碼。
+```{r echo-false-demo, echo=FALSE}
+mean(mtcars$mpg)
+```
+
+### (5).文字內嵌R程式執行結果（Inline R Code）
+
+R Markdown 可以直接將計算結果放入文字中，這種方式可以避免人工複製數值造成錯誤。
+
+範例1：文字中加入資料筆數。
+
+```markdown
+mtcars 資料共有 `r nrow(mtcars)` 筆資料。
+```
+
+範例2：文字中加入資料筆數。
+
+`mtcars` 資料共有 **`r nrow(mtcars)`** 筆資料，平均 MPG 為 **`r round(mean(mtcars$mpg), 2)`**。
+
+## 3.HTML、PDF 與 Word
+
+R Markdown 常見輸出格式：html_document、pdf_document、word_document。
+
+```yaml
+output:
+  html_document: default
+```
+
+```yaml
+output:
+  pdf_document: default
+```
+
+```yaml
+output:
+  word_document: default
+```
+
+若需同時支援 HTML 與 PDF：
+
+```yaml
+output:
+  html_document:
+    toc: true
+  pdf_document:
+    toc: true
+    latex_engine: xelatex
+```
+
+> PDF 需要 LaTeX 環境。若電腦尚未安裝，可考慮 `tinytex::install_tinytex()`。中文字型問題可以使用 XeLaTeX 軟體處理。
+
+> PDF中文字型處理 YouTube：https://youtu.be/6Wc75BH02iE
+
+> RMarkdown Chinese Font PDF: https://rwepa.blogspot.com/2024/09/rmarkdown-chinese-font-pdf.html
+
+## 4.Quarto 簡介
+
++ Quarto 是一套由 Posit 推出的開放原始碼文件出版系統（scientific and technical publishing system），主要用來將「文字、程式碼、分析結果與圖表」整合成可重現的文件。
+
++ Quarto 是新一代的科學與技術出版工具，支援 R、Python、Julia 等語言。
+
++ 如果你已經熟悉 R Markdown，可以把 Quarto 理解成：
+
+> Quarto = 新一代、跨語言的 R Markdown 文件系統。
+
++ Quarto 檔案的副檔名為 `.qmd`。
+
++ Quarto - YAML 格式為 `format: html`。
+
++ Quarto開建立新檔案 > RStudio \ File \ New File \ Quarto Document
+
++ Quarto 官網：https://quarto.org/
+
++ 課程中先掌握 R Markdown 核心概念，未來轉換到 Quarto 時，報告結構、Markdown 與程式區塊觀念大致相同。
+
++ 課堂練習
+
+請建立一份 R Markdown，完成：
+
+1. 標題：「我的第一份可重現報告」。
+2. 顯示目前日期。
+3. 使用 `summary(mtcars)` 顯示摘要。
+4. 使用 `ggplot2` 畫出 `wt` 與 `mpg` 的散佈圖。
+5. 輸出 HTML。
+
+參考：
+
++ 系統日期 `Sys.Date()`
+
+```{r exercise-rmarkdown}
+library(ggplot2)
+ggplot(mtcars, aes(x = wt, y = mpg)) +
+  geom_point() +
+  geom_smooth(method = "lm",  formula = 'y ~ x', se = FALSE) +
+  labs(
+    title = "車重與油耗關係",
+    x = "車重（1000 lbs）",
+    y = "Miles per Gallon"
+  ) +
+  theme_minimal()
+```
+
+---
+
+# 🌸 5.2 參數化報告與自動化輸出（HTML/PDF）
+
+## 1.為什麼需要參數化？
+
+假設同一份報告需要產生：
+
+- 不同月份報告。
+- 不同部門報告。
+- 不同地區報告。
+- 不同產品報告。
+
+如果每次都複製一份 `.Rmd` 再修改條件，容易造成版本混亂。
+
+較好的方式是：
+
+> 保留一份報告模板，將會變動的條件設定為 `params`。
+
+## 2.YAML 中設定參數
+
+在 YAML 最上方已設定：
+
+```yaml
+params:
+  analyst: "學員姓名"
+  department: "資料分析組"
+  report_date: "2026-09-06"
+  ozone_threshold: 60
+```
+
+在 R 程式中可使用：
+
+```r
+params$analyst
+params$department
+params$report_date
+params$ozone_threshold
+```
+
+目前參數：
+
+| 參數 | 值 |
+|---|---|
+| 分析者 | `r params$analyst` |
+| 部門 | `r params$department` |
+| 報告月份 | `r params$report_month` |
+| Ozone 門檻值 | `r params$ozone_threshold` |
+
+## 3.使用參數控制分析條件
+
+以下使用內建 `airquality` 資料集示範。
+
+```{r prepare-airquality}
+library(knitr)
+library(tidyverse)
+aq <- airquality %>%
+  mutate(
+    Date = as.Date(sprintf("1973-%02d-%02d", Month, Day)),
+    Ozone_Level = case_when(
+      is.na(Ozone) ~ "Missing",
+      Ozone >= params$ozone_threshold ~ "High",
+      TRUE ~ "Normal"
+    )
+  )
+
+head(aq)
+```
+
+依參數 `ozone_threshold = `r params$ozone_threshold``，建立 High / Normal 分組。
+
+```{r parameter-summary}
+aq %>%
+  filter(!is.na(Ozone)) %>%
+  count(Ozone_Level) %>%
+  mutate(Percentage = round(n / sum(n) * 100, 1)) %>%
+  kable(
+    col.names = c("Ozone 分組", "筆數", "百分比 (%)"),
+    caption = "依參數門檻值建立的 Ozone 分組"
+  )
+```
+
+## 4.使用 `rmarkdown::render()` 自動輸出
+
+單次輸出：
+
+```{r render-single, eval=FALSE}
+rmarkdown::render(
+  input = "capstone_reproducible_report_3hr.Rmd",
+  output_format = "html_document",
+  params = list(
+    analyst = "王小明",
+    department = "北區營運部",
+    report_month = "2026-08",
+    ozone_threshold = 60
+  ),
+  output_file = "report_north_2026-08.html"
+)
+```
+
+輸出 PDF：
+
+```{r render-pdf, eval=FALSE}
+rmarkdown::render(
+  input = "capstone_reproducible_report_3hr.Rmd",
+  output_format = "pdf_document",
+  params = list(
+    analyst = "王小明",
+    department = "北區營運部",
+    report_month = "2026-08",
+    ozone_threshold = 60
+  ),
+  output_file = "report_north_2026-08.pdf"
+)
+```
+
+## 5.批次產生多份報告
+
+```{r batch-render, eval=FALSE}
+departments <- c("北區", "中區", "南區")
+
+for (dept in departments) {
+  rmarkdown::render(
+    input = "report_template.Rmd",
+    output_format = "html_document",
+    params = list(
+      department = dept,
+      report_month = "2026-08"
+    ),
+    output_file = paste0("report_", dept, "_2026-08.html")
+  )
+}
+```
+
+> 參數化輸出的專業範例— RWEPA | shiny企業實務應用 第6集-小明算命師(下 ) 中文字幕
+
++ YouTube 中文字幕: https://youtu.be/rrD6KV3eV-w
+
++ LINK: https://rwepa.blogspot.com/2023/03/r-shiny-06-hr-teller.html
+
++ Slide: https://rwepa.quarto.pub/r-shiny-06-hr-teller/
+
++ Code: https://github.com/rwepa/business_analytics/tree/main/r-shiny-06-hr-teller
+
++ Rmd 參數化範例: https://github.com/rwepa/business_analytics/tree/main/r-shiny-06-hr-teller/r-code/data
+
+> RWEPA | shiny企業實務應用 第1集-白話shiny
+
++ YouTube: https://youtu.be/NV7WNjccfxs
+
++ LINK: https://rwepa.blogspot.com/2023/01/r-shiny-01-introduction.html
+
++ Slide: https://rwepa.quarto.pub/r-shiny-01-introduction/
+
++ Code: https://github.com/rwepa/business_analytics/tree/main/r-shiny-01-introduction
+
+# 🌸 5.3 專題題目設計：指標定義、資料流程、視覺化呈現
+
+## 1.好的專題從「問題」開始
+
+不要一開始就問：
+
+> 我要畫什麼圖？
+
+應先問：
+
+> 我要回答什麼問題？
+
+一個小型分析專題可以採用以下結構：
+
+```text
+Business Question
+      ↓
+指標 KPI
+      ↓
+需要哪些資料？
+      ↓
+資料整理與品質檢查
+      ↓
+分析 / 比較
+      ↓
+視覺化
+      ↓
+洞察與建議
+```
+
+## 2.題目設計範例
+
+### 題目 A：空氣品質與溫度關係
+
+研究問題：
+
+> 高溫是否伴隨較高的臭氧濃度？
+
+主要指標：
+
+- 平均 Ozone
+- 平均 Temp
+- 高 Ozone 天數
+- Ozone 與 Temp 的相關程度
+
+### 題目 B：汽車油耗分析
+
+資料：`mtcars`
+
+研究問題：
+
+> 車重、汽缸數與油耗之間有什麼關係？
+
+主要指標：
+
+- 平均 MPG
+- 各汽缸數平均 MPG
+- 車重與 MPG 關係
+
+### 題目 C：鳶尾花分類特徵
+
+資料：`iris`
+
+研究問題：
+
+> 三種 Species 在花瓣長度與寬度上是否存在明顯差異？
+
+主要指標：
+
+- 各 Species 平均 Petal.Length
+- 各 Species 平均 Petal.Width
+- 分布差異
+
+## 3.KPI / 指標定義表
+
+建立報告前先定義指標：
+
+| 指標 | 定義 | 計算方式 | 用途 |
+|---|---|---|---|
+| 平均 Ozone | 有效 Ozone 值平均 | `mean(Ozone, na.rm=TRUE)` | 描述整體空氣品質 |
+| 高 Ozone 天數 | Ozone ≥ 門檻值 | `sum(Ozone >= threshold)` | 找出高污染日 |
+| 平均溫度 | Temp 平均 | `mean(Temp)` | 描述氣溫 |
+| 相關係數 | Temp 與 Ozone 線性相關 | `cor()` | 評估變數關係 |
+
+### 指標定義的三個原則
+
+1. **可計算**：能從現有資料欄位算出。
+2. **可解釋**：使用者知道數值代表什麼。
+3. **可行動**：指標變化可以支持決策或後續分析。
+
+## 4.資料流程設計
+
+建議將程式依功能分成數個步驟：
+
+```text
+01. Import
+02. Clean
+03. Transform
+04. Summarise
+05. Visualise
+06. Interpret
+07. Export
+```
+
+R 範例：
+
+```{r pipeline-demo}
+analysis_data <- airquality %>%
+  filter(!is.na(Ozone), !is.na(Temp)) %>%
+  mutate(
+    Month = factor(Month),
+    High_Ozone = Ozone >= params$ozone_threshold
+  )
+
+monthly_summary <- analysis_data %>%
+  group_by(Month) %>%
+  summarise(
+    Days = n(),
+    Avg_Ozone = mean(Ozone),
+    Avg_Temp = mean(Temp),
+    High_Ozone_Days = sum(High_Ozone),
+    .groups = "drop"
+  )
+
+monthly_summary %>%
+  kable(digits = 1, caption = "月份指標摘要")
+```
+
+## 5.視覺化並回答問題
+
+### 圖1 比較各月份平均 Ozone
+
+```{r monthly-ozone-chart, fig.cap="各月份平均 Ozone"}
+ggplot(monthly_summary, aes(x = Month, y = Avg_Ozone, group = 1)) +
+  geom_line() +
+  geom_point(size = 3) +
+  labs(
+    title = "各月份平均 Ozone",
+    x = "月份",
+    y = "平均 Ozone"
+  ) +
+  theme_minimal()
+```
+
+### 圖2 Temp 與 Ozone 關係圖
+
+```{r temp-ozone-chart, fig.cap="溫度與 Ozone 關係"}
+ggplot(analysis_data, aes(x = Temp, y = Ozone)) +
+  geom_point(alpha = 0.65) +
+  geom_smooth(method = "lm", formula = 'y ~ x', se = FALSE) +
+  labs(
+    title = "溫度與 Ozone 關係",
+    subtitle = "使用線性趨勢線觀察整體關係",
+    x = "Temperature",
+    y = "Ozone"
+  ) +
+  theme_minimal()
+```
+
++ 從圖表寫出「洞察力」
+
+一段完整的分析敘述，建議包含：**發現 → 證據 → 解釋 → 建議**
+
+範例：
+
+> 資料顯示溫度較高時 Ozone 整體也有上升趨勢。散佈圖中的線性趨勢線呈正向，表示兩者可能具有正相關。實務上可進一步納入風速、月份等變數，以判斷溫度是否仍具有獨立解釋力。
+
+避免只寫：
+
+> 圖中可以看到 Ozone 有變化。
+
+# 🌸 5.4 分組/個人實作：完成小型分析專題
+
++ 2026年資料集願望清單: https://github.com/rwepa/r_data_scientist/blob/main/hands-on_introduction_to_r_2026/2026_Dataset_Wishlist.md
+
+# 🌸 5.5 成果發表與回饋：同儕審閱、改版清單
+
++ 鼓勵學員成果發表與回饋。
+
+![](https://raw.githubusercontent.com/rwepa/r_data_scientist/main/hands-on_introduction_to_r_2026/images/hands_on_r_05_rmarkdown_3reference.png)
+
+![](https://raw.githubusercontent.com/rwepa/r_data_scientist/main/hands-on_introduction_to_r_2026/images/hands_on_r_05_rmarkdown_4q_a.png)
+
+###### end
