@@ -188,4 +188,24 @@ HTML: https://github.com/rwepa/r_data_scientist/blob/main/hands-on_introduction_
 
 PDF: https://github.com/rwepa/r_data_scientist/blob/main/hands-on_introduction_to_r_2026/hands_on_r_05_rmarkdown.pdf
 
+# 補充篇 - shiny 實務應用 (第1集~第6集)
+
+1.RWEPA | R - shiny企業實務應用 第1集-白話shiny
+https://youtu.be/NV7WNjccfxs
+
+2.RWEPA | shiny企業實務應用 第2集-下拉式選單【附習題、投影片與中文字幕】
+https://youtu.be/Y1it6XZbknc
+
+3.RWEPA | shiny企業實務應用 第3集-佈置【附54萬筆銷售資料習題、投影片與中文字幕】
+https://youtu.be/9Z7r_hI5PCI
+
+4.RWEPA | 第4集-shiny銷售儀表板【附小明算命師習題、投影片與中文字幕】
+https://youtu.be/4GgZlf8heQk
+
+5.RWEPA | 第5集- shiny小明算命師(上)【附小明算命師實作習題、投影片與中文字幕】
+https://youtu.be/GuSYWbxz4UU
+
+6.RWEPA | shiny企業實務應用 第6集-小明算命師(下) 中文字幕，包括網頁與WORD檔案下載技巧 (Generating downloadable reports from shiny)
+https://youtu.be/rrD6KV3eV-w
+
 完成囉 ^_^
